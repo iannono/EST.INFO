@@ -7,8 +7,9 @@ class CreateEntries < ActiveRecord::Migration
       t.string :product
       t.string :user
       t.datetime :happend_at
-      t.string :timestamps
       t.string :price
+      t.string :city
+      t.string :source
 
       t.timestamps
     end

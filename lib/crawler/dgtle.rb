@@ -2,6 +2,8 @@
 #coding: utf-8
 require 'nokogiri'
 require 'open-uri'
+require 'date'
+require './lib/crawler/base'
 
 count = 0
 happend_at = ""
@@ -28,6 +30,15 @@ happend_at = ""
     puts "price: " + price
     puts "city: " + city
     puts "happend_at: " + happend_at
+
+    Entry.create(name: name,
+                 img: img_link,
+                 product: pd_link,
+                 user: user,
+                 price: price,
+                 city: city,
+                 source: "dgtle",
+                 happend_at: happend_at)
   end
 
   break if happend_at != Date.today.strftime('%Y-%m-%d')

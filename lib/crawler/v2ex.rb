@@ -2,6 +2,8 @@
 #coding: utf-8
 require 'nokogiri'
 require 'open-uri'
+require 'date'
+require './lib/crawler/base'
 
 count = 0
 happend_at = ""
@@ -22,6 +24,12 @@ happend_at = ""
     puts "product link: " + pd_link
     puts "user: " + user
     puts "happend_at: " + happend_at
+
+    Entry.create(name: name,
+                 product: pd_link,
+                 user: user,
+                 source: "v2ex",
+                 happend_at: happend_at)
   end
 
   break if happend_at.include? "1 天前"
