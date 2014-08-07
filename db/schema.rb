@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20140804103154) do
     t.string   "product"
     t.string   "user"
     t.datetime "happend_at"
-    t.string   "timestamps"
     t.string   "price"
+    t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

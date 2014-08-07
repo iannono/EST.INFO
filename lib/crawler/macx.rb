@@ -2,7 +2,8 @@
 #coding: utf-8
 require 'nokogiri'
 require 'open-uri'
-require "date"
+require 'date'
+require './lib/crawler/base'
 
 count = 0
 happend_at = ""
@@ -26,6 +27,12 @@ name= ""
     puts "img link: " + img_link
     puts "product link: " + pd_link
     puts "happend_at: " + happend_at
+
+    Entry.create(name: name,
+                 img: img_link,
+                 product: pd_link,
+                 source: "macx",
+                 happend_at: happend_at)
   end
 
   break if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")

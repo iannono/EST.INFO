@@ -2,7 +2,8 @@
 #coding: utf-8
 require 'nokogiri'
 require 'open-uri'
-require "date"
+require 'date'
+require './lib/crawler/base'
 
 count = 0
 happend_at = ""
@@ -36,6 +37,14 @@ happend_at = ""
     puts "brand: " + brand
     puts "成色: " + condition
     puts "happend_at: " + happend_at
+
+    Entry.create(name: name,
+                 product: pd_link,
+                 user: user,
+                 price: price,
+                 city: city,
+                 source: "fengniao",
+                 happend_at: happend_at)
   end
 
   break unless happend_at.include? Date.today.strftime('%m-%d')
