@@ -1,13 +1,8 @@
 #www.macx.cn
 #coding: utf-8
-require 'nokogiri'
-require 'open-uri'
-require 'date'
 require './lib/crawler/base'
 
-count = 0
 happend_at = ""
-name= ""
 1.upto(5) do |i|
   url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&filter=author&orderby=dateline&sortall=1&page=#{i}"
   linksdoc = Nokogiri::HTML(open(url))
@@ -19,20 +14,22 @@ name= ""
     break if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
 
     pd_link = pd.css('h3.ptn a').first.attributes["href"].value
-    img_link = pd.css('div.c a img').first.attributes["src"].value
+    img_link = pd.css('div.c a img').first.attributes["src"].value if pd.css('div.c a img').first.try(:attributes)
 
-    count += 1
-    puts "finished ----#{count}--------------------------------------------------------------------------------"
-    puts "name: " + name
-    puts "img link: " + img_link
-    puts "product link: " + pd_link
-    puts "happend_at: " + happend_at
+    #puts "--------------------------------------------------------------------------------"
+    #puts "name: " + name
+    #puts "img link: " + img_link
+    #puts "product link: " + pd_link
+    #puts "happend_at: " + happend_at
 
-    Entry.create(name: name,
-                 img: img_link,
-                 product: pd_link,
-                 source: "macx",
-                 happend_at: happend_at)
+    entry = Entry.find_or_initialize_by(product: pd_link)
+    if entry.new_record?
+      entry.name= name
+      entry.img = img_link || ""
+      entry.source = "macx"
+      entry.happend_at = Time.new
+      entry.save
+    end
   end
 
   break if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")

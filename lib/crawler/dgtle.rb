@@ -1,11 +1,7 @@
 # 数字尾巴
 #coding: utf-8
-require 'nokogiri'
-require 'open-uri'
-require 'date'
 require './lib/crawler/base'
 
-count = 0
 happend_at = ""
 1.upto(5) do |i|
   url = "http://trade.dgtle.com/dgtle_module.php?mod=trade&ac=index&typeid=&PName=&searchsort=0&page=#{i}"
@@ -16,29 +12,31 @@ happend_at = ""
 
     name = pd.css('p.tradetitle a').first.content
     user = pd.css('p.tradeuser').first.content
-    img_link = pd.css('div.tradepic a img').first.attributes["src"].value
+    img_link = pd.css('div.tradepic a img').first.attributes["src"].value if pd.css('div.tradepic a img').first.try(:attributes)
     pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
     price = pd.css('p.tradeprice').first.content
     city = pd.css('p.tradeprice span.city').first.content
 
-    count += 1
-    puts "finished ----#{count}--------------------------------------------------------------------------------"
-    puts "name: " + name
-    puts "img link: " + img_link
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "price: " + price
-    puts "city: " + city
-    puts "happend_at: " + happend_at
+    #puts "------------------------------------------------------------------------------------"
+    #puts "name: " + name
+    #puts "img link: " + img_link
+    #puts "product link: " + pd_link
+    #puts "user: " + user
+    #puts "price: " + price
+    #puts "city: " + city
+    #puts "happend_at: " + happend_at
 
-    Entry.create(name: name,
-                 img: img_link,
-                 product: pd_link,
-                 user: user,
-                 price: price,
-                 city: city,
-                 source: "dgtle",
-                 happend_at: happend_at)
+    entry = Entry.find_or_initialize_by(product: pd_link)
+    if entry.new_record?
+      entry.name= name
+      entry.img = img_link || ""
+      entry.user = user
+      entry.price = price
+      entry.city = city
+      entry.source = "dgtle"
+      entry.happend_at = Time.new
+      entry.save
+    end
   end
 
   break if happend_at != Date.today.strftime('%Y-%m-%d')
