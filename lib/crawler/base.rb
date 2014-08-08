@@ -1,3 +1,6 @@
+require 'nokogiri'
+require 'open-uri'
+require 'date'
 require 'yaml'
 require 'active_record'
 require './app/models/entry'
