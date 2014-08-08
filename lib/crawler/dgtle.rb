@@ -16,6 +16,7 @@ happend_at = ""
     pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
     price = pd.css('p.tradeprice').first.content
     city = pd.css('p.tradeprice span.city').first.content
+    price = price.delete(city).strip if city
 
     #puts "------------------------------------------------------------------------------------"
     #puts "name: " + name
