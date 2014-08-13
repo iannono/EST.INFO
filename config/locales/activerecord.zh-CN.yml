@@ -1,0 +1,31 @@
+zh-CN:
+  activerecord:
+    models:
+      admin_user: "管理员"
+      entry: "entry"
+      user: "用户"
+    attributes:
+      admin_user:
+        email: "邮箱"
+        password: "密码"
+        password_confirmation: "确认密码"
+        remember_me: "记住我"
+        sign_in_count: "登录次数"
+        current_sign_in_at: "此次登录时间"
+        last_sign_in_at: "上次登录时间"
+      entry:
+        name: "品名"
+        content: "内容"
+        img: "图片链接"
+        product: "产品链接"
+        user: "卖家"
+        happend_at: "发生时间"
+        price: "价格"
+        city: "城市"
+        source: "来源"
+        created_at: "创建时间"
+        updated_at: "更新时间"
+      user:
+        email: "邮箱"
+        created_at: "创建时间"
+        updated_at: "更新时间"

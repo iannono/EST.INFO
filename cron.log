@@ -1,0 +1,504 @@
+/Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sqlite3-1.3.9/lib/sqlite3/database.rb:91:in `initialize': SQLite3::SQLException: no such table: entries: SELECT  "entries".* FROM "entries"  WHERE "entries"."product" = 'http://trade.dgtle.com/thread-204181-1-1.html' LIMIT 1 (ActiveRecord::StatementInvalid)
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sqlite3-1.3.9/lib/sqlite3/database.rb:91:in `new'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sqlite3-1.3.9/lib/sqlite3/database.rb:91:in `prepare'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:301:in `block in exec_query'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract_adapter.rb:373:in `block in log'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-4.1.1/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract_adapter.rb:367:in `log'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:298:in `exec_query'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:507:in `select'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract/database_statements.rb:31:in `select_all'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract/query_cache.rb:69:in `select_all'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/querying.rb:39:in `find_by_sql'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:603:in `exec_queries'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:487:in `load'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:231:in `to_a'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation/finder_methods.rb:451:in `find_take'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation/finder_methods.rb:98:in `take'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation/finder_methods.rb:81:in `find_by'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:213:in `find_or_initialize_by'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/querying.rb:6:in `find_or_initialize_by'
+	from ./lib/crawler/dgtle.rb:30:in `block (2 levels) in <main>'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/nokogiri-1.6.2.1/lib/nokogiri/xml/node_set.rb:237:in `block in each'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/nokogiri-1.6.2.1/lib/nokogiri/xml/node_set.rb:236:in `upto'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/nokogiri-1.6.2.1/lib/nokogiri/xml/node_set.rb:236:in `each'
+	from ./lib/crawler/dgtle.rb:9:in `block in <main>'
+	from ./lib/crawler/dgtle.rb:6:in `upto'
+	from ./lib/crawler/dgtle.rb:6:in `<main>'
+------------------------------------------------------------------------------------
+name: 广州 9成新 32G ipad2
+img link: http://img.dgtle.com/forum/201408/13/111008skuc2e488pev1z11.jpg!500px
+product link: http://trade.dgtle.com/thread-204181-1-1.html
+user: zgmfx56sa
+price: ￥1300
+city: 广州
+happend_at: 2014-08-13
+rake aborted!
+Command failed with status (1): [/Users/ian/.rbenv/versions/2.1.0/bin/ruby ...]
+/Users/ian/Dropbox/Project/EST.INFO/lib/tasks/crawler.rake:4:in `block (2 levels) in <top (required)>'
+Tasks: TOP => crawler:dgtle
+(See full trace by running task with --trace)
+/Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sqlite3-1.3.9/lib/sqlite3/database.rb:91:in `initialize': SQLite3::SQLException: no such table: entries: SELECT  "entries".* FROM "entries"  WHERE "entries"."product" = 'http://trade.dgtle.com/thread-204181-1-1.html' LIMIT 1 (ActiveRecord::StatementInvalid)
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sqlite3-1.3.9/lib/sqlite3/database.rb:91:in `new'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sqlite3-1.3.9/lib/sqlite3/database.rb:91:in `prepare'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:301:in `block in exec_query'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract_adapter.rb:373:in `block in log'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-4.1.1/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract_adapter.rb:367:in `log'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:298:in `exec_query'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:507:in `select'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract/database_statements.rb:31:in `select_all'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract/query_cache.rb:69:in `select_all'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/querying.rb:39:in `find_by_sql'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:603:in `exec_queries'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:487:in `load'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:231:in `to_a'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation/finder_methods.rb:451:in `find_take'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation/finder_methods.rb:98:in `take'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation/finder_methods.rb:81:in `find_by'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:213:in `find_or_initialize_by'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/querying.rb:6:in `find_or_initialize_by'
+	from ./lib/crawler/dgtle.rb:30:in `block (2 levels) in <main>'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/nokogiri-1.6.2.1/lib/nokogiri/xml/node_set.rb:237:in `block in each'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/nokogiri-1.6.2.1/lib/nokogiri/xml/node_set.rb:236:in `upto'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/nokogiri-1.6.2.1/lib/nokogiri/xml/node_set.rb:236:in `each'
+	from ./lib/crawler/dgtle.rb:9:in `block in <main>'
+	from ./lib/crawler/dgtle.rb:6:in `upto'
+	from ./lib/crawler/dgtle.rb:6:in `<main>'
+------------------------------------------------------------------------------------
+name: 广州 9成新 32G ipad2
+img link: http://img.dgtle.com/forum/201408/13/111008skuc2e488pev1z11.jpg!500px
+product link: http://trade.dgtle.com/thread-204181-1-1.html
+user: zgmfx56sa
+price: ￥1300
+city: 广州
+happend_at: 2014-08-13
+rake aborted!
+Command failed with status (1): [/Users/ian/.rbenv/versions/2.1.0/bin/ruby ...]
+/Users/ian/Dropbox/Project/EST.INFO/lib/tasks/crawler.rake:4:in `block (2 levels) in <top (required)>'
+Tasks: TOP => crawler:dgtle
+(See full trace by running task with --trace)
+/Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sqlite3-1.3.9/lib/sqlite3/database.rb:91:in `initialize': SQLite3::SQLException: no such table: entries: SELECT  "entries".* FROM "entries"  WHERE "entries"."product" = 'http://trade.dgtle.com/thread-204181-1-1.html' LIMIT 1 (ActiveRecord::StatementInvalid)
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sqlite3-1.3.9/lib/sqlite3/database.rb:91:in `new'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/sqlite3-1.3.9/lib/sqlite3/database.rb:91:in `prepare'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:301:in `block in exec_query'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract_adapter.rb:373:in `block in log'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-4.1.1/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract_adapter.rb:367:in `log'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:298:in `exec_query'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/sqlite3_adapter.rb:507:in `select'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract/database_statements.rb:31:in `select_all'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/connection_adapters/abstract/query_cache.rb:69:in `select_all'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/querying.rb:39:in `find_by_sql'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:603:in `exec_queries'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:487:in `load'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:231:in `to_a'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation/finder_methods.rb:451:in `find_take'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation/finder_methods.rb:98:in `take'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation/finder_methods.rb:81:in `find_by'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/relation.rb:213:in `find_or_initialize_by'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4.1.1/lib/active_record/querying.rb:6:in `find_or_initialize_by'
+	from ./lib/crawler/dgtle.rb:30:in `block (2 levels) in <main>'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/nokogiri-1.6.2.1/lib/nokogiri/xml/node_set.rb:237:in `block in each'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/nokogiri-1.6.2.1/lib/nokogiri/xml/node_set.rb:236:in `upto'
+	from /Users/ian/.rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/nokogiri-1.6.2.1/lib/nokogiri/xml/node_set.rb:236:in `each'
+	from ./lib/crawler/dgtle.rb:9:in `block in <main>'
+	from ./lib/crawler/dgtle.rb:6:in `upto'
+	from ./lib/crawler/dgtle.rb:6:in `<main>'
+------------------------------------------------------------------------------------
+name: 广州 9成新 32G ipad2
+img link: http://img.dgtle.com/forum/201408/13/111008skuc2e488pev1z11.jpg!500px
+product link: http://trade.dgtle.com/thread-204181-1-1.html
+user: zgmfx56sa
+price: ￥1300
+city: 广州
+happend_at: 2014-08-13
+rake aborted!
+Command failed with status (1): [/Users/ian/.rbenv/versions/2.1.0/bin/ruby ...]
+/Users/ian/Dropbox/Project/EST.INFO/lib/tasks/crawler.rake:4:in `block (2 levels) in <top (required)>'
+Tasks: TOP => crawler:dgtle
+(See full trace by running task with --trace)
+------------------------------------------------------------------------------------
+name: 出点闲置 sony E 16 2.8 还有部ME860
+img link: http://img.dgtle.com/forum/201408/13/110737hyv2tcclcldnvnyy.jpg!500px
+product link: http://trade.dgtle.com/thread-204185-1-1.html
+user: 小宇子是mast
+price: ￥1
+city: 深圳
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 广州 9成新 32G ipad2
+img link: http://img.dgtle.com/forum/201408/13/111008skuc2e488pev1z11.jpg!500px
+product link: http://trade.dgtle.com/thread-204181-1-1.html
+user: zgmfx56sa
+price: ￥1300
+city: 广州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出宾得KR单反套机，HTC 8S WP8.1 电信版手机
+img link: http://img.dgtle.com/forum/201408/13/105810px13tad8me1w0k80.jpg!500px
+product link: http://trade.dgtle.com/thread-204180-1-1.html
+user: 大象jerry
+price: ￥1
+city: 福州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 搬家了，清货了
+img link: http://img.dgtle.com/forum/201408/13/111652n88jfus28824uffs.jpg!500px
+product link: http://trade.dgtle.com/thread-204179-1-1.html
+user: NAGETIVEEEEEE
+price: ￥1
+city: 广州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 北京本地出 索尼PCM D50
+img link: http://img.dgtle.com/forum/201408/13/110409f39yw9yynstzxx97.jpg!500px
+product link: http://trade.dgtle.com/thread-204175-1-1.html
+user: 阿布。
+price: ￥2150
+city: 北京
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 1300出白色NOTE2
+img link: http://img.dgtle.com/forum/201408/13/104615mynnaxel2afa77at.png!500px
+product link: http://trade.dgtle.com/thread-204172-1-1.html
+user: 搞咩也机
+price: ￥1300
+city: 东莞
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 湖南出海淘V版三网无锁iphone5s
+img link: http://img.dgtle.com/forum/201408/13/103506xrbb7xcvefwiwrru.jpg!500px
+product link: http://trade.dgtle.com/thread-204170-1-1.html
+user: china0738
+price: ￥3750
+city: 湖南
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 四件灌篮高手球衣
+img link: http://img.dgtle.com/forum/201408/13/104153gtirkcorhqjtiooo.jpg!500px
+product link: http://trade.dgtle.com/thread-204168-1-1.html
+user: 夏天lamy
+price: ￥300
+city: 天津
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 三星S4 959 白色电信双卡双待
+img link: http://img.dgtle.com/forum/201408/13/102620qg6gflimplcvxvvx.jpg!500px
+product link: http://trade.dgtle.com/thread-204164-1-1.html
+user: lovexian66
+price: ￥1849
+city: 杭州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出自用6年的THINKPAD W500及单反N家D200
+img link: http://img.dgtle.com/forum/201408/13/101754k8xii5ahad8dnbvn.jpg!500px
+product link: http://trade.dgtle.com/thread-204163-1-1.html
+user: tokyols
+price: ￥1
+city: 安徽阜阳
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 卡西欧 CASIO m5610 正显 6局电波 光动能表 泰国产
+img link: http://img.dgtle.com/forum/201408/13/100249evqv2sjqv2c2gavc.jpg!500px
+product link: http://trade.dgtle.com/thread-204158-1-1.html
+user: fhwfhwfhwfhw
+price: ￥650
+city: 杭州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出售移动电源和闲置衣物
+img link: http://img.dgtle.com/forum/201408/13/095956xjfhwz6wf6afztc6.jpg!500px
+product link: http://trade.dgtle.com/thread-204157-1-1.html
+user: ninjaspyjamas
+price: ￥100
+city: 北京
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 巴法络（BUFFALO）3.5英寸桌面移动硬盘（USB3.0）2TB
+img link: http://img.dgtle.com/forum/201408/13/094802caslqzsqxgaveqqe.jpg!500px
+product link: http://trade.dgtle.com/thread-204156-1-1.html
+user: kris96
+price: ￥450
+city: 上海
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: MacBook Air
+img link: http://img.dgtle.com/forum/201408/13/094019zlbwl8p8d229t9wt.jpg!500px
+product link: http://trade.dgtle.com/thread-204155-1-1.html
+user: kris96
+price: ￥5000
+city: 上海
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: HTC 816w
+img link: http://img.dgtle.com/forum/201408/13/093522o7zkp0xwdp887cdg.png!500px
+product link: http://trade.dgtle.com/thread-204154-1-1.html
+user: 长胡子大叔叔
+price: ￥1200
+city: 厦门
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: htc one m7 802d 三网 32G 红色
+img link: http://img.dgtle.com/forum/201408/13/092435bh19fyufzggf9ev1.png!500px
+product link: http://trade.dgtle.com/thread-204152-1-1.html
+user: nanan1992
+price: ￥1450
+city: 天津
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 降点价，解毒，出个95新骚红 谷歌5 NEXUS5
+img link: http://img.dgtle.com/forum/201408/13/085924g4hhy1s1sbtsab8m.jpg!500px
+product link: http://trade.dgtle.com/thread-204149-1-1.html
+user: chfchfzdzd
+price: ￥1500
+city: 绍兴
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 换或出925
+img link: http://img.dgtle.com/forum/201408/13/084918hyey92ozymg96oum.png!500px
+product link: http://trade.dgtle.com/thread-204148-1-1.html
+user: Bein陈
+price: ￥1
+city: 福建福清
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出售MEIZU MX3 WCDMA版 32G全白 接近全新
+img link: http://img.dgtle.com/forum/201408/13/054045vlwhqrzeqzztlbph.jpg!500px
+product link: http://trade.dgtle.com/thread-204145-1-1.html
+user: huguotai
+price: ￥1399
+city: 江苏 张家港
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 暂出 出64G playbook 暂定350
+img link: http://img.dgtle.com/forum/201408/13/004534izkrjs5rry7ky5s7.png!500px
+product link: http://trade.dgtle.com/thread-204139-1-1.html
+user: 13354301010c
+price: ￥350
+city: 吉林长春
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出使用不到一个半月的motoG(已卖，关贴)
+img link: http://img.dgtle.com/forum/201408/13/002432ijl8bulzlsu8sup3.png!500px
+product link: http://trade.dgtle.com/thread-204138-1-1.html
+user: austinleoo
+price: ￥650
+city: 广东中山
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 广州本地出松下黑色14-42二代镜头800元
+img link: http://img.dgtle.com/forum/201408/13/001651n8xv8r2msxmf8mt3.jpg!500px
+product link: http://trade.dgtle.com/thread-204137-1-1.html
+user: ambercupnuddles
+price: ￥800
+city: 广州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 已出可删－－国行黑色iPhone5 16G 将近过保
+img link: http://img.dgtle.com/forum/201408/13/001047s0x6x01rqs1xa4b7.png!500px
+product link: http://trade.dgtle.com/thread-204135-1-1.html
+user: 埃森
+price: ￥2650
+city: 北京
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 上海Burberry军装风格海军大衣XS号
+img link: http://img.dgtle.com/forum/201408/13/000933hwzd5rfo1yj4jcof.jpg!500px
+product link: http://trade.dgtle.com/thread-204136-1-1.html
+user: niyaoxingfuya
+price: ￥5500
+city: 上海黄浦区
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出点闲置 sony E 16 2.8 还有部ME860
+img link: http://img.dgtle.com/forum/201408/13/110737hyv2tcclcldnvnyy.jpg!500px
+product link: http://trade.dgtle.com/thread-204185-1-1.html
+user: 小宇子是mast
+price: ￥1
+city: 深圳
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 广州 9成新 32G ipad2
+img link: http://img.dgtle.com/forum/201408/13/111008skuc2e488pev1z11.jpg!500px
+product link: http://trade.dgtle.com/thread-204181-1-1.html
+user: zgmfx56sa
+price: ￥1300
+city: 广州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出宾得KR单反套机，HTC 8S WP8.1 电信版手机
+img link: http://img.dgtle.com/forum/201408/13/105810px13tad8me1w0k80.jpg!500px
+product link: http://trade.dgtle.com/thread-204180-1-1.html
+user: 大象jerry
+price: ￥1
+city: 福州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 搬家了，清货了
+img link: http://img.dgtle.com/forum/201408/13/111652n88jfus28824uffs.jpg!500px
+product link: http://trade.dgtle.com/thread-204179-1-1.html
+user: NAGETIVEEEEEE
+price: ￥1
+city: 广州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 北京本地出 索尼PCM D50
+img link: http://img.dgtle.com/forum/201408/13/110409f39yw9yynstzxx97.jpg!500px
+product link: http://trade.dgtle.com/thread-204175-1-1.html
+user: 阿布。
+price: ￥2150
+city: 北京
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 1300出白色NOTE2
+img link: http://img.dgtle.com/forum/201408/13/104615mynnaxel2afa77at.png!500px
+product link: http://trade.dgtle.com/thread-204172-1-1.html
+user: 搞咩也机
+price: ￥1300
+city: 东莞
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 湖南出海淘V版三网无锁iphone5s
+img link: http://img.dgtle.com/forum/201408/13/103506xrbb7xcvefwiwrru.jpg!500px
+product link: http://trade.dgtle.com/thread-204170-1-1.html
+user: china0738
+price: ￥3750
+city: 湖南
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 四件灌篮高手球衣
+img link: http://img.dgtle.com/forum/201408/13/104153gtirkcorhqjtiooo.jpg!500px
+product link: http://trade.dgtle.com/thread-204168-1-1.html
+user: 夏天lamy
+price: ￥300
+city: 天津
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 三星S4 959 白色电信双卡双待
+img link: http://img.dgtle.com/forum/201408/13/102620qg6gflimplcvxvvx.jpg!500px
+product link: http://trade.dgtle.com/thread-204164-1-1.html
+user: lovexian66
+price: ￥1849
+city: 杭州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出自用6年的THINKPAD W500及单反N家D200
+img link: http://img.dgtle.com/forum/201408/13/101754k8xii5ahad8dnbvn.jpg!500px
+product link: http://trade.dgtle.com/thread-204163-1-1.html
+user: tokyols
+price: ￥1
+city: 安徽阜阳
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 卡西欧 CASIO m5610 正显 6局电波 光动能表 泰国产
+img link: http://img.dgtle.com/forum/201408/13/100249evqv2sjqv2c2gavc.jpg!500px
+product link: http://trade.dgtle.com/thread-204158-1-1.html
+user: fhwfhwfhwfhw
+price: ￥650
+city: 杭州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出售移动电源和闲置衣物
+img link: http://img.dgtle.com/forum/201408/13/095956xjfhwz6wf6afztc6.jpg!500px
+product link: http://trade.dgtle.com/thread-204157-1-1.html
+user: ninjaspyjamas
+price: ￥100
+city: 北京
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 巴法络（BUFFALO）3.5英寸桌面移动硬盘（USB3.0）2TB
+img link: http://img.dgtle.com/forum/201408/13/094802caslqzsqxgaveqqe.jpg!500px
+product link: http://trade.dgtle.com/thread-204156-1-1.html
+user: kris96
+price: ￥450
+city: 上海
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: MacBook Air
+img link: http://img.dgtle.com/forum/201408/13/094019zlbwl8p8d229t9wt.jpg!500px
+product link: http://trade.dgtle.com/thread-204155-1-1.html
+user: kris96
+price: ￥5000
+city: 上海
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: HTC 816w
+img link: http://img.dgtle.com/forum/201408/13/093522o7zkp0xwdp887cdg.png!500px
+product link: http://trade.dgtle.com/thread-204154-1-1.html
+user: 长胡子大叔叔
+price: ￥1200
+city: 厦门
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: htc one m7 802d 三网 32G 红色
+img link: http://img.dgtle.com/forum/201408/13/092435bh19fyufzggf9ev1.png!500px
+product link: http://trade.dgtle.com/thread-204152-1-1.html
+user: nanan1992
+price: ￥1450
+city: 天津
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 降点价，解毒，出个95新骚红 谷歌5 NEXUS5
+img link: http://img.dgtle.com/forum/201408/13/085924g4hhy1s1sbtsab8m.jpg!500px
+product link: http://trade.dgtle.com/thread-204149-1-1.html
+user: chfchfzdzd
+price: ￥1500
+city: 绍兴
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 换或出925
+img link: http://img.dgtle.com/forum/201408/13/084918hyey92ozymg96oum.png!500px
+product link: http://trade.dgtle.com/thread-204148-1-1.html
+user: Bein陈
+price: ￥1
+city: 福建福清
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出售MEIZU MX3 WCDMA版 32G全白 接近全新
+img link: http://img.dgtle.com/forum/201408/13/054045vlwhqrzeqzztlbph.jpg!500px
+product link: http://trade.dgtle.com/thread-204145-1-1.html
+user: huguotai
+price: ￥1399
+city: 江苏 张家港
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 暂出 出64G playbook 暂定350
+img link: http://img.dgtle.com/forum/201408/13/004534izkrjs5rry7ky5s7.png!500px
+product link: http://trade.dgtle.com/thread-204139-1-1.html
+user: 13354301010c
+price: ￥350
+city: 吉林长春
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 出使用不到一个半月的motoG(已卖，关贴)
+img link: http://img.dgtle.com/forum/201408/13/002432ijl8bulzlsu8sup3.png!500px
+product link: http://trade.dgtle.com/thread-204138-1-1.html
+user: austinleoo
+price: ￥650
+city: 广东中山
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 广州本地出松下黑色14-42二代镜头800元
+img link: http://img.dgtle.com/forum/201408/13/001651n8xv8r2msxmf8mt3.jpg!500px
+product link: http://trade.dgtle.com/thread-204137-1-1.html
+user: ambercupnuddles
+price: ￥800
+city: 广州
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 已出可删－－国行黑色iPhone5 16G 将近过保
+img link: http://img.dgtle.com/forum/201408/13/001047s0x6x01rqs1xa4b7.png!500px
+product link: http://trade.dgtle.com/thread-204135-1-1.html
+user: 埃森
+price: ￥2650
+city: 北京
+happend_at: 2014-08-13
+------------------------------------------------------------------------------------
+name: 上海Burberry军装风格海军大衣XS号
+img link: http://img.dgtle.com/forum/201408/13/000933hwzd5rfo1yj4jcof.jpg!500px
+product link: http://trade.dgtle.com/thread-204136-1-1.html
+user: niyaoxingfuya
+price: ￥5500
+city: 上海黄浦区
+happend_at: 2014-08-13
