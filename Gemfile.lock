@@ -156,6 +156,7 @@ GEM
       polyamorous (~> 1.0.0)
     rdoc (4.1.1)
       json (~> 1.4)
+    refills (0.0.2)
     responders (1.0.0)
       railties (>= 3.2, < 5)
     sass (3.2.19)
@@ -221,6 +222,7 @@ DEPENDENCIES
   pry-nav
   quiet_assets
   rails (= 4.1.1)
+  refills
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring
