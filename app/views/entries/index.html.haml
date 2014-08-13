@@ -1,25 +1,21 @@
 %table
   %thead
-    %th ID
     %th name
-    %th content
     %th img
     %th product
-    %th happend_at
     %th price
     %th city
     %th source
-    %th update
+    %th happend_at
   %tbody
     - @entries.each do |entry|
       %tr
         %td= entry.name
-        %td= entry.content
         %td= image_tag(entry.img)
         %td= entry.product
-        %td= entry.happend_at
         %td= entry.price
         %td= entry.city
         %td= entry.source
-        %td= entry.updated_at
+        %td= entry.happend_at
 
+= paginate @entries
