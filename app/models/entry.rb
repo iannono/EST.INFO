@@ -1,4 +1,5 @@
 class Entry < ActiveRecord::Base
+  default_scope { order('id DESC') }
   scope :today, -> { where(happend_at: Time.new.beginning_of_day()..Time.new.end_of_day()) }
   scope :dgtle, -> { where(source: 'dgtle') }
   scope :fengniao, -> { where(source: 'fengniao') }
