@@ -1,11 +1,9 @@
-%header.navigation
-  .menu-wrapper
-    -#= link_to "Estao", root_path, class: 'logo'
-    .nav
-      %ul#navigation-menu-button
-        %li.nav-link= link_to "Estao", root_path
-    .navigation-tools
-      .search-bar
-        .search-and-submit
-          %input{placeholder: "Email", type: "search"}/
-      = link_to "订阅", "#", class: 'sign-up'
+%header.center
+  .refills-wrapper
+    %h1 Estao
+    = form_for User.new, html: { id: 'subscibe' } do |f|
+      = f.email_field :email
+      = f.submit '订阅'
+    .clear
+    #notice
+      = display_notice_and_alert
