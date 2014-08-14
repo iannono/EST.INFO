@@ -1,8 +1,7 @@
-%table
+%table.table-minimal
   %thead
     %th name
     %th img
-    %th product
     %th price
     %th city
     %th source
@@ -12,10 +11,10 @@
       %tr
         %td= entry.name
         %td= image_tag(entry.img)
-        %td= entry.product
         %td= entry.price
         %td= entry.city
         %td= entry.source
         %td= entry.happend_at
 
 = paginate @entries
+.clear
