@@ -24,7 +24,7 @@ happend_at = ""
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.tweet(name, 12, pd_link)
+      TwitterBot.delay.tweet(name, 12, pd_link)
       entry.name= name
       entry.img = img_link || ""
       entry.source = "macx"
