@@ -3,7 +3,7 @@
 require './lib/crawler/base'
 
 happend_at = ""
-1.upto(5) do |i|
+1.upto(1) do |i|
   url = "http://v2ex.com/go/all4all?p=#{i}"
   linksdoc = Nokogiri::HTML(open(url))
   linksdoc.css('div#TopicsNode div.cell').each do |pd|
@@ -22,6 +22,7 @@ happend_at = ""
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
+      TwitterBot.delay.tweet(name, 12, pd_link)
       entry.name= name
       entry.user = user
       entry.source = "v2ex"
