@@ -36,6 +36,7 @@ group :development do
   gem 'pry-nav'
   gem 'spring'
   gem 'sqlite3'
+  gem 'refills'
 end
 
 gem 'whenever', :require => false
