@@ -6,6 +6,7 @@ happend_at = ""
 1.upto(5) do |i|
   url = "http://trade.dgtle.com/dgtle_module.php?mod=trade&ac=index&typeid=&PName=&searchsort=0&page=#{i}"
   linksdoc = Nokogiri::HTML(open(url))
+
   linksdoc.css('div.boardnav div.tradebox').each do |pd|
     happend_at = pd.css('p.tradeinfo span.tradedateline').first.content
     break if happend_at != Date.today.strftime('%Y-%m-%d')
@@ -18,17 +19,18 @@ happend_at = ""
     city = pd.css('p.tradeprice span.city').first.content
     price = price.delete(city).strip if city
 
-    puts "------------------------------------------------------------------------------------"
-    puts "name: " + name
-    puts "img link: " + img_link
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "price: " + price
-    puts "city: " + city
-    puts "happend_at: " + happend_at
+    # puts "------------------------------------------------------------------------------------"
+    # puts "name: " + name
+    # puts "img link: " + img_link
+    # puts "product link: " + pd_link
+    # puts "user: " + user
+    # puts "price: " + price
+    # puts "city: " + city
+    # puts "happend_at: " + happend_at
 
     entry = Entry.find_or_initialize_by(product: pd_link)
-    if entry.new_record?
+    if entry.new_record?  
+      TwitterBot.tweet(name, 12, pd_link)
       entry.name= name
       entry.img = img_link || ""
       entry.user = user

@@ -25,6 +25,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'haml-rails'
 gem 'kaminari'
 gem 'twitter'
+gem 'daemons'
+gem 'delayed_job_active_record'
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development do

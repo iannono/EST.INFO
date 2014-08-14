@@ -22,19 +22,20 @@ happend_at = ""
     city = pd.css('td.row-5 a').first.content
     condition = pd.css('td.row-6').first.content
 
-    puts "--------------------------------------------------------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "price: " + price
-    puts "city: " + city
-    puts "tag: " + tag
-    puts "brand: " + brand
-    puts "成色: " + condition
-    puts "happend_at: " + happend_at
+    # puts "--------------------------------------------------------------------------------"
+    # puts "name: " + name
+    # puts "product link: " + pd_link
+    # puts "user: " + user
+    # puts "price: " + price
+    # puts "city: " + city
+    # puts "tag: " + tag
+    # puts "brand: " + brand
+    # puts "成色: " + condition
+    # puts "happend_at: " + happend_at
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
+      TwitterBot.tweet(name, 12, pd_link)
       entry.name= name
       entry.user = user
       entry.price = price
