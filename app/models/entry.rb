@@ -6,6 +6,8 @@ class Entry < ActiveRecord::Base
   scope :macx, -> { where(source: 'macx') }
   scope :v2ex, -> { where(source: 'v2ex') }
 
+  has_many :images, dependent: :destroy
+
   def self.summary
     array = []
     array << {source: 'dgtle', num: Entry.today.dgtle.count }

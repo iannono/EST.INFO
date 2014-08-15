@@ -5,6 +5,7 @@ require 'yaml'
 require 'active_record'
 require 'delayed_job_active_record'
 require './app/models/entry'
+require './app/models/image'
 require './lib/robots/twitter'
 
 dbconfig = YAML::load(File.open('./config/database.yml'))

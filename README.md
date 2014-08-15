@@ -3,6 +3,11 @@ EST.INFO
 
 # STEP
 
+```
+ruby lib/crawler/dgtle.rb
+# then start server, see what you have got!
+```
+
 ## delayed job
 
 ```
@@ -22,3 +27,8 @@ see cron log at '/log/cron.log'
 ```
 crontab -r
 ```
+
+## delayed job
+```
+rake jobs:work
+``` 
