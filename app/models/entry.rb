@@ -17,4 +17,8 @@ class Entry < ActiveRecord::Base
 
     return array
   end
+
+  def full_content
+    content 
+  end
 end

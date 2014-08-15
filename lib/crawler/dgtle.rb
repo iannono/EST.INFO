@@ -3,8 +3,14 @@
 require './lib/crawler/base'
 
 def generate_content(url) 
-  content = fetch_body(url).content
-  content
+  body = fetch_body(url)
+  filter_content(body)
+end
+
+def filter_content(body) 
+  igs = body.search("ignore_js_op")
+  igs.remove 
+  body.content.strip
 end
 
 def handle_img_link(entry, url)
@@ -14,7 +20,6 @@ def handle_img_link(entry, url)
     next unless img.attributes["zoomfile"]
     name = download_img(img.attributes["zoomfile"], (SecureRandom.hex 4))
     save_img(entry, name, img.attributes["zoomfile"])
-    puts img.attributes["zoomfile"] 
   end
 end
 
@@ -60,7 +65,7 @@ happend_at = ""
     city = pd.css('p.tradeprice span.city').first.content
     price = price.delete(city).strip if city
 
-    puts "------------------------------------------------------------------------------------"
+    puts "------------------------------"
     puts "name: " + name
     puts "content: " + content
     puts "img link: " + img_link

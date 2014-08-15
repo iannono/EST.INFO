@@ -8,6 +8,9 @@
         %td= entry.city
         %td= entry.source
         %td= I18n.l entry.happend_at
+      %tr
+        %td.content{colspan: 6}
+          = entry.full_content
 
 = paginate @entries
 .clear
