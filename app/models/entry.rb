@@ -24,10 +24,12 @@ class Entry < ActiveRecord::Base
 
   private
   def add_html_tag(content)
+    return "" if content.blank?
+
     ary = content.strip.split("\n")
 
     if ary.size > 0
-      ary.map! do |ele| 
+      ary.map! do |ele|
         "<p>#{ele.strip}</p>"
       end
       ary.join("")
