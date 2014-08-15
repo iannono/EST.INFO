@@ -7,7 +7,7 @@
         %td= entry.price
         %td= entry.city
         %td= entry.source
-        %td= I18n.l entry.happend_at
+        %td= "#{time_ago_in_words entry.happend_at}前"
       %tr
         %td.content{colspan: 6}
           = raw entry.full_content
