@@ -1,11 +1,4 @@
 %table.table-minimal
-  %thead
-    %th name
-    %th img
-    %th price
-    %th city
-    %th source
-    %th happend_at
   %tbody
     - @entries.each do |entry|
       %tr
@@ -14,7 +7,7 @@
         %td= entry.price
         %td= entry.city
         %td= entry.source
-        %td= entry.happend_at
+        %td= I18n.l entry.happend_at
 
 = paginate @entries
 .clear
