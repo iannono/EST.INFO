@@ -19,3 +19,5 @@ est_dev
 
 /config/database.yml
 db/schema.rb
+
+/public/pd_images
