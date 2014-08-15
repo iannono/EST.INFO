@@ -19,6 +19,20 @@ class Entry < ActiveRecord::Base
   end
 
   def full_content
-    content 
+    add_html_tag(content)
+  end
+
+  private
+  def add_html_tag(content)
+    ary = content.strip.split("\n")
+
+    if ary.size > 0
+      ary.map! do |ele| 
+        "<p>#{ele.strip}</p>"
+      end
+      ary.join("")
+    else
+      "<p>#{content}</p>"
+    end
   end
 end
