@@ -19,7 +19,7 @@ class Entry < ActiveRecord::Base
   end
 
   def full_content
-    add_html_tag(content)
+    add_html_tag(content).concat(add_img_tag)
   end
 
   private
@@ -36,5 +36,12 @@ class Entry < ActiveRecord::Base
     else
       "<p>#{content}</p>"
     end
+  end
+
+  def add_img_tag 
+    img_tags = images.map do |img|
+      "<img src=\"#{img.img_link}\" />"
+    end 
+    img_tags.join("")
   end
 end

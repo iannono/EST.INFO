@@ -17,16 +17,17 @@ def handle_img_link(entry, url)
   html = fetch_body(url).inner_html
 
   Nokogiri::HTML(html).css('img').each do |img|
-    next unless img.attributes["zoomfile"]
-    name = download_img(img.attributes["zoomfile"], (SecureRandom.hex 4))
-    save_img(entry, name, img.attributes["zoomfile"])
+    next unless img.attributes["file"]
+    puts img.attributes["file"]
+    name = download_img(img.attributes["file"], (SecureRandom.hex 4))
+    save_img(entry, name, img.attributes["file"])
   end
 end
 
 def save_img(entry, name, origin_link) 
   entry.images.create!(
     img_origin_link: origin_link.to_s,
-    img_link: "public/pd_images/#{name}",
+    img_link: "/pd_images/#{name}",
     img_name: name,
     source: "dgtle"
   )
@@ -39,6 +40,7 @@ end
 
 def download_img(link, name)
   File.open("public/pd_images/#{name}.png", 'wb') do |f|
+    puts link
     f.write open(link).read
   end
   "#{name}.png"
