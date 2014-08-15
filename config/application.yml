@@ -1,0 +1,13 @@
+defaults: &defaults
+  mailer:
+    sender_address       : 'support@brtr.it'
+    exception_recipients : ['caok1231@gmail.com', 'xiongbo027@gmail.com']
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
