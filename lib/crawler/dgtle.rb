@@ -63,7 +63,7 @@ happend_at = ""
     pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
     content = generate_content(pd_link)
 
-    price = pd.css('p.tradeprice').first.content
+    price = pd.css('p.tradeprice').first.content || ""
     city = pd.css('p.tradeprice span.city').first.content
     price = price.delete(city).strip if city
 
@@ -79,7 +79,7 @@ happend_at = ""
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?  
-      TwitterBot.delay.tweet(name, 12, pd_link) 
+      TwitterBot.delay.tweet(name, price, pd_link) 
       entry.name= name
       entry.img = img_link || ""
       entry.img_name = download_img(img_link, (SecureRandom.hex 4)) || ""
