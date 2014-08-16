@@ -1,0 +1,7 @@
+$('#entries').append('<%= j render(@entries) %>');
+<% if @entries.next_page %>
+  $('.pagination').replaceWith('<%= j paginate(@entries) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
+<% sleep 0.5 %>

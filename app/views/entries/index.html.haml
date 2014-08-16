@@ -1,14 +1,6 @@
 %table.table-minimal
   %tbody#entries
-    - @entries.each do |entry|
-      %tr{id: "#{entry.id}", class: 'entry'}
-        %td.pic
-          .thumbnail= image_tag(entry.img)
-        %td.title= entry.name
-        %td.price= entry.price
-        %td= entry.city
-        %td= entry.source
-        %td.time= "#{time_ago_in_words entry.happend_at}前"
+    = render @entries
 
 = paginate @entries
 .clear

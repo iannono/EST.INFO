@@ -5,6 +5,7 @@
   $pagination-hover-background: lighten($pagination-background, 5);
   $pagination-color: $base-font-color;
   text-align: center;
+  display: none;
 
   span.page, span.first, span.prev, span.next, span.last {
     display: none;
