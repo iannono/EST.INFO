@@ -18,4 +18,9 @@ namespace :crawler do
   task :v2ex do
     ruby "./lib/crawler/v2ex.rb"
   end
+
+  desc "crawling feng"
+  task :feng do
+    ruby "./lib/crawler/feng.rb"
+  end
 end
