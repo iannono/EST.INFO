@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'mechanize'
 require 'open-uri'
 require 'date'
 require 'yaml'
