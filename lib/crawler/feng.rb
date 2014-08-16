@@ -1,7 +1,6 @@
-#www.macx.cn
+#威锋网
 #coding: utf-8
 require './lib/crawler/base'
-require 'pry'
 
 def generate_content(url)
   body = fetch_body(url)
@@ -20,7 +19,7 @@ end
 
 def fetch_body(url)
   doc = Nokogiri::HTML(open(url))
-  body = doc.css('div.pcb').first
+  body = doc.css('div.t_fsz').first
 end
 
 def handle_img_link(entry, url)
@@ -51,35 +50,33 @@ def download_img(link, name)
   "#{name}.jpg"
 end
 
-
 happend_at = ""
-1.upto(5) do |i|
-  url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&filter=author&orderby=dateline&sortall=1&page=#{i}"
-  linksdoc = Nokogiri::HTML(open(url))
-  linksdoc.css('div.bm_c ul.ml li').each do |pd|
-    name = pd.css('h3.ptn a').first.content
-    next if name.include? "[置顶]"
+1.upto(1) do |i|
+  url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=author&orderby=dateline&page=#{i}"
+  linksdoc = Nokogiri::HTML(open(url).read)
+  linksdoc.css('table#threadlisttableid tbody').each do |pd|
+    next if pd.css('tr th.new').blank?
+    name = pd.css('tr th.new a.xst').first.content
 
-    happend_at = pd.css('div.cl').last.css('em.xs0').last.content
-    break if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
+    happend_at = pd.css('tr td.by span.xi1 span').first.try(:content) || ""
+    break if happend_at.blank? or happend_at.include? "昨天"
 
-    pd_link = pd.css('h3.ptn a').first.attributes["href"].value
-    img_link = pd.css('div.c a img').first.attributes["src"].value if pd.css('div.c a img').first.try(:attributes)
+    user = pd.css('tr td.by a').first.try(:content)
+    pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
     content = generate_content(pd_link)
 
     puts "--------------------------------------------------------------------------------"
     puts "name: " + name
-    puts "img link: " + img_link if img_link
-    puts "product link: " + pd_link if pd_link
+    puts "product link: " + pd_link
+    puts "user: " + user
     puts "happend_at: " + happend_at
     puts "content: " + content unless content.blank?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay.tweet(name, 12, pd_link)
       entry.name= name
-      entry.img = img_link || ""
-      entry.source = "macx"
+      entry.user= user
+      entry.source = "feng"
       entry.happend_at = Time.new
       entry.content = content
       entry.save
@@ -88,5 +85,5 @@ happend_at = ""
     end
   end
 
-  break if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
+  break if happend_at.blank? or happend_at.include? "昨天"
 end
