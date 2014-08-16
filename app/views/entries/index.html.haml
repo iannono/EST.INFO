@@ -1,16 +1,17 @@
 %table.table-minimal
-  %tbody
+  %tbody#entries
     - @entries.each do |entry|
-      %tr
-        %td= image_tag(entry.img)
-        %td= entry.name
-        %td= entry.price
+      %tr{id: "#{entry.id}", class: 'entry'}
+        %td.pic
+          .thumbnail= image_tag(entry.img)
+        %td.title= entry.name
+        %td.price= entry.price
         %td= entry.city
         %td= entry.source
-        %td= "#{time_ago_in_words entry.happend_at}前"
-      %tr
-        %td.content{colspan: 6}
-          = raw entry.full_content
+        %td.time= "#{time_ago_in_words entry.happend_at}前"
+      -#%tr.content
+        -#%td{colspan: 6}
+          -#= raw entry.full_content
 
 = paginate @entries
 .clear
