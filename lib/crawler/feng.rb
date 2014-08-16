@@ -1,7 +1,6 @@
 #威锋网
 #coding: utf-8
 require './lib/crawler/base'
-require 'pry'
 
 def generate_content(url)
   body = fetch_body(url)
@@ -12,6 +11,8 @@ def filter_content(body)
   if body
     igs = body.search("ignore_js_op")
     igs.remove
+    scripts = body.search("script")
+    scripts.remove
   end
   body.try(:content).try(:strip)
 end
@@ -77,6 +78,7 @@ happend_at = ""
       entry.user= user
       entry.source = "feng"
       entry.happend_at = Time.new
+      entry.content = content
       entry.save
 
       handle_img_link(entry, pd_link)
