@@ -9,9 +9,6 @@
         %td= entry.city
         %td= entry.source
         %td.time= "#{time_ago_in_words entry.happend_at}前"
-      -#%tr.content
-        -#%td{colspan: 6}
-          -#= raw entry.full_content
 
 = paginate @entries
 .clear
