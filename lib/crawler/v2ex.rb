@@ -21,13 +21,11 @@ def fetch_body(url, agent)
 end 
 
 def filter_content(body) 
-  # igs = body.search("ignore_js_op")
-  # igs.remove 
   body.try(:content).nil? ? "" : body.try(:content).strip
 end
 
-def handle_img_link(entry, url)
-  html = fetch_body(url).inner_html
+def handle_img_link(entry, url, agent)
+  return unless html = fetch_body(url, agent).try(:inner_html) 
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["src"]
@@ -73,15 +71,18 @@ happend_at = ""
     puts "happend_at: " + happend_at
     puts "content: " + content
 
-    # entry = Entry.find_or_initialize_by(product: pd_link)
-    # if entry.new_record?
-    #   TwitterBot.delay.tweet(name, 12, pd_link)
-    #   entry.name= name
-    #   entry.user = user
-    #   entry.source = "v2ex"
-    #   entry.happend_at = Time.new
-    #   entry.save
-    # end
+    entry = Entry.find_or_initialize_by(product: pd_link)
+    if entry.new_record?
+      TwitterBot.delay.tweet(name, 12, pd_link)
+      entry.name= name
+      entry.user = user
+      entry.content = content || ""
+      entry.source = "v2ex"
+      entry.happend_at = Time.new
+      entry.save
+
+      handle_img_link(entry, pd_link, agent)
+    end
     break if happend_at.include? "1 天前"
   end
 end
