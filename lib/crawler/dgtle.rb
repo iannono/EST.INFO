@@ -41,7 +41,7 @@ end
 def download_img(link, name)
   File.open("public/pd_images/#{name}.png", 'wb') do |f|
     puts link
-    f.write open(link).read
+    f.write open(link, :read_timeout => 600).read
   end
   "#{name}.png"
 end
