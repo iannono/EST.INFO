@@ -25,6 +25,14 @@ $(document).on "page:change", ->
     $(window).scroll ->
       url = $('.pagination .next a').attr('href')
       if url && $(window).scrollTop() > $(document).height() - $(window).height() - 50
-        #$('.pagination').text("Fetching more entries...")
+        $("#loading").show()
         $.getScript(url)
     $(window).scroll()
+
+$(document).ready ->
+  $(".fancybox").fancybox
+    openEffect: "elastic"
+    closeEffect: "elastic"
+    nextEffect: "elastic"
+    afterLoad: ->
+      @title = "Image " + (@index + 1) + " of " + @group.length + ((if @title then " - " + @title else ""))
