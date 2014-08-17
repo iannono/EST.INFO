@@ -15,7 +15,7 @@ $(document).on 'click', '.entry', (e)->
         if data.result == true
           $("tr.content").remove()
           $("#entries").scrollTop($("#entries").prop("scrollHeight"))
-          $(".entry##{entry_id}").after("<tr class='content'><td colspan='6'>#{data.content}</td></tr>")
+          $(".entry##{entry_id}").after("<tr class='content hide'><td colspan='6'>#{data.content}</td></tr>").next().fadeIn(700)
         else
           console.log("some error")
     })
