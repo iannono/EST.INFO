@@ -1,4 +1,5 @@
 $('#entries').append('<%= j render(@entries) %>');
+$("#loading").hide()
 <% if @entries.next_page %>
   $('.pagination').replaceWith('<%= j paginate(@entries) %>');
 <% else %>
