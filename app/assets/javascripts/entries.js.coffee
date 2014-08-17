@@ -1,16 +1,23 @@
 $(document).on 'click', '.entry', (e)->
-  entry_id = e.target.parentNode.id
-  $.ajax({
-    dataType: "json"
-    url: "/entries/#{entry_id}"
-    success: (data) ->
-      if data.result == true
-        $("tr.content").remove()
-        $("#entries").scrollTop($("#entries").prop("scrollHeight"))
-        $(".entry##{entry_id}").after("<tr class='content'><td colspan='6'>#{data.content}</td></tr>")
-      else
-        console.log("some error")
-  })
+  entry = $(this)
+  entry_id = entry.attr("id")
+
+  if entry.hasClass("bg-blue")
+    entry.removeClass("bg-blue")
+    entry.next().hide()
+  else
+    entry.addClass("bg-blue")
+    $.ajax({
+      dataType: "json"
+      url: "/entries/#{entry_id}"
+      success: (data) ->
+        if data.result == true
+          $("tr.content").remove()
+          $("#entries").scrollTop($("#entries").prop("scrollHeight"))
+          $(".entry##{entry_id}").after("<tr class='content'><td colspan='6'>#{data.content}</td></tr>")
+        else
+          console.log("some error")
+    })
 
 $(document).on "page:change", ->
   if $('.pagination').length

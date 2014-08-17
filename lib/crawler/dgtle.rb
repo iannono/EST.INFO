@@ -44,6 +44,8 @@ def download_img(link, name)
     f.write open(link, :read_timeout => 600).read
   end
   "#{name}.png"
+rescue => e 
+  return
 end
 
 happend_at = ""
