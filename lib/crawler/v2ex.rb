@@ -51,15 +51,6 @@ def download_img(link, name)
   "#{name}.png"
 end 
 
-def update_entry_img(entry) 
-  if entry.img.nil? && entry.images.size > 0
-    image = entry.images.first
-    entry.img = image.img_link
-    entry.img_name = image.img_name
-    entry.save
-  end
-end
-
 happend_at = ""
 1.upto(1) do |i|
   url = "http://v2ex.com/go/all4all?p=#{i}"

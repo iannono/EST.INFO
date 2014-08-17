@@ -85,6 +85,7 @@ happend_at = ""
       entry.save
 
       handle_img_link(entry, pd_link)
+      update_entry_img(entry)
     end
   end
 
