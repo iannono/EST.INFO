@@ -28,3 +28,10 @@ $(document).on "page:change", ->
         #$('.pagination').text("Fetching more entries...")
         $.getScript(url)
     $(window).scroll()
+
+$(document).ready ->
+  $(".fancybox").fancybox
+    openEffect: "none"
+    closeEffect: "none"
+    afterLoad: ->
+      @title = "Image " + (@index + 1) + " of " + @group.length + ((if @title then " - " + @title else ""))
