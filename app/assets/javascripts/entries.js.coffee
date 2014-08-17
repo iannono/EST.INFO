@@ -2,10 +2,13 @@ $(document).on 'click', '.entry', (e)->
   entry = $(this)
   entry_id = entry.attr("id")
 
+  # == TODO ==
+  # rename class bg-blue
   if entry.hasClass("bg-blue")
     entry.removeClass("bg-blue")
     entry.next().hide()
-  else
+  else 
+    $(".entry").removeClass("bg-blue")
     entry.addClass("bg-blue")
     $.ajax({
       dataType: "json"
