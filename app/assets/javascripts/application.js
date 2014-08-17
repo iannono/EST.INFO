@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require vendor
+//= require common
 //= require_tree .
