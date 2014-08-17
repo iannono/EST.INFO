@@ -78,7 +78,6 @@ happend_at = ""
     if entry.new_record?
       TwitterBot.delay.tweet(name, 12, pd_link)
       entry.name= name
-      entry.img = img_link || ""
       entry.source = "macx"
       entry.happend_at = Time.new
       entry.content = content
