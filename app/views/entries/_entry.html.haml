@@ -1,6 +1,6 @@
 %tr{id: "#{entry.id}", class: 'entry'}
   %td.pic
-    .thumbnail= image_tag(entry.img)
+    .thumbnail= entry.img ? image_tag(entry.img) : image_tag("no_image.jpg")
   %td.title= entry.name
   %td.price= entry.price
   %td= entry.city

@@ -2,14 +2,12 @@ $(document).on 'click', '.entry', (e)->
   entry = $(this)
   entry_id = entry.attr("id")
 
-  # == TODO ==
-  # rename class bg-blue
-  if entry.hasClass("bg-blue")
-    entry.removeClass("bg-blue")
+  if entry.hasClass("current")
+    entry.removeClass("current")
     entry.next().hide()
-  else 
-    $(".entry").removeClass("bg-blue")
-    entry.addClass("bg-blue")
+  else
+    $(".entry").removeClass("current")
+    entry.addClass("current")
     $.ajax({
       dataType: "json"
       url: "/entries/#{entry_id}"
@@ -27,6 +25,6 @@ $(document).on "page:change", ->
     $(window).scroll ->
       url = $('.pagination .next a').attr('href')
       if url && $(window).scrollTop() > $(document).height() - $(window).height() - 50
-        $('.pagination').text("Fetching more entries...")
+        #$('.pagination').text("Fetching more entries...")
         $.getScript(url)
     $(window).scroll()
