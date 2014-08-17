@@ -40,7 +40,7 @@ class Entry < ActiveRecord::Base
 
   def add_img_tag
     img_tags = images.map do |img|
-      "<a data-lightbox=\"entry_#{self.id}\" href=\"#{img.img_link}\"><img src=\"#{img.img_link}\" /></a>"
+      "<a class='fancybox' rel=\"entry_#{self.id}\" href=\"#{img.img_link}\"><img src=\"#{img.img_link}\" /></a>"
     end
     img_tags.join("")
   end

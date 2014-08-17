@@ -1,1 +1,1 @@
-//= require lightbox.min
+//= require jquery.fancybox.pack
