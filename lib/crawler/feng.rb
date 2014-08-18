@@ -2,11 +2,6 @@
 #coding: utf-8
 require './lib/crawler/base'
 
-def generate_content(url)
-  body = fetch_body(url)
-  filter_content(body)
-end
-
 def filter_content(body)
   if body
     igs = body.search("ignore_js_op")
@@ -31,6 +26,11 @@ def handle_img_link(entry, url)
     name = download_img(img.attributes["file"], (SecureRandom.hex 4))
     save_img(entry, name, img.attributes["file"])
   end
+end
+
+def has_img(body)
+  html = body.inner_html
+  Nokogiri::HTML(html).css('img').size > 0 ? true : false
 end
 
 def save_img(entry, name, origin_link)
@@ -63,7 +63,12 @@ happend_at = ""
 
     user = pd.css('tr td.by a').first.try(:content)
     pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
-    content = generate_content(pd_link)
+
+    body = fetch_body(pd_link)
+    puts body
+    next unless has_img(body)
+    
+    content = filter_content(body)
 
     puts "--------------------------------------------------------------------------------"
     puts "name: " + name
