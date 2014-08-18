@@ -8,7 +8,8 @@ timeout 240
 preload_app true
 worker_processes 2
 
-listen "/tmp/unicorn.#{application}.socket", :backlog => 64
+#listen "/tmp/unicorn.#{application}.socket", :backlog => 64
+listen 9000, :tcp_nopush => true
 
 app_path = "/home/#{user}/apps/#{application}"
 shared_path = "#{app_path}/shared"
