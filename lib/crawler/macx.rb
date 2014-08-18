@@ -89,14 +89,6 @@ happend_at = ""
       entry.price = price unless price.blank?
       entry.save
 
-      if pd.css('div.c a img').first.try(:attributes)
-        img_link = pd.css('div.c a img').first.attributes["src"].value
-        name = download_img(img_link, (SecureRandom.hex 4))
-        save_img(entry, name, img_link)
-        entry.img = entry.images.try(:first).try(:img_link)
-        entry.save
-      end
-
       handle_img_link(entry, pd_link)
       update_entry_img(entry)
     end

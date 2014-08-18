@@ -28,6 +28,7 @@
     }
 
     .entry-image,
+    .entry-right,
     .entry-content {
       display: table-cell;
       vertical-align: $entry-image-vert-alignment;
@@ -36,6 +37,8 @@
     .entry-image {
       padding-right: $entry-gutter;
       padding-left: 0.3em;
+      float: left;
+      width: 10%;
       > img {
         height: $entry-image-height;
         width: $entry-image-width;
@@ -53,7 +56,8 @@
     }
 
     .entry-content {
-      width: 100%;
+      width: 80%;
+      float: left;
 
       h1 {
         font-size: 1em;
@@ -76,18 +80,38 @@
           color: tint(red, 30%);
         }
       }
+    }
 
-      p.entry-detail {
-        font-style: italic;
-        font-size: .9em;
-        color: $entry-detail-color;
+    .entry-right {
+      float: right;
+      width: 10%;
+      text-align: right;
+      h1 {
+        font-size: 1em;
+        margin-bottom: .5em;
+        color: tint(red, 30%);
+      }
+      p {
+        font-size: .7em;
+        color: $entry-description-color;
+        a {
+          color: $entry-description-color;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
     }
   }
 
   .detail {
+    padding: 1.5em;
     img {
       width: 60%;
+      padding: 0.5em;
+      margin: 0.5em 0;
+      border-radius: $base-border-radius;
+      border: 1px solid rgba(51, 51, 51, 0.2);
     }
   }
 }
