@@ -1,4 +1,5 @@
 defaults: &defaults
+  secret_key_base: "e95978f5da3f064e9cf19e03674ca047230725c0d57fb9351379acf508be78a38a7c6826ce2ad875f67503168ffe0d3a79d388348999ca9dbb332bc1a9f378d1"
   mailer:
     sender_address       : 'support@brtr.it'
     exception_recipients : ['caok1231@gmail.com', 'xiongbo027@gmail.com']
