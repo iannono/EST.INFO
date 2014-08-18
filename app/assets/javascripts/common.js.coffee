@@ -1,4 +1,4 @@
-# NProgress
+# ====NProgress====
 NProgress.configure
   speed: 700
   minimum: 0.7

@@ -10,17 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require vendor
+ *= require index
  *= require common
  *= require entries
- *= require vendor
  *= require_self
- */
-
-@import "bourbon";
-@import "base/variables";
-@import "neat/neat";
-@import "base/grid-settings";
-@import "base/base";
-@import "refills/tables-minimal";
-@import "refills/footer-2";
-@import "refills/pagination";
+ */ 
