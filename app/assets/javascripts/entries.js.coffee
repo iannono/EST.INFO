@@ -4,7 +4,7 @@ $(document).on 'click', '.entry', (e)->
 
   if entry.hasClass("current")
     entry.removeClass("current")
-    entry.next().hide()
+    entry.next().fadeOut(500)
   else
     $(".entry").removeClass("current")
     entry.addClass("current")
