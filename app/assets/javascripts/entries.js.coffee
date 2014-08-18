@@ -9,7 +9,7 @@ $(document).on 'click', '.entry', (e)->
     $(".entry").removeClass("current")
     entry.addClass("current")
     if entry.next(".detail").hasClass("detail")
-      entry.next(".detail").show() 
+      entry.next(".detail").show()
       return
 
     $.ajax({
