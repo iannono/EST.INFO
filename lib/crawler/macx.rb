@@ -44,13 +44,14 @@ def save_img(entry, name, origin_link)
 end
 
 def download_img(link, name)
-  puts link
   File.open("./public/pd_images/#{name}.jpg", 'wb') do |f|
     f.write open(link, :read_timeout => 600).read
   end
   "#{name}.jpg"
+rescue => e
+  puts "download_img error: #{e}"
+  return
 end
-
 
 happend_at = ""
 1.upto(5) do |i|
@@ -64,13 +65,16 @@ happend_at = ""
     break if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
 
     pd_link = pd.css('h3.ptn a').first.attributes["href"].value
-    img_link = pd.css('div.c a img').first.attributes["src"].value if pd.css('div.c a img').first.try(:attributes)
     content = generate_content(pd_link)
+    city = content.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
+    price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
+    content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
 
     puts "--------------------------------------------------------------------------------"
     puts "name: " + name
-    puts "img link: " + img_link if img_link
     puts "product link: " + pd_link if pd_link
+    puts "city: " + city
+    puts "price: " + price
     puts "happend_at: " + happend_at
     puts "content: " + content unless content.blank?
 
@@ -81,7 +85,17 @@ happend_at = ""
       entry.source = "macx"
       entry.happend_at = Time.new
       entry.content = content
+      entry.city = city unless city.blank?
+      entry.price = price unless price.blank?
       entry.save
+
+      if pd.css('div.c a img').first.try(:attributes)
+        img_link = pd.css('div.c a img').first.attributes["src"].value
+        name = download_img(img_link, (SecureRandom.hex 4))
+        save_img(entry, name, img_link)
+        entry.img = entry.images.try(:first).try(:img_link)
+        entry.save
+      end
 
       handle_img_link(entry, pd_link)
       update_entry_img(entry)
