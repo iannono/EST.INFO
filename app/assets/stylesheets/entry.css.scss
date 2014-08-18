@@ -10,20 +10,10 @@
   $entry-image-vert-alignment: top;
   $entry-content-size: $base-font-size;
   $entry-hover-color: transparentize($entry-color, .9);
+  margin: 0 auto 3em auto;
 
-  .hide {
-    display: none;
-  }
-
-  .current {
-    background-color: $entry-hover-color;
-  }
-
-  .selected {
-    border-top: 6px solid $light-green;
-  }
-
-  .entry { 
+  .entry {
+    cursor: pointer;
     display: table;
     width: 100%;
     padding-bottom: 0.5em;
@@ -31,6 +21,11 @@
     padding-left: 0.3em;
     padding-right: 0.3em;
     border-bottom: 1px solid transparentize($entry-color, .8);
+
+    &:hover,
+    &.current {
+      background-color: $entry-hover-color;
+    }
 
     .entry-image,
     .entry-content {
@@ -40,7 +35,7 @@
 
     .entry-image {
       padding-right: $entry-gutter;
-
+      padding-left: 0.3em;
       > img {
         height: $entry-image-height;
         width: $entry-image-width;
@@ -88,10 +83,6 @@
         color: $entry-detail-color;
       }
     }
-  }
-
-  .entry:hover {
-    background-color: $entry-hover-color;
   }
 
   .detail {
