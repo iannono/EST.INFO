@@ -4,12 +4,13 @@ $(document).on 'click', '.entry', (e)->
 
   if entry.hasClass("current")
     entry.removeClass("current")
-    entry.next().hide()
+    entry.next('.detail').fadeOut()
   else
     $(".entry").removeClass("current")
     entry.addClass("current")
-    if entry.next(".detail").hasClass("detail")
-      entry.next(".detail").show()
+    if entry.next().hasClass("detail") && !entry.next().is(':visible')
+      $(".detail").hide()
+      entry.next('.detail').fadeIn()
       return
 
     $.ajax({
@@ -17,7 +18,8 @@ $(document).on 'click', '.entry', (e)->
       url: "/entries/#{entry_id}"
       success: (data) ->
         if data.result == true
-          $(".entry##{entry_id}").after("<div class='detail hide'>#{data.content}</div>").next().fadeIn(700)
+          $(".detail").hide()
+          $(".entry##{entry_id}").after("<div class='detail'>#{data.content}</div>").fadeIn(700)
         else
           console.log("some error")
     })
@@ -26,7 +28,7 @@ $(document).on "page:change", ->
   if $('.pagination').length
     $(window).scroll ->
       url = $('.pagination .next a').attr('href')
-      if url && $(window).scrollTop() > $(document).height() - $(window).height() - 50
+      if url && ($(window).scrollTop() > $(document).height() - $(window).height() - 50) && !$("#loading").is(':visible')
         $("#loading").show()
         $.getScript(url)
     $(window).scroll()
