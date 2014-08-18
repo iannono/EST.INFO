@@ -18,6 +18,8 @@
     width: 100%;
     padding-bottom: 0.5em;
     padding-top: 0.7em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
     border-bottom: 1px solid transparentize($entry-color, .8);
 
     &:hover,
@@ -68,6 +70,10 @@
 
         a {
           color: $entry-description-color;
+        }
+
+        .price {
+          color: tint(red, 30%);
         }
       }
 
