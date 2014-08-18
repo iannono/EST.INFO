@@ -4,18 +4,20 @@ $(document).on 'click', '.entry', (e)->
 
   if entry.hasClass("current")
     entry.removeClass("current")
-    entry.next().fadeOut(500)
+    entry.next().hide()
   else
     $(".entry").removeClass("current")
     entry.addClass("current")
+    if entry.next(".detail").hasClass("detail")
+      entry.next(".detail").show() 
+      return
+
     $.ajax({
       dataType: "json"
       url: "/entries/#{entry_id}"
       success: (data) ->
         if data.result == true
-          $("tr.content").remove()
-          $("#entries").scrollTop($("#entries").prop("scrollHeight"))
-          $(".entry##{entry_id}").after("<tr class='content hide'><td colspan='5'>#{data.content}</td></tr>").next().fadeIn(700)
+          $(".entry##{entry_id}").after("<div class='detail hide'>#{data.content}</div>").next().fadeIn(700)
         else
           console.log("some error")
     })

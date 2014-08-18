@@ -162,6 +162,9 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     naught (1.0.0)
+    neat (1.5.1)
+      bourbon (>= 3.1)
+      sass (~> 3.2.19)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
@@ -317,6 +320,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   mechanize
+  neat
   nokogiri
   pg
   pry

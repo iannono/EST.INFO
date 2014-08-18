@@ -24,6 +24,8 @@ gem 'weibo_2'
 gem 'settingslogic'
 gem 'whenever', :require => false
 
+gem 'neat'
+
 group :development do
   gem 'thin'
   gem 'quiet_assets'
