@@ -6,10 +6,8 @@ user = ENV['USER'] || 'estao'
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 1)
 timeout 240
 preload_app true
-worker_processes 2
 
-#listen "/tmp/unicorn.#{application}.socket", :backlog => 64
-listen 9000, :tcp_nopush => true
+listen "/tmp/unicorn.#{application}.socket", :backlog => 64
 
 app_path = "/home/#{user}/apps/#{application}"
 shared_path = "#{app_path}/shared"

@@ -1,5 +1,5 @@
 set :output, 'log/cron.log'
-every 3.minutes do
+every 5.minutes do
   rake "crawler:dgtle"
   rake "crawler:macx"
   rake "crawler:feng"
