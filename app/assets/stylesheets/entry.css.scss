@@ -1,4 +1,4 @@
-.entries { 
+.entries {
   $entry-gutter: 1.4em;
   $entry-image-padding: 0em;
   $entry-image-width: 4em;
@@ -11,15 +11,15 @@
   $entry-content-size: $base-font-size;
   $entry-hover-color: transparentize($entry-color, .9);
 
-  .hide { 
+  .hide {
     display: none;
-  } 
-
-  .current {
-    background-color: $entry-hover-color; 
   }
 
-  .entry { 
+  .current {
+    background-color: $entry-hover-color;
+  }
+
+  .entry {
     display: table;
     width: 100%;
     padding-bottom: 0.5em;
@@ -67,8 +67,8 @@
         font-size: .7em;
         color: $entry-description-color;
 
-        a { 
-          color: $entry-description-color; 
+        a {
+          color: $entry-description-color;
         }
       }
 
@@ -81,6 +81,12 @@
   }
 
   .entry:hover {
-    background-color: $entry-hover-color; 
+    background-color: $entry-hover-color;
+  }
+
+  .detail {
+    img {
+      width: 60%;
+    }
   }
 }
