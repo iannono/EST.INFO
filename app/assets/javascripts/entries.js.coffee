@@ -20,7 +20,7 @@ $(document).ready ->
     afterLoad: ->
       @title = "Image " + (@index + 1) + " of " + @group.length + ((if @title then " - " + @title else ""))
   
-  $(".entry").on "select.entry", (e)->
+  $(document).on "select.entry", ".entry", (e)->
     entry = $(this)
     entry_id = entry.attr("id")
 
@@ -30,7 +30,7 @@ $(document).ready ->
       $(".entry").removeClass("selected")
       entry.addClass("selected")
   
-  $(".entry").on "open.entry", ->
+  $(document).on "open.entry", ".entry", (e)->
     entry = $(this)
     entry_id = entry.attr("id")
 
