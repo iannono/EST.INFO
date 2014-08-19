@@ -37,7 +37,7 @@
 
     .entry-image {
       padding-right: $entry-gutter;
-      padding-left: 0.3em;
+      padding-left: 0.1em;
       float: left;
       width: 10%;
       > img {
@@ -59,6 +59,7 @@
     .entry-content {
       width: 80%;
       float: left;
+      padding: 0 0.5em;
 
       h1 {
         font-size: 1em;
@@ -86,13 +87,20 @@
     .entry-right {
       float: right;
       width: 10%;
+      height: 3em;
       text-align: right;
+      position: relative;
       h1 {
+        position: absolute;
+        top: 0;
         font-size: 1em;
         margin-bottom: .5em;
         color: tint(red, 30%);
       }
       p {
+        position: absolute;
+        bottom: 0;
+        margin: 0;
         font-size: .7em;
         color: $entry-description-color;
         a {
