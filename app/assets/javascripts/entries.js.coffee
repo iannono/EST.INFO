@@ -1,28 +1,7 @@
+
 $(document).on 'click', '.entry', (e)->
-  entry = $(this)
-  entry_id = entry.attr("id")
-
-  if entry.hasClass("current")
-    entry.removeClass("current")
-    entry.next('.detail').fadeOut()
-  else
-    $(".entry").removeClass("current")
-    entry.addClass("current")
-    if entry.next().hasClass("detail") && !entry.next().is(':visible')
-      $(".detail").hide()
-      entry.next('.detail').fadeIn()
-      return
-
-    $.ajax({
-      dataType: "json"
-      url: "/entries/#{entry_id}"
-      success: (data) ->
-        if data.result == true
-          $(".detail").hide()
-          $(".entry##{entry_id}").after("<div class='detail'>#{data.content}</div>").fadeIn(700)
-        else
-          console.log("some error")
-    })
+  $(this).trigger("select.entry")
+  $(this).trigger("open.entry") 
 
 $(document).on "page:change", ->
   if $('.pagination').length
@@ -40,3 +19,33 @@ $(document).ready ->
     nextEffect: "elastic"
     afterLoad: ->
       @title = "Image " + (@index + 1) + " of " + @group.length + ((if @title then " - " + @title else ""))
+  
+  $(".entry").on "select.entry", (e)->
+    entry = $(this)
+    entry_id = entry.attr("id")
+
+    if entry.hasClass("selected") and entry.next().hasClass(".detail") and entry.next().is(":visible")
+      entry.removeClass("selected")
+    else
+      $(".entry").removeClass("selected")
+      entry.addClass("selected")
+  
+  $(".entry").on "open.entry", ->
+    entry = $(this)
+    entry_id = entry.attr("id")
+
+    if entry.next().hasClass("detail") && !entry.next().is(':visible')
+      entry.next().fadeIn()
+    else if entry.next().hasClass("detail") && entry.next().is(":visible")
+      entry.next().fadeOut()
+    else 
+      $.ajax({
+        dataType: "json"
+        url: "/entries/#{entry_id}"
+        success: (data) ->
+          if data.result == true
+            $(".entry##{entry_id}").after("<div class='detail'>#{data.content}</div>").next().fadeIn(700)
+          else
+            console.log("some error")
+      })
+
