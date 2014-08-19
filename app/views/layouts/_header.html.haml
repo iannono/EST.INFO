@@ -1,9 +1,39 @@
-%header.center
-  .refills-wrapper
-    %h1 Estao
+-# %header.center
+-#   .refills-wrapper
+-#     %h1 Estao
+-#     = form_for User.new, html: { id: 'subscibe' } do |f|
+-#       = f.email_field :email
+-#       = f.submit '订阅'
+-#     .clear
+-#     #notice
+-#       = display_notice_and_alert
+
+%header.centered-navigation
+  .centered-navigation-wrapper
+    %a.mobile-logo
+      %img{src: "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png"}
+    %ul.centered-navigation-menu
+      %li.nav-link.logo
+        %a.logo{href: "javascript:void(0)"}
+          %img{src: "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png"}
+      %li.nav-link
+        %a{href: "javascript:void(0)"} 关于二手淘
+      %li.nav-link
+        %a{href: "javascript:void(0)"} 关于我们
+      %li.nav-link
+        %a{href: "javascript:void(0)"} 快捷键
+      %li.nav-link
+        %a{href: "javascript:void(0)"} 留言
+      %li.nav-link
+        %a{href: "javascript:void(0)"} 开发日志
+  .centered-navigation-search
     = form_for User.new, html: { id: 'subscibe' } do |f|
       = f.email_field :email
-      = f.submit '订阅'
+      = f.submit '搜索'
     .clear
     #notice
       = display_notice_and_alert
+
+
+
+

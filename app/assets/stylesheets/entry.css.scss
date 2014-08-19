@@ -4,13 +4,14 @@
   $entry-image-width: 4em;
   $entry-image-height: 3em;
   $entry-color: $base-font-color;
+  $entry-selected: #E7F1EC;
   $entry-background: $base-background-color;
   $entry-detail-color: transparentize($entry-color, .5);
   $entry-description-color: transparentize($entry-color, .5);
   $entry-image-vert-alignment: top;
   $entry-content-size: $base-font-size;
-  $entry-hover-color: transparentize($entry-color, .9);
-  margin: 0 auto 3em auto;
+  $entry-hover-color: transparentize($entry-selected, 0.2);
+  margin: 7em auto 3em auto;
 
   .entry {
     cursor: pointer;
@@ -24,7 +25,6 @@
 
     &:hover,
     &.selected {
-      border-top: 6px solid $light-green;
       background-color: $entry-hover-color;
     }
 

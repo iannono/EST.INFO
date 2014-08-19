@@ -1,0 +1,127 @@
+.centered-navigation {
+  $centered-navigation-padding: 1em;
+  $centered-navigation-logo-height: 2em;
+  $centered-navigation-background: #E7F1EC;
+  $centered-navigation-color: transparentize($base-font-color, 0.3);
+  $centered-navigation-color-hover: $base-font-color;
+  $centered-navigation-height: 2.5em;
+  $centered-navigation-item-padding: 1em;
+  $centered-navigation-submenu-padding: 1em;
+  $centered-navigation-submenu-width: 12em;
+  $centered-navigation-item-nudge: 2.2em;
+  $horizontal-bar-mode: $large-screen;
+
+  background-color: #FFF;
+  border-bottom: 1px dashed darken($centered-navigation-background, 6);
+  font-size: .7em;
+  font-weight: bold;
+  height: $centered-navigation-height;
+  width: 100%;
+  z-index: 9999;
+  
+  
+  // Mobile view
+
+  .mobile-logo {
+    display: inline;    
+    float: left;
+    max-height: $centered-navigation-height;
+    padding-left: $centered-navigation-padding;
+
+    img {
+      max-height: $centered-navigation-height;
+      opacity: .6;
+      padding: .8em 0;
+    }
+
+    @include media($horizontal-bar-mode) {
+      display: none;
+    }
+  }
+
+  .centered-navigation-wrapper {
+    @include outer-container;
+    @include clearfix;
+    position: relative;
+    z-index: 999;
+  }
+
+  .centered-navigation-search {
+    @include outer-container;
+    @include clearfix;
+    z-index: 999;
+    margin-top: 2em;
+  }
+
+  ul.centered-navigation-menu {    
+    -webkit-transform-style: preserve-3d; 
+// stop webkit flicker
+    clear: both;
+    display: none;
+    margin: 0 auto;
+    overflow: visible;
+    padding: 0;
+    width: 100%;
+    z-index: 99999;
+
+    @include media ($horizontal-bar-mode) {
+      display: block;
+      text-align: center;
+    }
+  }
+
+  
+// The nav items
+
+  .nav-link:first-child {
+    @include media($horizontal-bar-mode) {
+      margin-left: $centered-navigation-item-nudge;
+    }
+  }
+
+  ul li.nav-link {
+    background: $centered-navigation-background;
+    display: block;
+    line-height: $centered-navigation-height;
+    overflow: hidden;
+    padding-right: $centered-navigation-submenu-padding;
+    text-align: right;
+    width: 100%;
+    z-index: 9999;
+
+    @include media($horizontal-bar-mode) {
+      background: transparent;
+      display: inline;
+      line-height: $centered-navigation-height;  
+
+      a {
+        padding-right: $centered-navigation-item-padding;
+      }
+    }
+    
+    a {
+      color: $centered-navigation-color;
+      display: inline-block;
+
+
+      &:hover {
+        color: $centered-navigation-color-hover;
+      }
+    }
+  }
+
+  li.logo.nav-link {
+    display: none;
+    line-height: 0;
+
+    @include media($large-screen) {
+      display: inline;
+    }
+  }
+
+  .logo img {
+    margin-bottom: -$centered-navigation-logo-height / 3;
+    max-height: $centered-navigation-logo-height;
+    opacity: .6;
+  } 
+}

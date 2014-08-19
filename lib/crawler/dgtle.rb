@@ -72,7 +72,6 @@ happend_at = ""
     puts "------------------------------"
     puts "name: " + name
     puts "content: " + content
-    puts "img link: " + img_link
     puts "product link: " + pd_link
     puts "user: " + user
     puts "price: " + price
@@ -83,8 +82,6 @@ happend_at = ""
     if entry.new_record?  
       TwitterBot.delay.tweet(name, price, pd_link) 
       entry.name= name
-      entry.img = img_link || ""
-      entry.img_name = download_img(img_link, (SecureRandom.hex 4)) || ""
       entry.content = content
       entry.user = user
       entry.price = price
