@@ -23,7 +23,8 @@
     border-bottom: 1px solid transparentize($entry-color, .8);
 
     &:hover,
-    &.current {
+    &.selected {
+      border-top: 6px solid $light-green;
       background-color: $entry-hover-color;
     }
 
