@@ -46,3 +46,9 @@ KeyboardJS.on 'h', ->
   selected.removeClass("selected")
   $(".entry").first().trigger("select.entry")
 
+# bottom
+KeyboardJS.on 'l', ->
+  selected = $(".selected")
+  selected.removeClass("selected")
+  $(".entry").last().trigger("select.entry")
+
