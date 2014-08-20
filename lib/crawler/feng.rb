@@ -79,9 +79,10 @@ happend_at = ""
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
+      TwitterBot.delay.tweet(name, nil, pd_link)
       entry.name= name
       entry.user= user
-      entry.source = "feng"
+      entry.source = "weiphone"
       entry.happend_at = Time.new
       entry.content = content
       entry.save

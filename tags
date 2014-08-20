@@ -1,0 +1,105 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ActiveSupport	test/test_helper.rb	/^class ActiveSupport::TestCase$/;"	c
+AddImageNameToEntry	db/migrate/20140815013150_add_image_name_to_entry.rb	/^class AddImageNameToEntry < ActiveRecord::Migration$/;"	c
+AdminUser	app/models/admin_user.rb	/^class AdminUser < ActiveRecord::Base$/;"	c
+AdminUserTest	test/models/admin_user_test.rb	/^class AdminUserTest < ActiveSupport::TestCase$/;"	c
+Application	config/application.rb	/^  class Application < Rails::Application$/;"	c	class:Est
+ApplicationController	app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
+ApplicationHelper	app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+ChangeContentTypeInEntry	db/migrate/20140815112636_change_content_type_in_entry.rb	/^class ChangeContentTypeInEntry < ActiveRecord::Migration$/;"	c
+CreateActiveAdminComments	db/migrate/20140808082159_create_active_admin_comments.rb	/^class CreateActiveAdminComments < ActiveRecord::Migration$/;"	c
+CreateDelayedJobs	db/migrate/20140814033421_create_delayed_jobs.rb	/^class CreateDelayedJobs < ActiveRecord::Migration$/;"	c
+CreateEntries	db/migrate/20140804103154_create_entries.rb	/^class CreateEntries < ActiveRecord::Migration$/;"	c
+CreateImages	db/migrate/20140815025055_create_images.rb	/^class CreateImages < ActiveRecord::Migration$/;"	c
+CreateUsers	db/migrate/20140808090226_create_users.rb	/^class CreateUsers < ActiveRecord::Migration$/;"	c
+DelayedJob	app/models/delayed_job.rb	/^class DelayedJob < ActiveRecord::Base$/;"	c
+DeviseCreateAdminUsers	db/migrate/20140808082152_devise_create_admin_users.rb	/^class DeviseCreateAdminUsers < ActiveRecord::Migration$/;"	c
+EntriesController	app/controllers/entries_controller.rb	/^class EntriesController < ApplicationController$/;"	c
+EntriesControllerTest	test/controllers/entries_controller_test.rb	/^class EntriesControllerTest < ActionController::TestCase$/;"	c
+EntriesHelper	app/helpers/entries_helper.rb	/^module EntriesHelper$/;"	m
+EntriesHelperTest	test/helpers/entries_helper_test.rb	/^class EntriesHelperTest < ActionView::TestCase$/;"	c
+Entry	app/models/entry.rb	/^class Entry < ActiveRecord::Base$/;"	c
+EntryTest	test/models/entry_test.rb	/^class EntryTest < ActiveSupport::TestCase$/;"	c
+Est	config/application.rb	/^module Est$/;"	m
+Image	app/models/image.rb	/^class Image < ActiveRecord::Base$/;"	c
+ImageTest	test/models/image_test.rb	/^class ImageTest < ActiveSupport::TestCase$/;"	c
+Settings	app/models/settings.rb	/^class Settings < Settingslogic$/;"	c
+TwitterBot	lib/robots/twitter.rb	/^class TwitterBot$/;"	c
+User	app/models/user.rb	/^class User < ActiveRecord::Base$/;"	c
+UserMailer	app/mailers/user_mailer.rb	/^class UserMailer < ActionMailer::Base$/;"	c
+UserMailerPreview	test/mailers/previews/user_mailer_preview.rb	/^class UserMailerPreview < ActionMailer::Preview$/;"	c
+UserMailerTest	test/mailers/user_mailer_test.rb	/^class UserMailerTest < ActionMailer::TestCase$/;"	c
+UsersController	app/controllers/users_controller.rb	/^class UsersController < ApplicationController$/;"	c
+add_html_tag	app/models/entry.rb	/^  def add_html_tag(content)$/;"	f	class:Entry
+add_img_tag	app/models/entry.rb	/^  def add_img_tag$/;"	f	class:Entry
+b.helpers.overlay.defaults	vendor/assets/javascripts/jquery.fancybox.pack.js	/^b.previous,d=a.prevEffect,e={opacity:0.1},c=b.direction;"elastic"===d&&(e["down"===c||"up"===c?"top":"left"]=("up"===c||"left"===c?"-":"+")+"=200px");a.wrap.animate(e,{duration:"none"===d?0:a.prevSpeed,easing:a.prevEasing,complete:function(){f(this).trigger("onReset").remove()}})}};b.helpers.overlay={defaults:{closeClick:!0,speedOut:200,showEarly:!0,css:{},locked:!s,fixed:!0},overlay:null,fixed:!1,el:f("html"),create:function(a){a=f.extend({},this.defaults,a);this.overlay&&this.close();this.overlay=$/;"	p
+b.helpers.title.defaults	vendor/assets/javascripts/jquery.fancybox.pack.js	/^f(this).css("position")&&!f(this).hasClass("fancybox-overlay")&&!f(this).hasClass("fancybox-wrap")}).addClass("fancybox-margin"),this.el.addClass("fancybox-margin")),e=n.scrollTop(),c=n.scrollLeft(),this.el.addClass("fancybox-lock"),n.scrollTop(e).scrollLeft(c));this.open(a)},onUpdate:function(){this.fixed||this.update()},afterClose:function(a){this.overlay&&!b.coming&&this.overlay.fadeOut(a.speedOut,f.proxy(this.close,this))}};b.helpers.title={defaults:{type:"float",position:"bottom"},beforeShow:function(a){var d=$/;"	p
+b.transitions.changeIn	vendor/assets/javascripts/jquery.fancybox.pack.js	/^{duration:"none"===d?0:a.closeSpeed,easing:a.closeEasing,step:e?this.step:null,complete:b._afterZoomOut})},changeIn:function(){var a=b.current,d=a.nextEffect,e=a.pos,c={opacity:1},f=b.direction,g;e.opacity=0.1;"elastic"===d&&(g="down"===f||"up"===f?"top":"left","down"===f||"right"===f?(e[g]=w(l(e[g])-200),c[g]="+=200px"):(e[g]=w(l(e[g])+200),c[g]="-=200px"));"none"===d?b._afterZoomIn():b.wrap.css(e).animate(c,{duration:a.nextSpeed,easing:a.nextEasing,complete:b._afterZoomIn})},changeOut:function(){var a=$/;"	m
+b.transitions.getOrigPosition	vendor/assets/javascripts/jquery.fancybox.pack.js	/^a||b.current;f(".fancybox-wrap").trigger("onReset").remove();f.extend(b,{group:{},opts:{},router:!1,current:null,isActive:!1,isOpened:!1,isOpen:!1,isClosing:!1,wrap:null,skin:null,outer:null,inner:null});b.trigger("afterClose",a)}});b.transitions={getOrigPosition:function(){var a=b.current,d=a.element,e=a.orig,c={},f=50,g=50,h=a.hPadding,j=a.wPadding,m=b.getViewport();!e&&(a.isDom&&d.is(":visible"))&&(e=d.find("img:first"),e.length||(e=d));t(e)?(c=e.offset(),e.is("img")&&(f=e.outerWidth(),g=e.outerHeight())):$/;"	m
+b.transitions.step	vendor/assets/javascripts/jquery.fancybox.pack.js	/^(c.top=m.y+(m.h-g)*a.topRatio,c.left=m.x+(m.w-f)*a.leftRatio);if("fixed"===b.wrap.css("position")||a.locked)c.top-=m.y,c.left-=m.x;return c={top:w(c.top-h*a.topRatio),left:w(c.left-j*a.leftRatio),width:w(f+j),height:w(g+h)}},step:function(a,d){var e,c,f=d.prop;c=b.current;var g=c.wrapSpace,h=c.skinSpace;if("width"===f||"height"===f)e=d.end===d.start?1:(a-d.start)\/(d.end-d.start),b.isClosing&&(e=1-e),c="width"===f?c.wPadding:c.hPadding,c=a-c,b.skin[f](l("width"===f?c:c-g*e)),b.inner[f](l("width"===$/;"	m
+b.transitions.zoomIn	vendor/assets/javascripts/jquery.fancybox.pack.js	/^f?c:c-g*e-h*e))},zoomIn:function(){var a=b.current,d=a.pos,e=a.openEffect,c="elastic"===e,k=f.extend({opacity:1},d);delete k.position;c?(d=this.getOrigPosition(),a.openOpacity&&(d.opacity=0.1)):"fade"===e&&(d.opacity=0.1);b.wrap.css(d).animate(k,{duration:"none"===e?0:a.openSpeed,easing:a.openEasing,step:c?this.step:null,complete:b._afterZoomIn})},zoomOut:function(){var a=b.current,d=a.closeEffect,e="elastic"===d,c={opacity:0.1};e&&(c=this.getOrigPosition(),a.closeOpacity&&(c.opacity=0.1));b.wrap.animate(c,$/;"	m
+b.transitions.zoomOut	vendor/assets/javascripts/jquery.fancybox.pack.js	/^f?c:c-g*e-h*e))},zoomIn:function(){var a=b.current,d=a.pos,e=a.openEffect,c="elastic"===e,k=f.extend({opacity:1},d);delete k.position;c?(d=this.getOrigPosition(),a.openOpacity&&(d.opacity=0.1)):"fade"===e&&(d.opacity=0.1);b.wrap.css(d).animate(k,{duration:"none"===e?0:a.openSpeed,easing:a.openEasing,step:c?this.step:null,complete:b._afterZoomIn})},zoomOut:function(){var a=b.current,d=a.closeEffect,e="elastic"===d,c={opacity:0.1};e&&(c=this.getOrigPosition(),a.closeOpacity&&(c.opacity=0.1));b.wrap.animate(c,$/;"	m
+c.top	vendor/assets/javascripts/jquery.fancybox.pack.js	/^(c.top=m.y+(m.h-g)*a.topRatio,c.left=m.x+(m.w-f)*a.leftRatio);if("fixed"===b.wrap.css("position")||a.locked)c.top-=m.y,c.left-=m.x;return c={top:w(c.top-h*a.topRatio),left:w(c.left-j*a.leftRatio),width:w(f+j),height:w(g+h)}},step:function(a,d){var e,c,f=d.prop;c=b.current;var g=c.wrapSpace,h=c.skinSpace;if("width"===f||"height"===f)e=d.end===d.start?1:(a-d.start)\/(d.end-d.start),b.isClosing&&(e=1-e),c="width"===f?c.wPadding:c.hPadding,c=a-c,b.skin[f](l("width"===f?c:c-g*e)),b.inner[f](l("width"===$/;"	p
+change	db/migrate/20140804103154_create_entries.rb	/^  def change$/;"	f	class:CreateEntries
+change	db/migrate/20140808082152_devise_create_admin_users.rb	/^  def change$/;"	f	class:DeviseCreateAdminUsers
+change	db/migrate/20140808090226_create_users.rb	/^  def change$/;"	f	class:CreateUsers
+change	db/migrate/20140815013150_add_image_name_to_entry.rb	/^  def change$/;"	f	class:AddImageNameToEntry
+change	db/migrate/20140815025055_create_images.rb	/^  def change$/;"	f	class:CreateImages
+change	db/migrate/20140815112636_change_content_type_in_entry.rb	/^  def change$/;"	f	class:ChangeContentTypeInEntry
+constructAMD	vendor/assets/javascripts/keyboard.js	/^	function constructAMD() {$/;"	f
+constructAMD.init	vendor/assets/javascripts/keyboard.js	/^		function init(context) {$/;"	f
+constructCommonJS	vendor/assets/javascripts/keyboard.js	/^	function constructCommonJS() {$/;"	f
+constructCommonJS.init	vendor/assets/javascripts/keyboard.js	/^		function init(context) {$/;"	f
+constructGlobal	vendor/assets/javascripts/keyboard.js	/^	function constructGlobal() {$/;"	f
+constructGlobal.init	vendor/assets/javascripts/keyboard.js	/^		function init(context) {$/;"	f
+create	app/controllers/users_controller.rb	/^  def create$/;"	f	class:UsersController
+display_notice_and_alert	app/helpers/application_helper.rb	/^  def display_notice_and_alert$/;"	f	class:ApplicationHelper
+down	db/migrate/20140808082159_create_active_admin_comments.rb	/^  def self.down$/;"	F	class:CreateActiveAdminComments
+down	db/migrate/20140814033421_create_delayed_jobs.rb	/^  def self.down$/;"	F	class:CreateDelayedJobs
+download_img	lib/crawler/dgtle.rb	/^def download_img(link, name)$/;"	f
+download_img	lib/crawler/feng.rb	/^def download_img(link, name)$/;"	f
+download_img	lib/crawler/macx.rb	/^def download_img(link, name)$/;"	f
+download_img	lib/crawler/v2ex.rb	/^def download_img(link, name)$/;"	f
+f.fn.fancybox	vendor/assets/javascripts/jquery.fancybox.pack.js	/^b.current,e=d.title,c=a.type;f.isFunction(e)&&(e=e.call(d.element,d));if(q(e)&&""!==f.trim(e)){d=f('<div class="fancybox-title fancybox-title-'+c+'-wrap">'+e+"<\/div>");switch(c){case "inside":c=b.skin;break;case "outside":c=b.wrap;break;case "over":c=b.inner;break;default:c=b.skin,d.appendTo("body"),I&&d.width(d.width()),d.wrapInner('<span class="child"><\/span>'),b.current.margin[2]+=Math.abs(l(d.css("margin-bottom")))}d["top"===a.position?"prependTo":"appendTo"](c)}}};f.fn.fancybox=function(a){var d,$/;"	c
+fetch_body	lib/crawler/dgtle.rb	/^def fetch_body(url) $/;"	f
+fetch_body	lib/crawler/feng.rb	/^def fetch_body(url)$/;"	f
+fetch_body	lib/crawler/macx.rb	/^def fetch_body(url)$/;"	f
+fetch_body	lib/crawler/v2ex.rb	/^def fetch_body(url, agent) $/;"	f
+filter_content	lib/crawler/dgtle.rb	/^def filter_content(body) $/;"	f
+filter_content	lib/crawler/feng.rb	/^def filter_content(body)$/;"	f
+filter_content	lib/crawler/macx.rb	/^def filter_content(body)$/;"	f
+filter_content	lib/crawler/v2ex.rb	/^def filter_content(body) $/;"	f
+format_message	lib/robots/twitter.rb	/^  def self.format_message(name, price, link)$/;"	F	class:TwitterBot
+full_content	app/models/entry.rb	/^  def full_content$/;"	f	class:Entry
+generate_content	lib/crawler/dgtle.rb	/^def generate_content(url) $/;"	f
+generate_content	lib/crawler/macx.rb	/^def generate_content(url)$/;"	f
+generate_content	lib/crawler/v2ex.rb	/^def generate_content(url, agent) $/;"	f
+handle_img_link	lib/crawler/dgtle.rb	/^def handle_img_link(entry, url)$/;"	f
+handle_img_link	lib/crawler/feng.rb	/^def handle_img_link(entry, url)$/;"	f
+handle_img_link	lib/crawler/macx.rb	/^def handle_img_link(entry, url)$/;"	f
+handle_img_link	lib/crawler/v2ex.rb	/^def handle_img_link(entry, url, agent)$/;"	f
+has_img	lib/crawler/feng.rb	/^def has_img(body)$/;"	f
+index	app/controllers/entries_controller.rb	/^  def index$/;"	f	class:EntriesController
+init.noConflict	vendor/assets/javascripts/keyboard.js	/^			function noConflict(    ) {$/;"	f
+migrate	db/migrate/20140808082152_devise_create_admin_users.rb	/^  def migrate(direction)$/;"	f	class:DeviseCreateAdminUsers
+reminder	app/mailers/user_mailer.rb	/^  def reminder(user, entries)$/;"	f	class:UserMailer
+reminder	test/mailers/previews/user_mailer_preview.rb	/^  def reminder$/;"	f	class:UserMailerPreview
+save_img	lib/crawler/dgtle.rb	/^def save_img(entry, name, origin_link) $/;"	f
+save_img	lib/crawler/feng.rb	/^def save_img(entry, name, origin_link)$/;"	f
+save_img	lib/crawler/macx.rb	/^def save_img(entry, name, origin_link)$/;"	f
+save_img	lib/crawler/v2ex.rb	/^def save_img(entry, name, origin_link) $/;"	f
+send_welcome_email	app/models/user.rb	/^  def send_welcome_email$/;"	f	class:User
+show	app/controllers/entries_controller.rb	/^  def show$/;"	f	class:EntriesController
+summary	app/models/entry.rb	/^  def self.summary$/;"	F	class:Entry
+tweet	lib/robots/twitter.rb	/^  def self.tweet(name, price, link)$/;"	F	class:TwitterBot
+up	db/migrate/20140808082159_create_active_admin_comments.rb	/^  def self.up$/;"	F	class:CreateActiveAdminComments
+up	db/migrate/20140814033421_create_delayed_jobs.rb	/^  def self.up$/;"	F	class:CreateDelayedJobs
+update_entry_img	lib/crawler/base.rb	/^def update_entry_img(entry)$/;"	f
+user_params	app/controllers/users_controller.rb	/^    def user_params$/;"	f	class:UsersController
+welcome	app/mailers/user_mailer.rb	/^  def welcome(user)$/;"	f	class:UserMailer
+welcome	test/mailers/previews/user_mailer_preview.rb	/^  def welcome$/;"	f	class:UserMailerPreview

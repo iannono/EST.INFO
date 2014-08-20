@@ -40,7 +40,7 @@ def save_img(entry, name, origin_link)
     img_origin_link: origin_link.to_s,
     img_link: "/pd_images/#{name}",
     img_name: name,
-    source: "dgtle"
+    source: "v2ex"
   )
 end 
 
@@ -73,7 +73,7 @@ happend_at = ""
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay.tweet(name, 12, pd_link)
+      TwitterBot.delay.tweet(name, nil, pd_link)
       entry.name= name
       entry.user = user
       entry.content = content || ""

@@ -5,7 +5,7 @@ every 5.minutes do
 end
 
 every 8.minutes do
-  rake "crawler:v2ex"
+  rake "crawler:dgtle"
 end
 
 every 10.minutes do
@@ -13,5 +13,6 @@ every 10.minutes do
 end
 
 every 15.minutes do
-  rake "crawler:dgtle"
+  rake "crawler:v2ex"
 end
+

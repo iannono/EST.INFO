@@ -4,8 +4,8 @@
   .entry-content
     %h1= entry.name
     %p.entry-description
-      = "  #{entry.city}  #{entry.source}  #{time_ago_in_words entry.happend_at}前"
+      = "  #{convert_source(entry.source)}  #{entry.city}  #{time_ago_in_words entry.happend_at}前"
   .entry-right
-    %h1= entry.price
+    %h1= convert_price(entry.price)
     %p
       = link_to '原帖链接', entry.product, target: "_blank"

@@ -68,6 +68,7 @@ happend_at = ""
     price = pd.css('p.tradeprice').first.content || ""
     city = pd.css('p.tradeprice span.city').first.content
     price = price.delete(city).strip if city
+    price = /(\d+)/.match(price)[0]
 
     puts "------------------------------"
     puts "name: " + name

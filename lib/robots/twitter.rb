@@ -8,12 +8,13 @@ class TwitterBot
       config.access_token        = "2728912848-MTMr5Y17QCFcMcohFyccXCDBywUjswuy4coBG1L"
       config.access_token_secret = "QYKmoUvOseBc4z81yTdMyYi1xmNaEmvhmU60XdZSBSfYa"
     end
+    price = (price.nil? || price.blank?) ? "no price" : "¥#{price}"
 
     _msg = format_message(name, price, link)
     client.update(_msg)
   end
 
   def self.format_message(name, price, link)
-    "#{name.slice(0..60)}...[$#{price}:#{link}]"
+    "#{name.slice(0..60)}...[#{price}:#{link}]"
   end
 end 

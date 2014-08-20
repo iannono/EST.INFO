@@ -1,7 +1,6 @@
 #www.macx.cn
 #coding: utf-8
 require './lib/crawler/base'
-require 'pry'
 
 def generate_content(url)
   body = fetch_body(url)
@@ -39,7 +38,7 @@ def save_img(entry, name, origin_link)
     img_origin_link: origin_link.to_s,
     img_link: "/pd_images/#{name}",
     img_name: name,
-    source: "feng"
+    source: "macx"
   )
 end
 
@@ -54,7 +53,7 @@ rescue => e
 end
 
 happend_at = ""
-1.upto(5) do |i|
+1.upto(1) do |i|
   url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&filter=author&orderby=dateline&sortall=1&page=#{i}"
   linksdoc = Nokogiri::HTML(open(url))
   linksdoc.css('div.bm_c ul.ml li').each do |pd|
@@ -70,7 +69,7 @@ happend_at = ""
     price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
     content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
 
-    puts "--------------------------------------------------------------------------------"
+    puts "-----------------------------------------------"
     puts "name: " + name
     puts "product link: " + pd_link if pd_link
     puts "city: " + city
@@ -80,7 +79,7 @@ happend_at = ""
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay.tweet(name, 12, pd_link)
+      TwitterBot.delay.tweet(name, price, pd_link)
       entry.name= name
       entry.source = "macx"
       entry.happend_at = Time.new
