@@ -20,6 +20,7 @@ $(document).ready ->
     afterLoad: ->
       @title = "Image " + (@index + 1) + " of " + @group.length + ((if @title then " - " + @title else ""))
   
+# == binding events to entry ==
   $(document).on "select.entry", ".entry", (e)->
     entry = $(this)
     entry_id = entry.attr("id")
@@ -29,10 +30,14 @@ $(document).ready ->
     else
       $(".entry").removeClass("selected")
       entry.addClass("selected")
+
   
   $(document).on "open.entry", ".entry", (e)->
     entry = $(this)
     entry_id = entry.attr("id")
+
+    # $(".detail").hide() unless entry_id == $(".selected").attr("id")
+    entry.trigger("move.entry.adjust")
 
     if entry.next().hasClass("detail") && !entry.next().is(':visible')
       entry.next().fadeIn()
@@ -48,4 +53,31 @@ $(document).ready ->
           else
             console.log("some error")
       })
+
+  $(document).on "move.entry.down", ".entry", (e) ->
+    entry = $(this)
+    entry.trigger("move.entry.adjust")
+
+    if Math.abs(entry.offset().top - ($(window).height() + $("body").scrollTop())) <= 176
+      $("body").scrollTop($("body").scrollTop() + 88) 
+
+
+  $(document).on "move.entry.up", ".entry", (e) ->
+    entry = $(this)
+    entry.trigger("move.entry.adjust")
+
+    if Math.abs(entry.offset().top - $("body").scrollTop()) <= 88
+      $("body").scrollTop($("body").scrollTop() - 88) 
+
+  $(document).on "move.entry.adjust", ".entry", (e) ->
+    entry = $(this)
+
+    if ($("body").scrollTop() - entry.offset().top) >= 88
+      $("body").scrollTop($("body").scrollTop() - ($("body").scrollTop() - entry.offset().top + $(window).height() / 2))
+      return
+
+    if (entry.offset().top - ($(window).height() + $("body").scrollTop())) >= 88
+      $("body").scrollTop($("body").scrollTop() + (entry.offset().top - $(window).height() / 2))
+      return
+
 

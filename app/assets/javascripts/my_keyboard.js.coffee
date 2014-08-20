@@ -7,7 +7,9 @@ KeyboardJS.on 'j', ->
     if selected.attr("id") == $(".entry").last().attr("id")
       return
     selected.removeClass("selected")
-    selected.nextAll(".entry").first().trigger("select.entry")
+    entry = selected.nextAll(".entry").first()
+    entry.trigger("select.entry")
+    entry.trigger("move.entry.down")
   else
     $(".entry").first().trigger("select.entry")
 
@@ -22,7 +24,9 @@ KeyboardJS.on 'k', ->
     if selected.attr("id") == $(".entry").first().attr("id")
       return
     selected.removeClass("selected")
-    selected.prevAll(".entry").first().trigger("select.entry")
+    entry = selected.prevAll(".entry").first()
+    entry.trigger("select.entry")
+    entry.trigger("move.entry.up")
 
 # scroll up
 KeyboardJS.on 'shift + k', ->
