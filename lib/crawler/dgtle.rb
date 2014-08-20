@@ -10,6 +10,8 @@ end
 def filter_content(body) 
   igs = body.search("ignore_js_op")
   igs.remove 
+  scripts = body.search("script")
+  scripts.remove
   body.content.strip
 end
 
@@ -35,7 +37,7 @@ end
 
 def fetch_body(url) 
   doc = Nokogiri::HTML(open(url))
-  body = doc.css('td.t_f').first 
+  body = doc.css('div.t_fsz').first 
 end 
 
 def download_img(link, name)
