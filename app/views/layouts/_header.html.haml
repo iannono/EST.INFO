@@ -23,7 +23,7 @@
       %li.nav-link
         %a.modal-show{data: {for: "modal-keyboard"}, href: "javascript:void(0)"} 快捷键
       %li.nav-link
-        %a{href: "javascript:void(0)"} 留言
+        = link_to "留言", disqus_path
       %li.nav-link
         %a{href: "javascript:void(0)"} 开发日志
   .centered-navigation-search
@@ -32,8 +32,4 @@
       = f.submit '搜索'
     .clear
     #notice
-      = display_notice_and_alert
-
-
-
-
+      = display_notice_and_alert 

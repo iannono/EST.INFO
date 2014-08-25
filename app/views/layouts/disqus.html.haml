@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    %title Estao
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = render partial: "layouts/google_analytics"
+    = csrf_meta_tags
+  %body
+    %header.centered-navigation
+      .centered-navigation-wrapper
+        %a.mobile-logo
+          %img{src: "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png"}
+        %ul.centered-navigation-menu
+          %li.nav-link.logo
+            %a.logo{href: "javascript:void(0)"}
+              %img{src: "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png"}
+          %li.nav-link
+            %a{href: "javascript:void(0)"} 关于二手淘
+          %li.nav-link
+            %a{href: "javascript:void(0)"} 关于我们
+          %li.nav-link
+            %a.modal-show{data: {for: "modal-keyboard"}, href: "javascript:void(0)"} 快捷键
+          %li.nav-link
+            %a{href: "javascript:void(0)"} 留言
+          %li.nav-link
+            %a{href: "javascript:void(0)"} 开发日志
+    
+    .refills-wrapper
+      = yield
+
+    = render partial: "layouts/footer" 

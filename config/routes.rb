@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   root 'entries#index'
   resources :entries
   resources :users
+
+  #home
+  get '/disqus', to: "home#disqus"
 end
