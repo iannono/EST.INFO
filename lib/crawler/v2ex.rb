@@ -64,12 +64,12 @@ happend_at = ""
     content = generate_content(pd_link, agent)
     user = pd.css('span.small strong a').first.content
 
-    puts "--------------------------------------------------------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "happend_at: " + happend_at
-    puts "content: " + content
+    #puts "--------------------------------------------------------------------------------"
+    #puts "name: " + name
+    #puts "product link: " + pd_link
+    #puts "user: " + user
+    #puts "happend_at: " + happend_at
+    #puts "content: " + content
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?

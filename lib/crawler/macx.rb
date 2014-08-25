@@ -69,13 +69,13 @@ happend_at = ""
     price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
     content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
 
-    puts "-----------------------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link if pd_link
-    puts "city: " + city
-    puts "price: " + price
-    puts "happend_at: " + happend_at
-    puts "content: " + content unless content.blank?
+    #puts "-----------------------------------------------"
+    #puts "name: " + name
+    #puts "product link: " + pd_link if pd_link
+    #puts "city: " + city
+    #puts "price: " + price
+    #puts "happend_at: " + happend_at
+    #puts "content: " + content unless content.blank?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?

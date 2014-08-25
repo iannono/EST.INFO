@@ -72,14 +72,14 @@ happend_at = ""
     price = price.delete(city).strip if city
     price = /(\d+)/.match(price)[0]
 
-    puts "------------------------------"
-    puts "name: " + name
-    puts "content: " + content
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "price: " + price
-    puts "city: " + city
-    puts "happend_at: " + happend_at
+    #puts "------------------------------"
+    #puts "name: " + name
+    #puts "content: " + content
+    #puts "product link: " + pd_link
+    #puts "user: " + user
+    #puts "price: " + price
+    #puts "city: " + city
+    #puts "happend_at: " + happend_at
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?  
