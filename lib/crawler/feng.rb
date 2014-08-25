@@ -67,19 +67,19 @@ happend_at = ""
     body = fetch_body(pd_link)
     puts body
     next unless has_img(body)
-    
+
     content = filter_content(body)
 
-    puts "--------------------------------------------------------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "happend_at: " + happend_at
-    puts "content: " + content unless content.blank?
+    #puts "--------------------------------------------------------------------------------"
+    #puts "name: " + name
+    #puts "product link: " + pd_link
+    #puts "user: " + user
+    #puts "happend_at: " + happend_at
+    #puts "content: " + content unless content.blank?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay.tweet(name, nil, pd_link)
+      #TwitterBot.delay.tweet(name, nil, pd_link)
       entry.name= name
       entry.user= user
       entry.source = "weiphone"
