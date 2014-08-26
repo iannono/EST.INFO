@@ -54,7 +54,8 @@ happend_at = ""
 1.upto(1) do |i|
   url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=author&orderby=dateline&page=#{i}"
   linksdoc = Nokogiri::HTML(open(url).read)
-  linksdoc.css('table#threadlisttableid tbody').each do |pd|
+  linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, index|
+    sleep 5
     next if pd.css('tr th.new').blank?
     name = pd.css('tr th.new a.xst').first.content
 
@@ -79,7 +80,7 @@ happend_at = ""
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay.tweet(name, nil, pd_link)
+      TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, nil, pd_link)
       entry.name= name
       entry.user= user
       entry.source = "weiphone"

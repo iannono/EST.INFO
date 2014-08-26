@@ -56,7 +56,8 @@ happend_at = ""
 1.upto(1) do |i|
   url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&filter=author&orderby=dateline&sortall=1&page=#{i}"
   linksdoc = Nokogiri::HTML(open(url))
-  linksdoc.css('div.bm_c ul.ml li').each do |pd|
+  linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
+    sleep 10
     name = pd.css('h3.ptn a').first.content
     next if name.include? "[置顶]"
 
@@ -79,7 +80,7 @@ happend_at = ""
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay.tweet(name, price, pd_link)
+      TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, price, pd_link)
       entry.name= name
       entry.source = "macx"
       entry.happend_at = Time.new

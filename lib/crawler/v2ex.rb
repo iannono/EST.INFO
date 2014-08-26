@@ -55,7 +55,8 @@ happend_at = ""
 1.upto(1) do |i|
   url = "http://v2ex.com/go/all4all?p=#{i}"
   linksdoc = Nokogiri::HTML(open(url))
-  linksdoc.css('div#TopicsNode div.cell').each do |pd|
+  linksdoc.css('div#TopicsNode div.cell').reverse.each_with_index do |pd, index|
+    sleep 15
     happend_at = pd.css('span.small').first.content
     break if happend_at.include? "1 天前"
 
@@ -73,7 +74,7 @@ happend_at = ""
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
-      TwitterBot.delay.tweet(name, nil, pd_link)
+      TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, nil, pd_link)
       entry.name= name
       entry.user = user
       entry.content = content || ""
