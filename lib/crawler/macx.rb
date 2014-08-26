@@ -27,7 +27,7 @@ def handle_img_link(entry, url)
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
-    puts img.attributes["file"]
+    #puts img.attributes["file"]
     name = download_img(img.attributes["file"], (SecureRandom.hex 4))
     save_img(entry, name, img.attributes["file"])
   end
