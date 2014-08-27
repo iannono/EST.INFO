@@ -28,11 +28,6 @@ def handle_img_link(entry, url)
   end
 end
 
-def has_img(body)
-  html = body.inner_html
-  Nokogiri::HTML(html).css('img').size > 0 ? true : false
-end
-
 def save_img(entry, name, origin_link)
   entry.images.create!(
     img_origin_link: origin_link.to_s,
@@ -66,7 +61,7 @@ happend_at = ""
 
     body = fetch_body(pd_link)
     #puts body
-    next unless has_img(body)
+    next unless has_imgs?(body)
 
     content = filter_content(body)
 

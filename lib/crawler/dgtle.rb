@@ -82,8 +82,8 @@ happend_at = ""
     #puts "happend_at: " + happend_at
 
     entry = Entry.find_or_initialize_by(product: pd_link)
-    if entry.new_record?  
-      TwitterBot.delay.tweet(name, price, pd_link) 
+    if entry.new_record? and has_imgs?(fetch_body(pd_link))
+      TwitterBot.delay.tweet(name, price, pd_link)
       entry.name= name
       entry.content = content
       entry.user = user
