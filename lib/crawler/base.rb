@@ -21,3 +21,7 @@ def update_entry_img(entry)
   end
 end
 
+def has_imgs?(content)
+  return unless content
+  (content.css('img').try(:count) || 0) > 0
+end

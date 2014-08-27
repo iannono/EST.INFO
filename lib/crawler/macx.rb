@@ -27,7 +27,7 @@ def handle_img_link(entry, url)
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
-    puts img.attributes["file"]
+    #puts img.attributes["file"]
     name = download_img(img.attributes["file"], (SecureRandom.hex 4))
     save_img(entry, name, img.attributes["file"])
   end
@@ -78,7 +78,7 @@ happend_at = ""
     #puts "content: " + content unless content.blank?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
-    if entry.new_record?
+    if entry.new_record? and has_imgs?(fetch_body(pd_link))
       TwitterBot.delay.tweet(name, price, pd_link)
       entry.name= name
       entry.source = "macx"
