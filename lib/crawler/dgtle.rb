@@ -20,7 +20,6 @@ def handle_img_link(entry, url)
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
-    puts img.attributes["file"]
     name = download_img(img.attributes["file"], (SecureRandom.hex 4))
     save_img(entry, name, img.attributes["file"])
   end
@@ -42,7 +41,7 @@ end
 
 def download_img(link, name)
   File.open("public/pd_images/#{name}.png", 'wb') do |f|
-    puts link
+    #puts link
     f.write open(link, :read_timeout => 600).read
   end
   "#{name}.png"
@@ -73,14 +72,14 @@ happend_at = ""
     price = price.delete(city).strip if city
     price = /(\d+)/.match(price)[0]
 
-    puts "------------------------------"
-    puts "name: " + name
-    puts "content: " + content
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "price: " + price
-    puts "city: " + city
-    puts "happend_at: " + happend_at
+    #puts "------------------------------"
+    #puts "name: " + name
+    #puts "content: " + content
+    #puts "product link: " + pd_link
+    #puts "user: " + user
+    #puts "price: " + price
+    #puts "city: " + city
+    #puts "happend_at: " + happend_at
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?  

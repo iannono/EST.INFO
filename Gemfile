@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.1'
-gem 'pg'
 gem 'nokogiri'
 gem 'mechanize'
 gem 'devise'
@@ -43,5 +42,6 @@ group :development do
 end
 
 group :production do
+  gem 'pg'
   gem 'unicorn'
 end

@@ -22,15 +22,10 @@ def handle_img_link(entry, url)
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
-    puts img.attributes["file"]
+    #puts img.attributes["file"]
     name = download_img(img.attributes["file"], (SecureRandom.hex 4))
     save_img(entry, name, img.attributes["file"])
   end
-end
-
-def has_img(body)
-  html = body.inner_html
-  Nokogiri::HTML(html).css('img').size > 0 ? true : false
 end
 
 def save_img(entry, name, origin_link)
@@ -43,7 +38,7 @@ def save_img(entry, name, origin_link)
 end
 
 def download_img(link, name)
-  puts link
+  #puts link
   File.open("./public/pd_images/#{name}.jpg", 'wb') do |f|
     f.write open(link, :read_timeout => 600).read
   end
@@ -66,17 +61,17 @@ happend_at = ""
     pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
 
     body = fetch_body(pd_link)
-    puts body
-    next unless has_img(body)
-    
+    #puts body
+    next unless has_imgs?(body)
+
     content = filter_content(body)
 
-    puts "--------------------------------------------------------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "happend_at: " + happend_at
-    puts "content: " + content unless content.blank?
+    #puts "--------------------------------------------------------------------------------"
+    #puts "name: " + name
+    #puts "product link: " + pd_link
+    #puts "user: " + user
+    #puts "happend_at: " + happend_at
+    #puts "content: " + content unless content.blank?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?

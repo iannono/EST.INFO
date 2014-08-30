@@ -27,7 +27,6 @@ def handle_img_link(entry, url)
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
-    puts img.attributes["file"]
     name = download_img(img.attributes["file"], (SecureRandom.hex 4))
     save_img(entry, name, img.attributes["file"])
   end
@@ -65,18 +64,21 @@ happend_at = ""
     break if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
 
     pd_link = pd.css('h3.ptn a').first.attributes["href"].value
-    content = generate_content(pd_link)
+    body = fetch_body(pd_link)
+    next unless has_imgs?(body)
+
+    content = filter_content(body) 
     city = content.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
     price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
     content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
 
-    puts "-----------------------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link if pd_link
-    puts "city: " + city
-    puts "price: " + price
-    puts "happend_at: " + happend_at
-    puts "content: " + content unless content.blank?
+    #puts "-----------------------------------------------"
+    #puts "name: " + name
+    #puts "product link: " + pd_link if pd_link
+    #puts "city: " + city
+    #puts "price: " + price
+    #puts "happend_at: " + happend_at
+    #puts "content: " + content unless content.blank?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
