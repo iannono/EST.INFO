@@ -20,5 +20,5 @@ est_dev
 /config/database.yml
 db/schema.rb
 
-/public/pd_images/
-/public/en_images/
+/public/pd_images/*.png
+/public/en_images/*.png

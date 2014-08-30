@@ -40,5 +40,5 @@ def convert_image(link, name)
 end
 
 def create_img_name
-  "#{SecureRandom.hex(4)}.jpg"
+  "#{SecureRandom.hex(4)}.png"
 end
