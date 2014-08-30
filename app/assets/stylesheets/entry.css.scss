@@ -95,7 +95,12 @@
         top: 0;
         font-size: 1em;
         margin-bottom: .5em;
-        color: tint(red, 30%);
+        .price {
+          color: tint(red, 30%); 
+        }
+        .no-price {
+          color: $entry-description-color;
+        }
       }
       p {
         position: absolute;

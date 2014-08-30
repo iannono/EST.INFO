@@ -10,9 +10,9 @@ module EntriesHelper
 
   def convert_price(price) 
     if price.nil? || price.nil?
-      "No Price"
+      content_tag("span", "No Price", class: "no-price")
     else
-      "¥ #{price}"
+      content_tag("span", "¥ #{price}", class: "price")
     end
   end
 end

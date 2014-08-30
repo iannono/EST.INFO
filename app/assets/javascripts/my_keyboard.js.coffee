@@ -8,6 +8,7 @@ KeyboardJS.on 'j', ->
       return
     selected.removeClass("selected")
     entry = selected.nextAll(".entry").first()
+    console.log(entry.attr("id"))
     entry.trigger("select.entry")
     entry.trigger("move.entry.down")
   else
@@ -25,6 +26,7 @@ KeyboardJS.on 'k', ->
       return
     selected.removeClass("selected")
     entry = selected.prevAll(".entry").first()
+    console.log(entry.attr("id"))
     entry.trigger("select.entry")
     entry.trigger("move.entry.up")
 
