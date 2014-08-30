@@ -29,7 +29,6 @@ def handle_img_link(entry, url, agent)
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["src"]
-    #puts img.attributes["src"]
     name = download_img(img.attributes["src"], (SecureRandom.hex 4))
     save_img(entry, name, img.attributes["src"])
   end
@@ -52,39 +51,37 @@ def download_img(link, name)
 end 
 
 happend_at = ""
-1.upto(1) do |i|
-  url = "http://v2ex.com/go/all4all?p=#{i}"
-  linksdoc = Nokogiri::HTML(open(url))
-  linksdoc.css('div#TopicsNode div.cell').reverse.each_with_index do |pd, index|
-    sleep 15
-    happend_at = pd.css('span.small').first.content
-    break if happend_at.include? "1 天前"
+url = "http://v2ex.com/go/all4all?p=1"
+linksdoc = Nokogiri::HTML(open(url))
+linksdoc.css('div#TopicsNode div.cell').reverse.each_with_index do |pd, index|
 
-    name = pd.css('span.item_title a').first.content
-    pd_link = "http://v2ex.com" + pd.css('span.item_title a').first.attributes["href"].value
-    content = generate_content(pd_link, agent)
-    user = pd.css('span.small strong a').first.content
+  happend_at = pd.css('span.small').first.content
+  next if happend_at.include? "1 天前"
 
-    #puts "--------------------------------------------------------------------------------"
-    #puts "name: " + name
-    #puts "product link: " + pd_link
-    #puts "user: " + user
-    #puts "happend_at: " + happend_at
-    #puts "content: " + content
+  name = pd.css('span.item_title a').first.content
+  pd_link = "http://v2ex.com" + pd.css('span.item_title a').first.attributes["href"].value
+  content = generate_content(pd_link, agent)
+  user = pd.css('span.small strong a').first.content
 
-    entry = Entry.find_or_initialize_by(product: pd_link)
-    if entry.new_record?
-      TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, nil, pd_link)
-      entry.name= name
-      entry.user = user
-      entry.content = content || ""
-      entry.source = "v2ex"
-      entry.happend_at = Time.new
-      entry.save
+  #puts "--------------------------------------------------------------------------------"
+  #puts "name: " + name
+  #puts "product link: " + pd_link
+  #puts "user: " + user
+  #puts "happend_at: " + happend_at
+  #puts "content: " + content
 
-      handle_img_link(entry, pd_link, agent)
-      update_entry_img(entry)
-    end
-    break if happend_at.include? "1 天前"
+  entry = Entry.find_or_initialize_by(product: pd_link)
+  if entry.new_record?
+    TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, nil, pd_link)
+    entry.name= name
+    entry.user = user
+    entry.content = content || ""
+    entry.source = "v2ex"
+    entry.happend_at = Time.new
+    entry.save
+
+    handle_img_link(entry, pd_link, agent)
+    update_entry_img(entry)
   end
+  sleep 15
 end

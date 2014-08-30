@@ -22,7 +22,7 @@ gem 'delayed_job_active_record'
 gem 'weibo_2'
 gem 'settingslogic'
 gem 'whenever', :require => false
-
+gem 'mini_magick' 
 gem 'neat'
 
 group :development do

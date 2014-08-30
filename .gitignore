@@ -21,3 +21,4 @@ est_dev
 db/schema.rb
 
 /public/pd_images/
+/public/en_images/

@@ -38,7 +38,6 @@ def save_img(entry, name, origin_link)
 end
 
 def download_img(link, name)
-  #puts link
   File.open("./public/pd_images/#{name}.jpg", 'wb') do |f|
     f.write open(link, :read_timeout => 600).read
   end
@@ -46,47 +45,43 @@ def download_img(link, name)
 end
 
 happend_at = ""
-1.upto(1) do |i|
-  url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=author&orderby=dateline&page=#{i}"
-  linksdoc = Nokogiri::HTML(open(url).read)
-  linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, index|
-    sleep 5
-    next if pd.css('tr th.new').blank?
-    name = pd.css('tr th.new a.xst').first.content
+url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=author&orderby=dateline&page=1"
+linksdoc = Nokogiri::HTML(open(url).read)
 
-    happend_at = pd.css('tr td.by span.xi1 span').first.try(:content) || ""
-    break if happend_at.blank? or happend_at.include? "昨天"
+linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, index|
+  next if pd.css('tr th.new').blank?
+  name = pd.css('tr th.new a.xst').first.content
 
-    user = pd.css('tr td.by a').first.try(:content)
-    pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
+  happend_at = pd.css('tr td.by span.xi1 span').first.try(:content) || ""
+  next if happend_at.blank? or happend_at.include? "昨天"
 
-    body = fetch_body(pd_link)
-    #puts body
-    next unless has_imgs?(body)
+  user = pd.css('tr td.by a').first.try(:content)
+  pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
 
-    content = filter_content(body)
+  body = fetch_body(pd_link)
+  next unless has_imgs?(body)
 
-    #puts "--------------------------------------------------------------------------------"
-    #puts "name: " + name
-    #puts "product link: " + pd_link
-    #puts "user: " + user
-    #puts "happend_at: " + happend_at
-    #puts "content: " + content unless content.blank?
+  content = filter_content(body)
 
-    entry = Entry.find_or_initialize_by(product: pd_link)
-    if entry.new_record?
-      TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, nil, pd_link)
-      entry.name= name
-      entry.user= user
-      entry.source = "weiphone"
-      entry.happend_at = Time.new
-      entry.content = content
-      entry.save
+  #puts "--------------------------------------------------------------------------------"
+  #puts "name: " + name
+  #puts "product link: " + pd_link
+  #puts "user: " + user
+  #puts "happend_at: " + happend_at
+  #puts "content: " + content unless content.blank?
 
-      handle_img_link(entry, pd_link)
-      update_entry_img(entry)
-    end
+  entry = Entry.find_or_initialize_by(product: pd_link)
+  if entry.new_record?
+    TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, nil, pd_link)
+    entry.name= name
+    entry.user= user
+    entry.source = "weiphone"
+    entry.happend_at = Time.new
+    entry.content = content
+    entry.save
+
+    handle_img_link(entry, pd_link)
+    update_entry_img(entry)
   end
-
-  break if happend_at.blank? or happend_at.include? "昨天"
-end
+  sleep 5
+end 

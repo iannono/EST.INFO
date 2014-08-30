@@ -41,7 +41,6 @@ end
 
 def download_img(link, name)
   File.open("public/pd_images/#{name}.png", 'wb') do |f|
-    #puts link
     f.write open(link, :read_timeout => 600).read
   end
   "#{name}.png"
@@ -49,54 +48,50 @@ rescue => e
   return
 end
 
-happend_at = ""
-1.upto(1) do |i|
-  url = "http://trade.dgtle.com/dgtle_module.php?mod=trade&ac=index&typeid=&PName=&searchsort=0&page=#{i}"
-  linksdoc = Nokogiri::HTML(open(url))
+happend_at = "" 
+url = "http://trade.dgtle.com/dgtle_module.php?mod=trade&ac=index&typeid=&PName=&searchsort=0&page=1" 
+linksdoc = Nokogiri::HTML(open(url))
 
-  linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
-    sleep 8
-    happend_at = pd.css('p.tradeinfo span.tradedateline').first.content
-    break if happend_at != Date.today.strftime('%Y-%m-%d')
+linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
 
-    name = pd.css('p.tradetitle a').first.content
-    user = pd.css('p.tradeuser').first.content
+  happend_at = pd.css('p.tradeinfo span.tradedateline').first.content
+  next if happend_at != Date.today.strftime('%Y-%m-%d')
 
-    img_link = pd.css('div.tradepic a img').first.attributes["src"].value if pd.css('div.tradepic a img').first.try(:attributes) 
+  name = pd.css('p.tradetitle a').first.content
+  user = pd.css('p.tradeuser').first.content
 
-    pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
-    content = generate_content(pd_link)
+  img_link = pd.css('div.tradepic a img').first.attributes["src"].value if pd.css('div.tradepic a img').first.try(:attributes) 
 
-    price = pd.css('p.tradeprice').first.content || ""
-    city = pd.css('p.tradeprice span.city').first.content
-    price = price.delete(city).strip if city
-    price = /(\d+)/.match(price)[0]
+  pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
+  content = generate_content(pd_link)
 
-    #puts "------------------------------"
-    #puts "name: " + name
-    #puts "content: " + content
-    #puts "product link: " + pd_link
-    #puts "user: " + user
-    #puts "price: " + price
-    #puts "city: " + city
-    #puts "happend_at: " + happend_at
+  price = pd.css('p.tradeprice').first.content || ""
+  city = pd.css('p.tradeprice span.city').first.content
+  price = price.delete(city).strip if city
+  price = /(\d+)/.match(price)[0]
 
-    entry = Entry.find_or_initialize_by(product: pd_link)
-    if entry.new_record?  
-      TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, price, pd_link) 
-      entry.name= name
-      entry.content = content
-      entry.user = user
-      entry.price = price
-      entry.city = city
-      entry.source = "dgtle"
-      entry.happend_at = Time.new
-      entry.save
+  puts "------------------------------"
+  puts "name: " + name
+  puts "content: " + content
+  puts "product link: " + pd_link
+  puts "user: " + user
+  puts "price: " + price
+  puts "city: " + city
+  puts "happend_at: " + happend_at
 
-      handle_img_link(entry, pd_link)
-      update_entry_img(entry)
-    end
+  entry = Entry.find_or_initialize_by(product: pd_link)
+  if entry.new_record?  
+    TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, price, pd_link) 
+    entry.name= name
+    entry.content = content
+    entry.user = user
+    entry.price = price
+    entry.city = city
+    entry.source = "dgtle"
+    entry.happend_at = Time.new
+    entry.save
+
+    handle_img_link(entry, pd_link)
+    update_entry_img(entry)
   end
-
-  break if happend_at != Date.today.strftime('%Y-%m-%d')
-end
+end 

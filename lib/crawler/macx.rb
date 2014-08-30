@@ -51,50 +51,47 @@ rescue => e
   return
 end
 
-happend_at = ""
-1.upto(1) do |i|
-  url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&filter=author&orderby=dateline&sortall=1&page=#{i}"
-  linksdoc = Nokogiri::HTML(open(url))
-  linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
-    sleep 10
-    name = pd.css('h3.ptn a').first.content
-    next if name.include? "[置顶]"
+happend_at = "" 
+url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&filter=author&orderby=dateline&sortall=1&page=1"
+linksdoc = Nokogiri::HTML(open(url))
 
-    happend_at = pd.css('div.cl').last.css('em.xs0').last.content
-    break if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
+linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
+  name = pd.css('h3.ptn a').first.content
+  next if name.include? "[置顶]"
 
-    pd_link = pd.css('h3.ptn a').first.attributes["href"].value
-    body = fetch_body(pd_link)
-    next unless has_imgs?(body)
+  happend_at = pd.css('div.cl').last.css('em.xs0').last.content
+  next if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
 
-    content = filter_content(body) 
-    city = content.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
-    price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
-    content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
+  pd_link = pd.css('h3.ptn a').first.attributes["href"].value
+  body = fetch_body(pd_link)
+  next unless has_imgs?(body)
 
-    #puts "-----------------------------------------------"
-    #puts "name: " + name
-    #puts "product link: " + pd_link if pd_link
-    #puts "city: " + city
-    #puts "price: " + price
-    #puts "happend_at: " + happend_at
-    #puts "content: " + content unless content.blank?
+  content = filter_content(body) 
+  city = content.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
+  price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
+  content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
 
-    entry = Entry.find_or_initialize_by(product: pd_link)
-    if entry.new_record?
-      TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, price, pd_link)
-      entry.name= name
-      entry.source = "macx"
-      entry.happend_at = Time.new
-      entry.content = content
-      entry.city = city unless city.blank?
-      entry.price = price unless price.blank?
-      entry.save
+  puts "-----------------------------------------------"
+  puts "name: " + name
+  puts "product link: " + pd_link if pd_link
+  puts "city: " + city
+  puts "price: " + price
+  puts "happend_at: " + happend_at
+  puts "content: " + content unless content.blank?
 
-      handle_img_link(entry, pd_link)
-      update_entry_img(entry)
-    end
+  entry = Entry.find_or_initialize_by(product: pd_link)
+  if entry.new_record?
+    TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, price, pd_link)
+    entry.name= name
+    entry.source = "macx"
+    entry.happend_at = Time.new
+    entry.content = content
+    entry.city = city unless city.blank?
+    entry.price = price unless price.blank?
+    entry.save
+
+    handle_img_link(entry, pd_link)
+    update_entry_img(entry)
   end
-
-  break if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
-end
+  sleep 10
+end 
