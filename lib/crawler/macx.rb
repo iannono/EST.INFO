@@ -72,13 +72,13 @@ linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
     price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
     content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
 
-    puts "-----------------------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link if pd_link
-    puts "city: " + city
-    puts "price: " + price
-    puts "happend_at: " + happend_at
-    puts "content: " + content unless content.blank?
+    #puts "-----------------------------------------------"
+    #puts "name: " + name
+    #puts "product link: " + pd_link if pd_link
+    #puts "city: " + city
+    #puts "price: " + price
+    #puts "happend_at: " + happend_at
+    #puts "content: " + content unless content.blank?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
@@ -95,7 +95,8 @@ linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
       update_entry_img(entry)
     end
     sleep 10
-  rescue
+  rescue => e
+    puts "macx: #{e}"
     next
   end
 end 

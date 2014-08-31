@@ -84,4 +84,4 @@ linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, in
     update_entry_img(entry)
   end
   sleep 5
-end 
+end

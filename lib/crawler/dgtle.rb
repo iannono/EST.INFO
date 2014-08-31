@@ -71,18 +71,18 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
     price = price.delete(city).strip if city
     price = /(\d+)/.match(price)[0]
 
-    puts "------------------------------"
-    puts "name: " + name
-    puts "content: " + content
-    puts "product link: " + pd_link
-    puts "user: " + user
-    puts "price: " + price
-    puts "city: " + city
-    puts "happend_at: " + happend_at
+    #puts "------------------------------"
+    #puts "name: " + name
+    #puts "content: " + content
+    #puts "product link: " + pd_link
+    #puts "user: " + user
+    #puts "price: " + price
+    #puts "city: " + city
+    #puts "happend_at: " + happend_at
 
     entry = Entry.find_or_initialize_by(product: pd_link)
-    if entry.new_record?  
-      TwitterBot.delay(run_at: (index*20).seconds.from_now).tweet(name, price, pd_link) 
+    if entry.new_record?
+      TwitterBot.delay(run_at: (index*20).seconds.from_now).tweet(name, price, pd_link)
       entry.name= name
       entry.content = content
       entry.user = user
@@ -95,7 +95,8 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
       handle_img_link(entry, pd_link)
       update_entry_img(entry)
     end
-  rescue
+  rescue => e
+    puts "dgtle: #{e}"
     next
   end
-end 
+end
