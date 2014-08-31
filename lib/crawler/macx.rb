@@ -56,42 +56,46 @@ url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&filter=author&ord
 linksdoc = Nokogiri::HTML(open(url))
 
 linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
-  name = pd.css('h3.ptn a').first.content
-  next if name.include? "[置顶]"
+  begin
+    name = pd.css('h3.ptn a').first.content
+    next if name.include? "[置顶]"
 
-  happend_at = pd.css('div.cl').last.css('em.xs0').last.content
-  next if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
+    happend_at = pd.css('div.cl').last.css('em.xs0').last.content
+    next if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
 
-  pd_link = pd.css('h3.ptn a').first.attributes["href"].value
-  body = fetch_body(pd_link)
-  next unless has_imgs?(body)
+    pd_link = pd.css('h3.ptn a').first.attributes["href"].value
+    body = fetch_body(pd_link)
+    next unless has_imgs?(body)
 
-  content = filter_content(body) 
-  city = content.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
-  price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
-  content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
+    content = filter_content(body) 
+    city = content.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
+    price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
+    content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
 
-  puts "-----------------------------------------------"
-  puts "name: " + name
-  puts "product link: " + pd_link if pd_link
-  puts "city: " + city
-  puts "price: " + price
-  puts "happend_at: " + happend_at
-  puts "content: " + content unless content.blank?
+    puts "-----------------------------------------------"
+    puts "name: " + name
+    puts "product link: " + pd_link if pd_link
+    puts "city: " + city
+    puts "price: " + price
+    puts "happend_at: " + happend_at
+    puts "content: " + content unless content.blank?
 
-  entry = Entry.find_or_initialize_by(product: pd_link)
-  if entry.new_record?
-    TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, price, pd_link)
-    entry.name= name
-    entry.source = "macx"
-    entry.happend_at = Time.new
-    entry.content = content
-    entry.city = city unless city.blank?
-    entry.price = price unless price.blank?
-    entry.save
+    entry = Entry.find_or_initialize_by(product: pd_link)
+    if entry.new_record?
+      TwitterBot.delay(run_at: (index*30).seconds.from_now).tweet(name, price, pd_link)
+      entry.name= name
+      entry.source = "macx"
+      entry.happend_at = Time.new
+      entry.content = content
+      entry.city = city unless city.blank?
+      entry.price = price unless price.blank?
+      entry.save
 
-    handle_img_link(entry, pd_link)
-    update_entry_img(entry)
+      handle_img_link(entry, pd_link)
+      update_entry_img(entry)
+    end
+    sleep 10
+  rescue
+    next
   end
-  sleep 10
 end 

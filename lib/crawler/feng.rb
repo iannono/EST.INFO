@@ -72,7 +72,7 @@ linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, in
 
   entry = Entry.find_or_initialize_by(product: pd_link)
   if entry.new_record?
-    TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, nil, pd_link)
+    TwitterBot.delay(run_at: (index*10).seconds.from_now).tweet(name, nil, pd_link)
     entry.name= name
     entry.user= user
     entry.source = "weiphone"

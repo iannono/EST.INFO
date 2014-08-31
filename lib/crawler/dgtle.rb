@@ -54,44 +54,48 @@ linksdoc = Nokogiri::HTML(open(url))
 
 linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
 
-  happend_at = pd.css('p.tradeinfo span.tradedateline').first.content
-  next if happend_at != Date.today.strftime('%Y-%m-%d')
+  begin
+    happend_at = pd.css('p.tradeinfo span.tradedateline').first.content
+    next if happend_at != Date.today.strftime('%Y-%m-%d')
 
-  name = pd.css('p.tradetitle a').first.content
-  user = pd.css('p.tradeuser').first.content
+    name = pd.css('p.tradetitle a').first.content
+    user = pd.css('p.tradeuser').first.content
 
-  img_link = pd.css('div.tradepic a img').first.attributes["src"].value if pd.css('div.tradepic a img').first.try(:attributes) 
+    img_link = pd.css('div.tradepic a img').first.attributes["src"].value if pd.css('div.tradepic a img').first.try(:attributes) 
 
-  pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
-  content = generate_content(pd_link)
+    pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
+    content = generate_content(pd_link)
 
-  price = pd.css('p.tradeprice').first.content || ""
-  city = pd.css('p.tradeprice span.city').first.content
-  price = price.delete(city).strip if city
-  price = /(\d+)/.match(price)[0]
+    price = pd.css('p.tradeprice').first.content || ""
+    city = pd.css('p.tradeprice span.city').first.content
+    price = price.delete(city).strip if city
+    price = /(\d+)/.match(price)[0]
 
-  puts "------------------------------"
-  puts "name: " + name
-  puts "content: " + content
-  puts "product link: " + pd_link
-  puts "user: " + user
-  puts "price: " + price
-  puts "city: " + city
-  puts "happend_at: " + happend_at
+    puts "------------------------------"
+    puts "name: " + name
+    puts "content: " + content
+    puts "product link: " + pd_link
+    puts "user: " + user
+    puts "price: " + price
+    puts "city: " + city
+    puts "happend_at: " + happend_at
 
-  entry = Entry.find_or_initialize_by(product: pd_link)
-  if entry.new_record?  
-    TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, price, pd_link) 
-    entry.name= name
-    entry.content = content
-    entry.user = user
-    entry.price = price
-    entry.city = city
-    entry.source = "dgtle"
-    entry.happend_at = Time.new
-    entry.save
+    entry = Entry.find_or_initialize_by(product: pd_link)
+    if entry.new_record?  
+      TwitterBot.delay(run_at: (index*20).seconds.from_now).tweet(name, price, pd_link) 
+      entry.name= name
+      entry.content = content
+      entry.user = user
+      entry.price = price
+      entry.city = city
+      entry.source = "dgtle"
+      entry.happend_at = Time.new
+      entry.save
 
-    handle_img_link(entry, pd_link)
-    update_entry_img(entry)
+      handle_img_link(entry, pd_link)
+      update_entry_img(entry)
+    end
+  rescue
+    next
   end
 end 

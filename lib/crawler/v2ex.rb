@@ -55,33 +55,37 @@ url = "http://v2ex.com/go/all4all?p=1"
 linksdoc = Nokogiri::HTML(open(url))
 linksdoc.css('div#TopicsNode div.cell').reverse.each_with_index do |pd, index|
 
-  happend_at = pd.css('span.small').first.content
-  next if happend_at.include? "1 天前"
+  begin
+    happend_at = pd.css('span.small').first.content
+    next if happend_at.include? "1 天前"
 
-  name = pd.css('span.item_title a').first.content
-  pd_link = "http://v2ex.com" + pd.css('span.item_title a').first.attributes["href"].value
-  content = generate_content(pd_link, agent)
-  user = pd.css('span.small strong a').first.content
+    name = pd.css('span.item_title a').first.content
+    pd_link = "http://v2ex.com" + pd.css('span.item_title a').first.attributes["href"].value
+    content = generate_content(pd_link, agent)
+    user = pd.css('span.small strong a').first.content
 
-  #puts "--------------------------------------------------------------------------------"
-  #puts "name: " + name
-  #puts "product link: " + pd_link
-  #puts "user: " + user
-  #puts "happend_at: " + happend_at
-  #puts "content: " + content
+    #puts "--------------------------------------------------------------------------------"
+    #puts "name: " + name
+    #puts "product link: " + pd_link
+    #puts "user: " + user
+    #puts "happend_at: " + happend_at
+    #puts "content: " + content
 
-  entry = Entry.find_or_initialize_by(product: pd_link)
-  if entry.new_record?
-    TwitterBot.delay(run_at: index.minutes.from_now).tweet(name, nil, pd_link)
-    entry.name= name
-    entry.user = user
-    entry.content = content || ""
-    entry.source = "v2ex"
-    entry.happend_at = Time.new
-    entry.save
+    entry = Entry.find_or_initialize_by(product: pd_link)
+    if entry.new_record?
+      TwitterBot.delay(run_at: (index*40).seconds.from_now).tweet(name, nil, pd_link)
+      entry.name= name
+      entry.user = user
+      entry.content = content || ""
+      entry.source = "v2ex"
+      entry.happend_at = Time.new
+      entry.save
 
-    handle_img_link(entry, pd_link, agent)
-    update_entry_img(entry)
+      handle_img_link(entry, pd_link, agent)
+      update_entry_img(entry)
+    end
+    sleep 10
+  rescue
+    next
   end
-  sleep 15
 end
