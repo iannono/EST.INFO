@@ -35,3 +35,7 @@ rake jobs:work
 
 ## other
 1. set server's time zone
+
+
+## chrome extensions
+tools ==> Extensions ==> Developer Mode ==> Load unpackedextension
