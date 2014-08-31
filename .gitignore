@@ -22,3 +22,4 @@ db/schema.rb
 
 /public/pd_images/*.png
 /public/en_images/*.png
+/public/pd_images/*.jpg
