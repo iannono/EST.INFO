@@ -101,11 +101,13 @@
     
     a {
       color: $centered-navigation-color;
-      display: inline-block;
-
+      display: inline-block; 
 
       &:hover {
         color: $centered-navigation-color-hover;
+      }
+      &.special {
+        color: tint(red, 30%); 
       }
     }
   }
@@ -124,4 +126,5 @@
     max-height: $centered-navigation-logo-height;
     opacity: .6;
   } 
+
 }

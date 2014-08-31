@@ -30,7 +30,6 @@ def has_imgs?(content)
   (content.css('img').try(:count) || 0) > 0
 end
 
-private
 def convert_image(link, name)
   image = MiniMagick::Image.open("./public#{link}")
   image.resize "160x120"

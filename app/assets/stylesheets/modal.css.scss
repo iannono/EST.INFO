@@ -123,7 +123,7 @@
         @include media($medium-screen) {
           @include columns(2 8em);
         }
-      }
+      } 
     }
 
     a.cta {
@@ -136,6 +136,21 @@
         padding: 0 2em;
       }
     }
+
+    &.modal-special {
+      @include media($medium-screen) {
+        padding: $modal-padding;
+        width: 80%;
+        max-height: 60%;
+        margin-top: 10em;
+      }
+
+      @include media($large-screen) {
+        width: 80%;
+        min-height: 80%;
+        margin-top: 5em;
+      }
+    } 
   }
 
   .modal-state:checked + .modal-window {
@@ -146,4 +161,5 @@
   .modal-state:checked + .modal-window .modal-inner {
     top: 0;
   }
+
 }

@@ -32,3 +32,6 @@ crontab -r
 ```
 rake jobs:work
 ``` 
+
+## other
+1. set server's time zone
