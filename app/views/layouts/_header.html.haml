@@ -1,13 +1,3 @@
--# %header.center
--#   .refills-wrapper
--#     %h1 Estao
--#     = form_for User.new, html: { id: 'subscibe' } do |f|
--#       = f.email_field :email
--#       = f.submit '订阅'
--#     .clear
--#     #notice
--#       = display_notice_and_alert
-
 %header.centered-navigation
   .centered-navigation-wrapper
     %a.mobile-logo
@@ -20,6 +10,8 @@
         %a{href: "javascript:void(0)"} 关于二手淘
       %li.nav-link
         %a{href: "javascript:void(0)"} 关于我们
+      %li.nav-link
+        %a.modal-show.special{data: {for: "modal-special"}, href: "javascript:void(0)"} 特别提示
       %li.nav-link
         %a.modal-show{data: {for: "modal-keyboard"}, href: "javascript:void(0)"} 快捷键
       %li.nav-link
