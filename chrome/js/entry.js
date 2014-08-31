@@ -2,17 +2,6 @@ var xmlHttp;
 var content = document.getElementById('content');
 var sourceurl = "http://162.243.236.79"
 
-//function my_entries(el){
-  //var today=new Date();
-  //var h=today.getHours();
-  //var m=today.getMinutes();
-  //var s=today.getSeconds();
-  //m=m>=10?m:('0'+m);
-  //s=s>=10?s:('0'+s);
-  //el.innerHTML = "<h1>"+ h+":"+m+":"+s + "</h1>";
-  //setTimeout(function(){my_entries(el)}, 1000);
-//}
-
 function get_entries(){
   xmlHttp = new XMLHttpRequest();
   url = sourceurl + "/entries.json";
@@ -39,7 +28,11 @@ function getSuccess(){
             html = html + "<tr><td><img src='images/no_image.jpg' width='64' height='48'></td>";
           }
           html = html + "<td><div class='detail'><a href='"+item.product+"' target='_blank'><h3>"+item.name+"</h3></a><p>"+item.source+"</p></div></td>";
-          html = html + "<td><h3 class='price'>"+(item.price || "No Price")+"</h3></td></tr>";
+          if (item.price) {
+            html = html + "<td><h3 class='price'>"+item.price+"</h3></td></tr>";
+          }else{
+            html = html + "<td><h3 class='noprice'>No Price</h3></td></tr>";
+          }
         }
         html = html + "</table>";
         content.innerHTML = html;
@@ -48,5 +41,4 @@ function getSuccess(){
   }
 }
 
-//my_entries(content);
 get_entries();

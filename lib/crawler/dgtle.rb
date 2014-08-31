@@ -61,7 +61,7 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
     name = pd.css('p.tradetitle a').first.content
     user = pd.css('p.tradeuser').first.content
 
-    img_link = pd.css('div.tradepic a img').first.attributes["src"].value if pd.css('div.tradepic a img').first.try(:attributes) 
+    img_link = pd.css('div.tradepic a img').first.attributes["src"].value if pd.css('div.tradepic a img').first.try(:attributes)
 
     pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
     content = generate_content(pd_link)
@@ -91,6 +91,10 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
       entry.source = "dgtle"
       entry.happend_at = Time.new
       entry.save
+
+      # cover image for pd
+      cover_name = download_img(img_link, (SecureRandom.hex 4))
+      save_img(entry, cover_name, img_link)
 
       handle_img_link(entry, pd_link)
       update_entry_img(entry)
