@@ -119,6 +119,9 @@
     @include media($large-screen) {
       display: inline;
     }
+    a {
+      padding-right: 0px;
+    }
   }
 
   .logo img {
