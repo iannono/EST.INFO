@@ -27,7 +27,12 @@ end
 
 def has_imgs?(content)
   return unless content
-  (content.css('img').try(:count) || 0) > 0
+  count = 0
+  content.css('img').each do |img|
+    file = img.attributes["file"]
+    count += 1 if file and (file.value.end_with?(".jpg") or file.value.end_with?(".png"))
+  end
+  count > 0
 end
 
 def convert_image(link, name)
