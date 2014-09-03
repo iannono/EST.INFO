@@ -41,7 +41,6 @@ body.each_with_index do |pd, index|
     pd_link = pd["url"]
     happend_at = Time.at(pd["created"])
     content_rendered = pd["content_rendered"]
-    next unless has_imgs?(Nokogiri::HTML(content_rendered))
     name = pd["title"]
     break unless happend_at.strftime('%Y-%m-%d') == Date.today.strftime('%Y-%m-%d')
     entry = Entry.find_or_initialize_by(product: pd_link)
