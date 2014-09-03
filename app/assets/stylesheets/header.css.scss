@@ -19,7 +19,6 @@
   width: 100%;
   z-index: 9999;
   
-  
   // Mobile view
 
   .mobile-logo {
@@ -51,6 +50,14 @@
     @include clearfix;
     z-index: 999;
     margin-top: 2em;
+    input[type='submit'] {
+      color: #fff;
+      background-color: #449d44;
+      border-color: #398439;
+      &:hover {
+        background-color: #398439;
+      }
+    }
   }
 
   ul.centered-navigation-menu {    
@@ -70,9 +77,7 @@
     }
   }
 
-  
 // The nav items
-
   .nav-link:first-child {
     @include media($horizontal-bar-mode) {
       margin-left: $centered-navigation-item-nudge;
