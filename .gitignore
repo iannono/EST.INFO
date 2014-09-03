@@ -16,6 +16,7 @@
 /tmp
 cron.log
 est_dev
+.DS_Store
 
 /config/database.yml
 db/schema.rb
