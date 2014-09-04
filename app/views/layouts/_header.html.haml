@@ -19,8 +19,8 @@
       %li.nav-link
         %a{href: "javascript:void(0)"} 开发日志
   .centered-navigation-search
-    = form_for User.new, html: { id: 'subscibe' } do |f|
-      = f.text_field :email, placeholder: "二手淘, 不仅仅多一倍乐趣!"
+    = form_for Entry.new, html: { id: 'search' } do |f|
+      = f.text_field :name, placeholder: "二手淘, 不仅仅多一倍乐趣!"
       = f.submit '淘淘看'
     .clear
     #notice
