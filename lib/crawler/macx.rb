@@ -18,7 +18,9 @@ def filter_content(body)
 end
 
 def fetch_body(url)
-  doc = Nokogiri::HTML(open(url))
+  agent = Mechanize.new
+  page = agent.get url
+  doc = Nokogiri::HTML(open(page))
   body = doc.css('div.pcb').first
 end
 
@@ -33,9 +35,10 @@ def handle_img_link(entry, url)
 end
 
 def save_img(entry, name, origin_link)
+  image_link_qiniu = save_img_by_qiniu(name, "pd_images")
   entry.images.create!(
     img_origin_link: origin_link.to_s,
-    img_link: "/pd_images/#{name}",
+    img_link: image_link_qiniu,
     img_name: name,
     source: "macx"
   )
@@ -51,9 +54,11 @@ rescue => e
   return
 end
 
-happend_at = "" 
+happend_at = ""
 url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&filter=author&orderby=dateline&sortall=1&page=1"
-linksdoc = Nokogiri::HTML(open(url))
+agent = Mechanize.new
+page = agent.get url
+linksdoc = Nokogiri::HTML(page.body)
 
 linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
   begin

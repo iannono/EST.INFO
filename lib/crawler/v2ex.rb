@@ -20,7 +20,7 @@ end
 def save_img(entry, name, origin_link)
   entry.images.create!(
     img_origin_link: origin_link.to_s,
-    img_link: "/pd_images/#{name}",
+    img_link: image_link_qiniu,
     img_name: name,
     source: "v2ex"
   )
@@ -56,7 +56,7 @@ body.each_with_index do |pd, index|
       handle_img_link(entry, content_rendered)
       update_entry_img(entry)
     end
-    #sleep 10
+    sleep 3
   rescue => e
     puts "v2ex: #{e}"
     next

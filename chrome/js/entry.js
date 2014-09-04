@@ -23,7 +23,7 @@ function getSuccess(){
         for(var i=0; i<responseJson.length; i++) {
           var item = responseJson[i];
           if (item.img) {
-            html = html + "<tr><td><img src='"+sourceurl+item.img+"' width='64' height='48'></td>";
+            html = html + "<tr><td><img src='"+item.img+"' width='64' height='48'></td>";
           } else {
             html = html + "<tr><td><img src='images/no_image.jpg' width='64' height='48'></td>";
           }
