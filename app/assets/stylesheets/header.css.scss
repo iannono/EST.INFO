@@ -60,6 +60,12 @@
     }
   }
 
+  .centered_navigation-sologan {
+    @include outer-container;
+    @include clearfix;
+    z-index: 999; 
+  }
+
   ul.centered-navigation-menu {    
     -webkit-transform-style: preserve-3d; 
 // stop webkit flicker

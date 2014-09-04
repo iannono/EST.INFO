@@ -20,8 +20,8 @@
         %a{href: "javascript:void(0)"} 开发日志
   .centered-navigation-search
     = form_for User.new, html: { id: 'subscibe' } do |f|
-      = f.email_field :email
-      = f.submit '搜索'
+      = f.text_field :email, placeholder: "二手淘, 不仅仅多一倍乐趣!"
+      = f.submit '淘淘看'
     .clear
     #notice
       = display_notice_and_alert 
