@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   root 'entries#index'
-  resources :entries
+  resources :entries do
+    post 'search', on: :collection
+  end
   resources :users
 
   #home
