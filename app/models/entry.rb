@@ -1,3 +1,5 @@
+require 'qiniu'
+require 'yaml'
 class Entry < ActiveRecord::Base
   default_scope { order('id DESC') }
   scope :today, -> { where(happend_at: Time.new.beginning_of_day()..Time.new.end_of_day()) }
@@ -22,6 +24,37 @@ class Entry < ActiveRecord::Base
 
   def full_content
     add_html_tag(content).concat(add_img_tag)
+  end
+
+  def upload_to_qiniu
+    settings = YAML::load(File.open('./config/application.yml'))
+    qiniu = settings['production']['qiniu']
+    Qiniu.establish_connection! :access_key => qiniu['AccessKey'],
+                                :secret_key => qiniu['SecretKey']
+    put_policy = Qiniu::Auth::PutPolicy.new(
+      "estao",     # 存储空间
+    )
+
+    uptoken = Qiniu::Auth.generate_uptoken(put_policy)
+
+    begin
+      return if self.uploaded
+      self.images.each do |img|
+        code, result, response_headers = Qiniu::Storage.upload_with_put_policy(
+          put_policy,
+          "./public#{img.img_link}",
+          "pd_images/#{img.img_name}"
+        )
+
+        if code == 200 and result
+          img.update!(img_link: "#{qiniu['ServerUrl']}#{result['key']}")
+        end
+      end
+      self.update!(uploaded: true)
+    rescue => e
+      puts "upload image into qiniu error: #{e}"
+      return
+    end
   end
 
   private

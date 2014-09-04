@@ -1,5 +1,5 @@
 # 数字尾巴
-#coding: utf-8
+#encoding: utf-8
 require './lib/crawler/base'
 
 def generate_content(url) 
@@ -26,10 +26,9 @@ def handle_img_link(entry, url)
 end
 
 def save_img(entry, name, origin_link)
-  image_link_qiniu = save_img_by_qiniu(name, "pd_images")
   entry.images.create!(
     img_origin_link: origin_link.to_s,
-    img_link: image_link_qiniu,
+    img_link: "/pd_images/#{name}",
     img_name: name,
     source: "dgtle"
   )
@@ -49,8 +48,9 @@ rescue => e
   return
 end
 
-happend_at = "" 
-url = "http://trade.dgtle.com/dgtle_module.php?mod=trade&ac=index&typeid=&PName=&searchsort=0&page=1" 
+count = 0
+happend_at = ""
+url = "http://trade.dgtle.com/dgtle_module.php?mod=trade&ac=index&typeid=&PName=&searchsort=0&page=1"
 linksdoc = Nokogiri::HTML(open(url))
 
 linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
@@ -99,9 +99,13 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
 
       handle_img_link(entry, pd_link)
       update_entry_img(entry)
+      entry.delay.upload_to_qiniu
+      count += 1
     end
   rescue => e
     puts "dgtle: #{e}"
     next
   end
 end
+
+puts "Add #{count} entries from dgtle at #{Time.new}."
