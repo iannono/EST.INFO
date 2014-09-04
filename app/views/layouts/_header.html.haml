@@ -1,11 +1,11 @@
 %header.centered-navigation
   .centered-navigation-wrapper
     %a.mobile-logo
-      %img{src: "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png"}
+      = image_tag("estao.png")
     %ul.centered-navigation-menu
       %li.nav-link.logo
-        %a.logo{href: "javascript:void(0)"}
-          %img{src: "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png"}
+        = link_to root_path, class: "logo" do
+          = image_tag("estao.png")
       %li.nav-link
         %a{href: "javascript:void(0)"} 关于二手淘
       %li.nav-link
@@ -19,9 +19,9 @@
       %li.nav-link
         %a{href: "javascript:void(0)"} 开发日志
   .centered-navigation-search
-    = form_for User.new, html: { id: 'subscibe' } do |f|
-      = f.email_field :email
-      = f.submit '搜索'
+    = form_tag search_entries_path,  id: 'search' do |f|
+      = text_field_tag :entry_name, nil, placeholder: "二手淘, 不仅仅多一倍乐趣!"
+      = submit_tag '淘淘看'
     .clear
     #notice
       = display_notice_and_alert 

@@ -11,4 +11,8 @@ class EntriesController < ApplicationController
       render json: {result: false}
     end
   end
+
+  def search
+    @entries = Entry.where(["name like ?", "%#{params[:entry_name]}%"]).page params[:page]
+  end
 end

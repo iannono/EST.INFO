@@ -24,6 +24,7 @@ gem 'settingslogic'
 gem 'whenever', :require => false
 gem 'neat'
 gem 'qiniu', '~> 6.3.1'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'thin'
