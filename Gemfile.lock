@@ -172,6 +172,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
+    newrelic_rpm (3.9.0.229)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     ntlm-http (0.1.1)
@@ -325,6 +326,7 @@ DEPENDENCIES
   mechanize
   mini_magick
   neat
+  newrelic_rpm
   nokogiri
   pg
   pry

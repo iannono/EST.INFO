@@ -24,6 +24,7 @@ gem 'settingslogic'
 gem 'whenever', :require => false
 gem 'mini_magick' 
 gem 'neat'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'thin'
