@@ -1,6 +1,6 @@
 var xmlHttp;
 var content = document.getElementById('content');
-var sourceurl = "http://162.243.236.79"
+var sourceurl = "http://estao.info"
 
 function get_entries(){
   xmlHttp = new XMLHttpRequest();
@@ -23,7 +23,7 @@ function getSuccess(){
         for(var i=0; i<responseJson.length; i++) {
           var item = responseJson[i];
           if (item.img) {
-            html = html + "<tr><td><img src='"+item.img+"' width='64' height='48'></td>";
+            html = html + "<tr><td><img src='"+sourceurl+item.img+"' width='64' height='48'></td>";
           } else {
             html = html + "<tr><td><img src='images/no_image.jpg' width='64' height='48'></td>";
           }

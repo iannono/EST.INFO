@@ -1,11 +1,9 @@
 #v2ex.com
-#coding: utf-8
+#encoding: utf-8
 require './lib/crawler/base'
 require 'net/http'
 require 'json'
 require 'time'
-require 'pry'
-
 
 def handle_img_link(entry, body)
   return if body.blank?
@@ -20,7 +18,7 @@ end
 def save_img(entry, name, origin_link)
   entry.images.create!(
     img_origin_link: origin_link.to_s,
-    img_link: image_link_qiniu,
+    img_link: "/pd_images/#{name}",
     img_name: name,
     source: "v2ex"
   )
@@ -33,6 +31,7 @@ def download_img(link, name)
   "#{name}.png"
 end
 
+count = 0
 url = "https://www.v2ex.com/api/topics/show.json?node_name=all4all"
 response = Net::HTTP.get_response(URI(url))
 body = JSON.parse(response.body)
@@ -55,6 +54,8 @@ body.each_with_index do |pd, index|
 
       handle_img_link(entry, content_rendered)
       update_entry_img(entry)
+      entry.delay.upload_to_qiniu
+      count += 1
     end
     sleep 3
   rescue => e
@@ -63,3 +64,4 @@ body.each_with_index do |pd, index|
   end
 end
 
+puts "Add #{count} entries from v2ex at #{Time.new}."
