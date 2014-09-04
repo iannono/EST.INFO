@@ -25,10 +25,11 @@ def handle_img_link(entry, url)
   end
 end
 
-def save_img(entry, name, origin_link) 
+def save_img(entry, name, origin_link)
+  image_link_qiniu = save_img_by_qiniu(name, "pd_images")
   entry.images.create!(
     img_origin_link: origin_link.to_s,
-    img_link: "/pd_images/#{name}",
+    img_link: image_link_qiniu,
     img_name: name,
     source: "dgtle"
   )
@@ -44,7 +45,7 @@ def download_img(link, name)
     f.write open(link, :read_timeout => 600).read
   end
   "#{name}.png"
-rescue => e 
+rescue => e
   return
 end
 
