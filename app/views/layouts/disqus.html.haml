@@ -1,28 +1,31 @@
 !!!
 %html
   %head
-    %title Estao
+    %title 二手淘
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = render partial: "layouts/google_analytics"
+    = favicon_link_tag
     = csrf_meta_tags
   %body
     %header.centered-navigation
       .centered-navigation-wrapper
         %a.mobile-logo
-          %img{src: "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png"}
+          = image_tag("estao.png")
         %ul.centered-navigation-menu
           %li.nav-link.logo
-            %a.logo{href: "javascript:void(0)"}
-              %img{src: "https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_3_dark.png"}
+            %a.logo{href: "/"}
+              = image_tag("estao.png")
           %li.nav-link
             %a{href: "javascript:void(0)"} 关于二手淘
           %li.nav-link
             %a{href: "javascript:void(0)"} 关于我们
           %li.nav-link
+            %a.modal-show.special{data: {for: "modal-special"}, href: "javascript:void(0)"} 特别提示
+          %li.nav-link
             %a.modal-show{data: {for: "modal-keyboard"}, href: "javascript:void(0)"} 快捷键
           %li.nav-link
-            %a{href: "javascript:void(0)"} 留言
+            = link_to "留言", disqus_path
           %li.nav-link
             %a{href: "javascript:void(0)"} 开发日志
     

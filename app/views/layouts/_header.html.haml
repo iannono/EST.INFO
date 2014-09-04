@@ -4,7 +4,7 @@
       = image_tag("estao.png")
     %ul.centered-navigation-menu
       %li.nav-link.logo
-        %a.logo{href: "javascript:void(0)"}
+        = link_to root_path, class: "logo" do
           = image_tag("estao.png")
       %li.nav-link
         %a{href: "javascript:void(0)"} 关于二手淘
