@@ -40,14 +40,16 @@ class Entry < ActiveRecord::Base
     begin
       return if self.uploaded
       self.images.each do |img|
+        image_link = "./public#{img.img_link}"
         code, result, response_headers = Qiniu::Storage.upload_with_put_policy(
           put_policy,
-          "./public#{img.img_link}",
+          image_link,
           "pd_images/#{img.img_name}"
         )
 
         if code == 200 and result
           img.update!(img_link: "#{qiniu['ServerUrl']}#{result['key']}")
+          File.delete(image_link) if File::exists?(image_link)
         end
       end
       self.update!(uploaded: true)
