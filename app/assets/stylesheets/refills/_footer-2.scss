@@ -4,6 +4,8 @@
   $footer-link-color: transparentize($footer-color, .6);
   $footer-disclaimer-color: transparentize($footer-color, .6);
 
+  position: absolute;
+  bottom: 0;
   background: $footer-background;
   padding: $base-line-height;
   width: 100%;
