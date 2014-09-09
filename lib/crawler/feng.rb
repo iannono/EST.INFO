@@ -1,5 +1,5 @@
 #威锋网
-#coding: utf-8
+#encoding: utf-8
 require './lib/crawler/base'
 
 def filter_content(body)
@@ -29,10 +29,9 @@ def handle_img_link(entry, url)
 end
 
 def save_img(entry, name, origin_link)
-  image_link_qiniu = save_img_by_qiniu(name, "pd_images")
   entry.images.create!(
     img_origin_link: origin_link.to_s,
-    img_link: image_link_qiniu,
+    img_link: "/pd_images/#{name}",
     img_name: name,
     source: "feng"
   )
@@ -45,6 +44,7 @@ def download_img(link, name)
   "#{name}.jpg"
 end
 
+count = 0
 happend_at = ""
 url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=author&orderby=dateline&page=1"
 linksdoc = Nokogiri::HTML(open(url).read)
@@ -65,7 +65,7 @@ linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, in
 
     content = filter_content(body)
 
-    puts "--------------------------------------------------------------------------------"
+    puts "---------------------------------------------------------------"
     puts "name: " + name
     puts "product link: " + pd_link
     puts "user: " + user
@@ -84,9 +84,14 @@ linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, in
 
       handle_img_link(entry, pd_link)
       update_entry_img(entry)
+      entry.delay.upload_to_qiniu
+      count += 1
     end
+    sleep 5
   rescue => e
     puts "weiphone: #{e}"
     next
   end
 end
+
+puts "Add #{count} entries from weiphone at #{Time.new}."

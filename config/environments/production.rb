@@ -80,4 +80,22 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.middleware.use ExceptionNotification::Rack,
+    :ignore_exceptions => ExceptionNotifier.ignored_exceptions,
+    :email => {
+      :email_prefix => "BRTR notifier",
+      :sender_address => Settings.mailer.sender_address,
+      :exception_recipients => Settings.mailer.exception_recipients,
+      :delivery_method => :smtp,
+      :smtp_settings => {
+        :address              => Settings.smtp.address,
+        :port                 => Settings.smtp.port,
+        :domain               => Settings.smtp.domain,
+        :user_name            => Settings.smtp.user_name,
+        :password             => Settings.smtp.password,
+        :authentication       => Settings.smtp.authentication,
+        :enable_starttls_auto => true
+      }
+    }
 end

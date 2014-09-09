@@ -22,6 +22,7 @@ gem 'delayed_job_active_record'
 gem 'weibo_2'
 gem 'settingslogic'
 gem 'whenever', :require => false
+gem 'mini_magick'
 gem 'neat'
 gem 'qiniu', '~> 6.3.1'
 gem 'newrelic_rpm'
@@ -45,4 +46,5 @@ end
 group :production do
   gem 'pg'
   gem 'unicorn'
+  gem 'exception_notification'
 end
