@@ -66,8 +66,10 @@ class Entry < ActiveRecord::Base
   def self.clean
     settings = YAML::load(File.open('./config/application.yml'))
     qiniu = settings['production']['qiniu']
-    Qiniu.establish_connection! :access_key => qiniu['AccessKey'],
-                                :secret_key => qiniu['SecretKey']
+    access_key = qiniu['AccessKey'] || Settings.qiniu.AccessKey
+    secret_key = qiniu['SecretKey'] || Settings.qiniu.SecretKey
+    Qiniu.establish_connection! :access_key => access_key,
+                                :secret_key => secret_key
 
     Entry.not_deleted.legacy.each do |e|
       if e.uploaded?
