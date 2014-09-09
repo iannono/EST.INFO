@@ -18,9 +18,7 @@ def filter_content(body)
 end
 
 def fetch_body(url)
-  agent = Mechanize.new
-  page = agent.get url
-  doc = Nokogiri::HTML(open(page))
+  doc = Nokogiri::HTML(open(url))
   body = doc.css('div.pcb').first
 end
 
@@ -55,12 +53,11 @@ rescue => e
 end
 
 happend_at = ""
-url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&filter=author&orderby=dateline&sortall=1&page=1"
-agent = Mechanize.new
-page = agent.get url
-linksdoc = Nokogiri::HTML(page.body)
+url = "http://www.macx.cn/forum.php?mod=forumdisplay&fid=10001&orderby=dateline&filter=dateline&dateline=86400&orderby=dateline&sortid=3"
 
-linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
+linksdoc = Nokogiri::HTML(open(url).read)
+
+linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
   begin
     name = pd.css('h3.ptn a').first.content
     next if name.include? "[置顶]"
@@ -77,13 +74,13 @@ linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
     price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
     content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
 
-    #puts "-----------------------------------------------"
-    #puts "name: " + name
-    #puts "product link: " + pd_link if pd_link
-    #puts "city: " + city
-    #puts "price: " + price
-    #puts "happend_at: " + happend_at
-    #puts "content: " + content unless content.blank?
+    puts "-----------------------------------------------"
+    puts "name: " + name
+    puts "product link: " + pd_link if pd_link
+    puts "city: " + city
+    puts "price: " + price
+    puts "happend_at: " + happend_at
+    puts "content: " + content unless content.blank?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
@@ -99,7 +96,6 @@ linksdoc.css('div.bm_c ul.ml li').reverse.each_with_index do |pd, index|
       handle_img_link(entry, pd_link)
       update_entry_img(entry)
     end
-    sleep 10
   rescue => e
     puts "macx: #{e}"
     next

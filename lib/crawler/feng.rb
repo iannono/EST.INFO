@@ -50,39 +50,43 @@ url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&fi
 linksdoc = Nokogiri::HTML(open(url).read)
 
 linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, index|
-  next if pd.css('tr th.new').blank?
-  name = pd.css('tr th.new a.xst').first.content
+  begin
+    next if pd.css('tr th.new').blank?
+    name = pd.css('tr th.new a.xst').first.content
 
-  happend_at = pd.css('tr td.by span.xi1 span').first.try(:content) || ""
-  next if happend_at.blank? or happend_at.include? "昨天"
+    happend_at = pd.css('tr td.by span.xi1 span').first.try(:content) || ""
+    next if happend_at.blank? or happend_at.include? "昨天"
 
-  user = pd.css('tr td.by a').first.try(:content)
-  pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
+    user = pd.css('tr td.by a').first.try(:content)
+    pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
 
-  body = fetch_body(pd_link)
-  next unless has_imgs?(body)
+    body = fetch_body(pd_link)
+    next unless has_imgs?(body)
 
-  content = filter_content(body)
+    content = filter_content(body)
 
-  #puts "--------------------------------------------------------------------------------"
-  #puts "name: " + name
-  #puts "product link: " + pd_link
-  #puts "user: " + user
-  #puts "happend_at: " + happend_at
-  #puts "content: " + content unless content.blank?
+    puts "--------------------------------------------------------------------------------"
+    puts "name: " + name
+    puts "product link: " + pd_link
+    puts "user: " + user
+    puts "happend_at: " + happend_at
+    puts "content: " + content unless content.blank?
 
-  entry = Entry.find_or_initialize_by(product: pd_link)
-  if entry.new_record?
-    TwitterBot.delay(run_at: (index*10).seconds.from_now).tweet(name, nil, pd_link)
-    entry.name= name
-    entry.user= user
-    entry.source = "weiphone"
-    entry.happend_at = Time.new
-    entry.content = content
-    entry.save
+    entry = Entry.find_or_initialize_by(product: pd_link)
+    if entry.new_record?
+      TwitterBot.delay(run_at: (index*10).seconds.from_now).tweet(name, nil, pd_link)
+      entry.name= name
+      entry.user= user
+      entry.source = "weiphone"
+      entry.happend_at = Time.new
+      entry.content = content
+      entry.save
 
-    handle_img_link(entry, pd_link)
-    update_entry_img(entry)
+      handle_img_link(entry, pd_link)
+      update_entry_img(entry)
+    end
+  rescue => e
+    puts "weiphone: #{e}"
+    next
   end
-  sleep 5
 end

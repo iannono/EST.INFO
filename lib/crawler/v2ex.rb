@@ -4,7 +4,6 @@ require './lib/crawler/base'
 require 'net/http'
 require 'json'
 require 'time'
-require 'pry'
 
 
 def handle_img_link(entry, body)
@@ -18,6 +17,7 @@ def handle_img_link(entry, body)
 end
 
 def save_img(entry, name, origin_link)
+  image_link_qiniu = save_img_by_qiniu(name, "pd_images")
   entry.images.create!(
     img_origin_link: origin_link.to_s,
     img_link: image_link_qiniu,
