@@ -16,6 +16,6 @@ every 15.minutes do
   rake "crawler:v2ex"
 end
 
-every 1.month do
+every '0 2 1 * *' do
   Entry.clean
 end
