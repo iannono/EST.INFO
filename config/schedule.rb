@@ -17,5 +17,5 @@ every 15.minutes do
 end
 
 every '0 2 1 * *' do
-  Entry.clean
+  runner "Entry.clean"
 end
