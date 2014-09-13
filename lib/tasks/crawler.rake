@@ -23,4 +23,9 @@ namespace :crawler do
   task :feng do
     ruby "./lib/crawler/feng.rb"
   end
+
+  desc "crawling imp3"
+  task :imp3 do
+    ruby "./lib/crawler/imp3.rb"
+  end
 end
