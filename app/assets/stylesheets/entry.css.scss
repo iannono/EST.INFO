@@ -80,6 +80,12 @@
 
         .price {
           color: tint(red, 30%);
+          display: block;
+          overflow: hidden;
+          height: 20px;
+          line-height: 20px;
+          text-align: left;
+          word-break: break-word;
         }
       }
     }
