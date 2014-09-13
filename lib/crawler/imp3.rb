@@ -1,22 +1,18 @@
-# 数字尾巴
+# IMP3
 #encoding: utf-8
 require './lib/crawler/base'
 
-def generate_content(url) 
-  body = fetch_body(url)
-  filter_content(body)
-end
-
 def filter_content(body) 
   igs = body.search("ignore_js_op")
-  igs.remove 
+  igs.try(:remove) 
   scripts = body.search("script")
-  scripts.remove
+  scripts.try(:remove)
   body.content.strip
 end
 
 def handle_img_link(entry, url)
-  html = fetch_body(url).inner_html
+  doc = get_doc(url)
+  html = fetch_body(doc, 'div.t_fsz').inner_html
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
@@ -34,10 +30,13 @@ def save_img(entry, name, origin_link)
   )
 end 
 
-def fetch_body(url) 
-  doc = Nokogiri::HTML(open(url))
-  body = doc.css('div.t_fsz').first 
+def fetch_body(doc, selector) 
+  body = doc.css(selector).first 
 end 
+
+def get_doc(url)
+  doc = Nokogiri::HTML(open(url))
+end
 
 def download_img(link, name)
   File.open("public/pd_images/#{name}.png", 'wb') do |f|
@@ -50,34 +49,39 @@ end
 
 count = 0
 happend_at = ""
-url = "http://trade.dgtle.com/dgtle_module.php?mod=trade&ac=index&typeid=&PName=&searchsort=0&page=1"
+url = "http://bbs.imp3.net/forum.php?mod=forumdisplay&fid=63&orderby=dateline&filter=dateline&dateline=86400&orderby=dateline"
 linksdoc = Nokogiri::HTML(open(url))
 
-linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
+linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
 
   begin
-    happend_at = pd.css('p.tradeinfo span.tradedateline').first.content
-    next if happend_at != Date.today.strftime('%Y-%m-%d')
+    # happend_at = pd.css('span.xi1').first.content
+    # break if happend_at != Date.today.strftime('%Y-%m-%d')
 
-    name = pd.css('p.tradetitle a').first.content
-    user = pd.css('p.tradeuser').first.content
+    next unless pd.css("img[alt='attach_img']").first.present?
 
-    pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
-    content = generate_content(pd_link)
+    happend_at = pd.css('span.xi1').first.content
+    name = pd.css("a.s.xst").first.content
+    user = pd.css('cite a').first.content
 
-    price = pd.css('p.tradeprice').first.content || ""
-    city = pd.css('p.tradeprice span.city').first.content
-    price = price.delete(city).strip if city
-    price = /(\d+)/.match(price)[0]
+    pd_link = pd.css('a.s.xst').first.attributes["href"].value 
+    doc = get_doc(pd_link)
+
+    body = fetch_body(doc, "table.cgtl.mbm")
+    content = filter_content(body) 
+    city = content.match(/所在地:\r\n.*\r\n/).to_s.delete("所在地:").try(:strip)
+    price = content.match(/商品价格:\r\n.*\r\n/).to_s.delete("商品价格:").try(:strip)
+
+    body = fetch_body(doc, ".t_fsz")
+    content = filter_content(body)
 
     puts "------------------------------"
     puts "name: " + name
-    puts "content: " + content
     puts "product link: " + pd_link
     puts "user: " + user
     puts "price: " + price
     puts "city: " + city
-    puts "happend_at: " + happend_at
+    puts "content: " + content
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
@@ -87,9 +91,9 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
       entry.user = user
       entry.price = price
       entry.city = city
-      entry.source = "dgtle"
+      entry.source = "imp3"
       entry.happend_at = Time.new
-      entry.save
+      entry.save 
 
       handle_img_link(entry, pd_link)
       update_entry_img(entry)
@@ -97,9 +101,9 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
       count += 1
     end
   rescue => e
-    puts "dgtle: #{e}"
+    puts "imp3: #{e}"
     next
   end
 end
 
-puts "Add #{count} entries from dgtle at #{Time.new}."
+puts "Add #{count} entries from imp3 at #{Time.new}." 

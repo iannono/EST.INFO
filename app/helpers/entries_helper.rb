@@ -5,6 +5,7 @@ module EntriesHelper
     when "macx" then "MACX"
     when "v2ex" then "V2EX"
     when "weiphone" then "威锋网"
+    when "imp3" then "IMP3"
     end
   end
 

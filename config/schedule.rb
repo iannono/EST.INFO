@@ -4,12 +4,12 @@ every 5.minutes do
   rake "crawler:feng"
 end
 
-every 8.minutes do
-  rake "crawler:dgtle"
+every 6.minutes do
+  rake "crawler:imp3"
 end
 
-every 10.minutes do
-  rake "crawler:macx"
+every 8.minutes do
+  rake "crawler:dgtle"
 end
 
 every 15.minutes do
