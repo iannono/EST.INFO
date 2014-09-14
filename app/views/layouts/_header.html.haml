@@ -7,9 +7,9 @@
         = link_to root_path, class: "logo" do
           = image_tag("estao.png")
       %li.nav-link
-        %a{href: "javascript:void(0)"} 关于二手淘
+        %a.modal-show{data: {for: "modal-about"}, href: "javascript:void(0)"} 关于二手淘
       %li.nav-link
-        %a{href: "javascript:void(0)"} 关于我们
+        %a.modal-show{data: {for: "modal-us"}, href: "javascript:void(0)"} 关于我们
       %li.nav-link
         %a.modal-show.special{data: {for: "modal-special"}, href: "javascript:void(0)"} 特别提示
       %li.nav-link

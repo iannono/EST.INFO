@@ -1,0 +1,32 @@
+.modal
+  %input#modal-us.modal-state{type: "checkbox"}
+  .modal-window
+    .modal-inner.modal-us
+      %label.modal-close{data: {for: "modal-us"}}
+      %h1 关于我们
+      %p.body
+        .us
+          .us-image
+            = image_tag("xiongbo027.png")
+          .us-content
+            %h1 KENLU
+            %p
+            %p.us-detail
+        .us
+          .us-image
+            = image_tag("xiongbo027.png")
+          .us-content
+            %h1 CLARK 
+            %p
+            %p.us-description
+        .us
+          .us-image
+            = image_tag("us/xiongbo027.png")
+          .us-content
+            %h1 XIONGBO027
+            %p 喜动漫，美剧，读书，编程. (c#, ruby, javascript)
+            %p.us-detail
+              = "mail: xiongbo027@gmail.com"
+              = link_to "twitter", "https://twitter.com/xiongbo027"
+              = link_to "weibo", "https://weibo.com/xiongbo027"
+              = link_to "github", "https://github.com/xiongbo027"

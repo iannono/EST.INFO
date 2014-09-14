@@ -151,6 +151,21 @@
         margin-top: 5em;
       }
     } 
+
+    &.modal-us {
+      @include media($medium-screen) {
+        padding: $modal-padding;
+        width: 50%;
+        max-height: 70%;
+        margin-top: 10em;
+      }
+
+      @include media($large-screen) {
+        width: 50%;
+        min-height: 50%;
+        margin-top: 5em;
+      }
+    } 
   }
 
   .modal-state:checked + .modal-window {
