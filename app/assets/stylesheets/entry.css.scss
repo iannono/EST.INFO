@@ -77,10 +77,6 @@
         a {
           color: $entry-description-color;
         }
-
-        .price {
-          color: tint(red, 30%);
-        }
       }
     }
 
@@ -97,6 +93,12 @@
         margin-bottom: .5em;
         .price {
           color: tint(red, 30%); 
+          display: block;
+          overflow: hidden;
+          height: 20px;
+          line-height: 20px;
+          text-align: left;
+          word-break: break-word;
         }
         .no-price {
           color: $entry-description-color;
