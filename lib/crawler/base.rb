@@ -47,3 +47,11 @@ def has_imgs?(content)
   end
   count > 0
 end
+
+def fetch_body(doc, selector) 
+  body = doc.css(selector).first 
+end 
+
+def get_doc(url)
+  doc = Nokogiri::HTML(open(url))
+end 

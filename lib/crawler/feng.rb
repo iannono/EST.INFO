@@ -10,15 +10,10 @@ def filter_content(body)
     scripts.remove
   end
   body.try(:content).try(:strip)
-end
+end 
 
-def fetch_body(url)
-  doc = Nokogiri::HTML(open(url))
-  body = doc.css('div.t_fsz').first
-end
-
-def handle_img_link(entry, url)
-  html = fetch_body(url).inner_html
+def handle_img_link(entry, doc)
+  html = fetch_body(doc, 'div.t_fsz').inner_html
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
@@ -46,31 +41,30 @@ end
 
 count = 0
 happend_at = ""
-url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=author&orderby=dateline&page=1"
+url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=dateline&dateline=86400&orderby=dateline"
 linksdoc = Nokogiri::HTML(open(url).read)
 
-linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, index|
-  begin
-    next if pd.css('tr th.new').blank?
-    name = pd.css('tr th.new a.xst').first.content
+linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
+  begin 
 
-    happend_at = pd.css('tr td.by span.xi1 span').first.try(:content) || ""
-    next if happend_at.blank? or happend_at.include? "昨天"
+    next unless pd.css("img[alt='attach_img']").first.present?
 
-    user = pd.css('tr td.by a').first.try(:content)
-    pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
+    name = pd.css('a.xst').first.content
+    user = pd.css('td.by a').first.try(:content)
+    category = pd.css("em a").first.try(:content) 
 
-    body = fetch_body(pd_link)
-    next unless has_imgs?(body)
+    pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value 
+    doc = get_doc(pd_link) 
 
+    body = fetch_body(doc.dup, 'div.t_fsz') 
     content = filter_content(body)
 
     puts "---------------------------------------------------------------"
     puts "name: " + name
     puts "product link: " + pd_link
     puts "user: " + user
-    puts "happend_at: " + happend_at
     puts "content: " + content unless content.blank?
+    puts "category: " + category
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
@@ -80,9 +74,10 @@ linksdoc.css('table#threadlisttableid tbody').reverse.each_with_index do |pd, in
       entry.source = "weiphone"
       entry.happend_at = Time.new
       entry.content = content
+      entry.category = category
       entry.save
 
-      handle_img_link(entry, pd_link)
+      handle_img_link(entry, doc.dup)
       update_entry_img(entry)
       entry.delay.upload_to_qiniu
       count += 1

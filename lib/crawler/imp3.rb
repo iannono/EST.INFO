@@ -10,8 +10,7 @@ def filter_content(body)
   body.content.strip
 end
 
-def handle_img_link(entry, url)
-  doc = get_doc(url)
+def handle_img_link(entry, doc)
   html = fetch_body(doc, 'div.t_fsz').inner_html
 
   Nokogiri::HTML(html).css('img').each do |img|
@@ -30,14 +29,6 @@ def save_img(entry, name, origin_link)
   )
 end 
 
-def fetch_body(doc, selector) 
-  body = doc.css(selector).first 
-end 
-
-def get_doc(url)
-  doc = Nokogiri::HTML(open(url))
-end
-
 def download_img(link, name)
   File.open("public/pd_images/#{name}.png", 'wb') do |f|
     f.write open(link, :read_timeout => 600).read
@@ -55,24 +46,23 @@ linksdoc = Nokogiri::HTML(open(url))
 linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
 
   begin
-    # happend_at = pd.css('span.xi1').first.content
-    # break if happend_at != Date.today.strftime('%Y-%m-%d')
 
     next unless pd.css("img[alt='attach_img']").first.present?
 
     happend_at = pd.css('span.xi1').first.content
     name = pd.css("a.s.xst").first.content
     user = pd.css('cite a').first.content
+    category = pd.css("em a").first.try(:content)
 
     pd_link = pd.css('a.s.xst').first.attributes["href"].value 
     doc = get_doc(pd_link)
 
-    body = fetch_body(doc, "table.cgtl.mbm")
+    body = fetch_body(doc.dup, "table.cgtl.mbm")
     content = filter_content(body) 
     city = content.match(/所在地:\r\n.*\r\n/).to_s.delete("所在地:").try(:strip)
     price = content.match(/商品价格:\r\n.*\r\n/).to_s.delete("商品价格:").try(:strip)
 
-    body = fetch_body(doc, ".t_fsz")
+    body = fetch_body(doc.dup, ".t_fsz")
     content = filter_content(body)
 
     puts "------------------------------"
@@ -82,6 +72,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     puts "price: " + price
     puts "city: " + city
     puts "content: " + content
+    puts "catetory: " + category
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
@@ -93,13 +84,15 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
       entry.city = city
       entry.source = "imp3"
       entry.happend_at = Time.new
+      entry.category = category
       entry.save 
 
-      handle_img_link(entry, pd_link)
+      handle_img_link(entry, doc.dup)
       update_entry_img(entry)
       entry.delay.upload_to_qiniu
       count += 1
     end
+    sleep 8
   rescue => e
     puts "imp3: #{e}"
     next

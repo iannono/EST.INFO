@@ -4,7 +4,7 @@
   .entry-content
     %h1= entry.name
     %p.entry-description
-      = "  #{convert_source(entry.source)}  #{entry.city}  #{time_ago_in_words entry.happend_at}前"
+      = "  #{convert_source(entry.source)}  #{entry.category}  #{entry.city}  #{time_ago_in_words entry.happend_at}前"
   .entry-right
     %h1= convert_price(entry.price)
     %p

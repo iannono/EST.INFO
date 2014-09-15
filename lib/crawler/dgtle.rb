@@ -1,17 +1,17 @@
 # 数字尾巴
 #encoding: utf-8
-require './lib/crawler/base'
+require './lib/crawler/base' 
 
 def filter_content(body) 
   igs = body.search("ignore_js_op")
-  igs.remove 
+  igs.try(:remove) 
   scripts = body.search("script")
-  scripts.remove
+  scripts.try(:remove)
   body.content.strip
 end
 
-def handle_img_link(entry, url)
-  html = fetch_body(url).inner_html
+def handle_img_link(entry, doc)
+  html = fetch_body(doc, 'div.t_fsz').inner_html
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
@@ -27,11 +27,6 @@ def save_img(entry, name, origin_link)
     img_name: name,
     source: "dgtle"
   )
-end 
-
-def fetch_body(url) 
-  doc = Nokogiri::HTML(open(url))
-  body = doc.css('div.t_fsz').first 
 end 
 
 def download_img(link, name)
@@ -54,19 +49,21 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
     happend_at = pd.css('p.tradeinfo span.tradedateline').first.content
     next if happend_at != Date.today.strftime('%Y-%m-%d')
 
+    pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
+    doc = get_doc(pd_link)
+
+    body = fetch_body(doc.dup, 'div.t_fsz')
+    next unless has_imgs?(body) 
+
+    content = filter_content(body) 
     name = pd.css('p.tradetitle a').first.content
     user = pd.css('p.tradeuser').first.content
-
-    pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
-
-    body = fetch_body(pd_link)
-    next unless has_imgs?(body)
-    content = filter_content(body)
-
     price = pd.css('p.tradeprice').first.content || ""
     city = pd.css('p.tradeprice span.city').first.content
     price = price.delete(city).strip if city
-    price = /(\d+)/.match(price)[0]
+    price = /(\d+)/.match(price)[0] 
+    category = fetch_body(doc, ".cr_date font").content.strip
+
 
     puts "------------------------------"
     puts "name: " + name
@@ -76,6 +73,7 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
     puts "price: " + price
     puts "city: " + city
     puts "happend_at: " + happend_at
+    puts "category: " + category
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
@@ -87,9 +85,10 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
       entry.city = city
       entry.source = "dgtle"
       entry.happend_at = Time.new
+      entry.category = category
       entry.save
 
-      handle_img_link(entry, pd_link)
+      handle_img_link(entry, doc.dup)
       update_entry_img(entry)
       entry.delay.upload_to_qiniu
       count += 1
