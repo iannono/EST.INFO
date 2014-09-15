@@ -19,9 +19,9 @@
       %li.nav-link
         %a{href: "javascript:void(0)"} 开发日志
   .centered-navigation-search
-    = form_tag search_entries_path,  id: 'search' do |f|
-      = text_field_tag :entry_name, nil, placeholder: "二手淘, 不仅仅多一倍乐趣!"
-      = submit_tag '淘淘看'
+    = search_form_for Entry.search, url: root_path, html: {id: 'search'} do |f|
+      = f.search_field :name_cont, placeholder: "二手淘, 不仅仅多一倍乐趣!", id: "entry_name"
+      = f.submit "淘淘看"
     .clear
     #notice
       = display_notice_and_alert 

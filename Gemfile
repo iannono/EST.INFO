@@ -26,6 +26,7 @@ gem 'mini_magick'
 gem 'neat'
 gem 'qiniu', '~> 6.3.1'
 gem 'newrelic_rpm'
+gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
 
 group :development do
   gem 'thin'
