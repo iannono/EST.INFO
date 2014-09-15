@@ -2,11 +2,6 @@
 #encoding: utf-8
 require './lib/crawler/base'
 
-def generate_content(url)
-  body = fetch_body(url)
-  filter_content(body)
-end
-
 def filter_content(body)
   if body
     igs = body.search("ignore_js_op")
@@ -17,13 +12,8 @@ def filter_content(body)
   body.try(:content).try(:strip)
 end
 
-def fetch_body(url)
-  doc = Nokogiri::HTML(open(url))
-  body = doc.css('div.pcb').first
-end
-
-def handle_img_link(entry, url)
-  html = fetch_body(url).inner_html
+def handle_img_link(entry, doc)
+  html = fetch_body(doc, ".v2-t_fsz td.t_f").inner_html
 
   Nokogiri::HTML(html).css('img').each do |img|
     next unless img.attributes["file"]
@@ -66,17 +56,17 @@ linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
     next if happend_at != Date.today.strftime('%y-%m-%d').gsub("-0", "-")
 
     pd_link = pd.css('h3.ptn a').first.attributes["href"].value
-    body = fetch_body(pd_link)
+    doc = get_doc(pd_link)
+
+    body = fetch_body(doc.dup, "div.pcb")
     next unless has_imgs?(body)
 
-    abstract = filter_content(body) 
-    city = abstract.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
-    price = abstract.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
-    abstract = "地区: #{city}\n价格: #{price}\n\n"
+    content = filter_content(body) 
+    city = content.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
+    price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
 
-    content = content.css(".v2-t_fsz td.t_f").first
-    content = filter_content(content)
-    content = abstract + content
+    body = fetch_body(doc.dup, ".v2-t_fsz td.t_f")
+    content = filter_content(body)
 
     #puts "-----------------------------------------------"
     #puts "name: " + name
@@ -85,6 +75,7 @@ linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
     #puts "price: " + price
     #puts "happend_at: " + happend_at
     #puts "content: " + content unless content.blank?
+    #puts 
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
@@ -97,7 +88,7 @@ linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
       entry.price = price unless price.blank?
       entry.save
 
-      handle_img_link(entry, pd_link)
+      handle_img_link(entry, doc.dup)
       update_entry_img(entry)
       entry.delay.upload_to_qiniu
       count += 1
