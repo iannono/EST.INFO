@@ -15,7 +15,7 @@ dbconfig = YAML::load(File.open('./config/database.yml'))
 ActiveRecord::Base.establish_connection(dbconfig["development"])
 
 def update_entry_img(entry)
-  if entry.img.nil? && entry.images.size > 0
+  if entry.img.nil? && entry.images.try(:size) > 0
     image = entry.images.first
     image_name = create_img_name
     img_link = convert_image(image.img_link, image_name)

@@ -69,18 +69,22 @@ linksdoc.css('div.bm_c ul.ml li').each_with_index do |pd, index|
     body = fetch_body(pd_link)
     next unless has_imgs?(body)
 
-    content = filter_content(body) 
-    city = content.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
-    price = content.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
-    content = content.gsub(/:\r\n/, ":\r").gsub("\r\n\r\n\r\n", "\r\n")
+    abstract = filter_content(body) 
+    city = abstract.match(/地区:\r\n.*\r\n/).to_s.delete("地区:").try(:strip)
+    price = abstract.match(/出售价格:\r\n.*\r\n/).to_s.delete("出售价格:").try(:strip)
+    abstract = "地区: #{city}\n价格: #{price}\n\n"
 
-    puts "-----------------------------------------------"
-    puts "name: " + name
-    puts "product link: " + pd_link if pd_link
-    puts "city: " + city
-    puts "price: " + price
-    puts "happend_at: " + happend_at
-    puts "content: " + content unless content.blank?
+    content = content.css(".v2-t_fsz td.t_f").first
+    content = filter_content(content)
+    content = abstract + content
+
+    #puts "-----------------------------------------------"
+    #puts "name: " + name
+    #puts "product link: " + pd_link if pd_link
+    #puts "city: " + city
+    #puts "price: " + price
+    #puts "happend_at: " + happend_at
+    #puts "content: " + content unless content.blank?
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?

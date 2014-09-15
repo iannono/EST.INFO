@@ -2,11 +2,6 @@
 #encoding: utf-8
 require './lib/crawler/base'
 
-def generate_content(url) 
-  body = fetch_body(url)
-  filter_content(body)
-end
-
 def filter_content(body) 
   igs = body.search("ignore_js_op")
   igs.remove 
@@ -63,7 +58,10 @@ linksdoc.css('div.boardnav div.tradebox').reverse.each_with_index do |pd, index|
     user = pd.css('p.tradeuser').first.content
 
     pd_link = "http://trade.dgtle.com" + pd.css('div.tradepic a').first.attributes["href"].value
-    content = generate_content(pd_link)
+
+    body = fetch_body(pd_link)
+    next unless has_imgs?(body)
+    content = filter_content(body)
 
     price = pd.css('p.tradeprice').first.content || ""
     city = pd.css('p.tradeprice span.city').first.content
