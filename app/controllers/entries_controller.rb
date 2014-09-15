@@ -1,6 +1,8 @@
 class EntriesController < ApplicationController
   def index
-    @entries = Entry.page params[:page]
+    @q = params[:q].present? ? Entry.search(params[:q]) : Entry.search
+    @entries = @q.result
+    @entries = @entries.page params[:page]
   end
 
   def show
@@ -10,9 +12,5 @@ class EntriesController < ApplicationController
     else
       render json: {result: false}
     end
-  end
-
-  def search
-    @entries = Entry.where(["name like ?", "%#{params[:entry_name]}%"]).page params[:page]
   end
 end
