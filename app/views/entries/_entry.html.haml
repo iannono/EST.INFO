@@ -9,5 +9,4 @@
         %span.badge.success= "  #{entry.category}"
   .entry-right
     %h1= convert_price(entry.price)
-    %p
-      = link_to '原帖链接', entry.product, target: "_blank"
+    %p= link_to '原帖链接', entry.product, target: "_blank"

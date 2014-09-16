@@ -48,8 +48,9 @@ $(document).ready ->
         dataType: "json"
         url: "/entries/#{entry_id}"
         success: (data) ->
-          if data.result == true
-            $(".entry##{entry_id}").after("<div class='detail'>#{data.content}</div>").next().fadeIn(700)
+          if data
+            content = "<div class='detail'>#{data.content}<p class='bottom'>#{data.source}&nbsp;&nbsp;#{data.city || ''}&nbsp;&nbsp;#{data.time}<span class='right'><a href='#{data.product}' target='_blank'>原帖链接</a></span></p></div>"
+            $(".entry##{entry_id}").after(content).next().fadeIn(700)
           else
             console.log("some error")
       })
