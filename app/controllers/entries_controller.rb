@@ -7,10 +7,5 @@ class EntriesController < ApplicationController
 
   def show
     @entry = Entry.find(params[:id])
-    if @entry
-      render json: {result: true, content: @entry.full_content, link: @entry.product}
-    else
-      render json: {result: false}
-    end
   end
 end
