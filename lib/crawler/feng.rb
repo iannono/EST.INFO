@@ -75,6 +75,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     puts "user: " + user
     puts "content: " + content unless content.blank?
     puts "category: " + category
+    puts "price: " + price
 
     entry = Entry.find_or_initialize_by(product: pd_link)
     if entry.new_record?
@@ -85,6 +86,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
       entry.happend_at = Time.new
       entry.content = content
       entry.category = category
+      entry.price = price if price.present?
       entry.save
 
       handle_img_link(entry, doc.dup)
