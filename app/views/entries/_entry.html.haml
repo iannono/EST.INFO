@@ -5,7 +5,8 @@
     %h1= entry.name
     %p.entry-description
       = "  #{convert_source(entry.source)}  #{entry.city}  #{time_ago_in_words entry.happend_at}前"
-      %span.badge.success= "  #{entry.category}"
+      - if entry.category.present?
+        %span.badge.success= "  #{entry.category}"
   .entry-right
     %h1= convert_price(entry.price)
     %p

@@ -8,9 +8,11 @@ def filter_content(body)
     igs.remove
     scripts = body.search("script")
     scripts.remove
+    status = body.search("i")
+    status.remove
   end
   body.try(:content).try(:strip)
-end 
+end
 
 def handle_img_link(entry, doc)
   html = fetch_body(doc, 'div.t_fsz').inner_html
@@ -40,7 +42,7 @@ def download_img(link, name)
 end
 
 count = 0
-happend_at = ""
+#happend_at = ""
 url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=dateline&dateline=86400&orderby=dateline"
 linksdoc = Nokogiri::HTML(open(url).read)
 
@@ -52,12 +54,20 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     name = pd.css('a.xst').first.content
     user = pd.css('td.by a').first.try(:content)
     category = pd.css("em a").first.try(:content) 
+    next if category.include? "求购"
 
     pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value 
     doc = get_doc(pd_link) 
 
     body = fetch_body(doc.dup, 'div.t_fsz') 
     content = filter_content(body)
+
+    price = content.match(/现在.?\d{1,5}/)
+    price = content.match(/价.?\d{1,5}/) if price.blank?
+    price = content.match(/价格.?\d{1,5}/) if price.blank?
+    price = content.match(/\d{1,5}元/) if price.blank?
+    price = content.match(/￥.?\d{1,5}/) if price.blank?
+    price = price.to_s.match(/\d{1,}/).to_s if price.present?
 
     puts "---------------------------------------------------------------"
     puts "name: " + name

@@ -9,7 +9,7 @@
 
   display: table;
   width: 100%;
-  padding-bottom: 1em;
+  padding: 0.2em 0;
   border-bottom: 1px solid transparentize($us-color, .9);
 
   .us-image,
@@ -24,7 +24,7 @@
     > img {
       width: $us-image-width;
       height: auto;
-      border-radius: $base-border-radius;
+      border-radius: 50%;
       padding: $us-image-padding;
       background: $us-background;
       display: block;
@@ -38,6 +38,7 @@
   }
 
   .us-content {
+    padding: 0.7em 0;
     width: 100%;
 
     h1 {
@@ -46,7 +47,7 @@
     }
 
     p {
-      margin-bottom: .5em;
+      margin: 0;
     }
 
     p.us-detail {
