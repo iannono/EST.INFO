@@ -8,6 +8,8 @@ def filter_content(body)
     igs.remove
     scripts = body.search("script")
     scripts.remove
+    status = body.search("i")
+    status.remove
   end
   body.try(:content).try(:strip)
 end
@@ -52,6 +54,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     name = pd.css('a.xst').first.content
     user = pd.css('td.by a').first.try(:content)
     category = pd.css("em a").first.try(:content) 
+    next if category.include? "求购"
 
     pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value 
     doc = get_doc(pd_link) 
