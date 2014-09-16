@@ -10,7 +10,7 @@ def filter_content(body)
     scripts.remove
   end
   body.try(:content).try(:strip)
-end 
+end
 
 def handle_img_link(entry, doc)
   html = fetch_body(doc, 'div.t_fsz').inner_html
@@ -40,7 +40,7 @@ def download_img(link, name)
 end
 
 count = 0
-happend_at = ""
+#happend_at = ""
 url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=dateline&dateline=86400&orderby=dateline"
 linksdoc = Nokogiri::HTML(open(url).read)
 
@@ -58,6 +58,13 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
 
     body = fetch_body(doc.dup, 'div.t_fsz') 
     content = filter_content(body)
+
+    price = content.match(/现在.?\d{1,5}/)
+    price = content.match(/价.?\d{1,5}/) if price.blank?
+    price = content.match(/价格.?\d{1,5}/) if price.blank?
+    price = content.match(/\d{1,5}元/) if price.blank?
+    price = content.match(/￥.?\d{1,5}/) if price.blank?
+    price = price.to_s.match(/\d{1,}/).to_s if price.present?
 
     puts "---------------------------------------------------------------"
     puts "name: " + name
