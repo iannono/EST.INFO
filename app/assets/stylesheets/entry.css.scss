@@ -76,6 +76,12 @@
 
         a {
           color: $entry-description-color;
+          &:hover {
+            color: black;
+            span.badge {
+              background: #CCE46F;
+            }
+          }
         }
       }
     }
