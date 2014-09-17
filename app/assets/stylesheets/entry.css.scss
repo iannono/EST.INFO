@@ -76,6 +76,12 @@
 
         a {
           color: $entry-description-color;
+          &:hover {
+            color: black;
+            span.badge {
+              background: #CCE46F;
+            }
+          }
         }
       }
     }
@@ -122,12 +128,19 @@
 
   .detail {
     padding: 1.5em;
+    border-bottom: 1px solid rgba(51, 51, 51, 0.2);
     img {
       width: 60%;
       padding: 0.5em;
       margin: 0.5em 0;
       border-radius: $base-border-radius;
       border: 1px solid rgba(51, 51, 51, 0.2);
+    }
+    p.bottom {
+      margin: 0;
+      span.right {
+        float: right;
+      }
     }
   }
 }

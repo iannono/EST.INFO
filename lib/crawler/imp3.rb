@@ -61,6 +61,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
     content = filter_content(body) 
     city = content.match(/所在地:\r\n.*\r\n/).to_s.delete("所在地:").try(:strip)
     price = content.match(/商品价格:\r\n.*\r\n/).to_s.delete("商品价格:").try(:strip)
+    price = price.to_s.match(/\d{1,}/).to_s if price.present?
 
     body = fetch_body(doc.dup, ".t_fsz")
     content = filter_content(body)

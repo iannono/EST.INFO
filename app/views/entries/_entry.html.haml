@@ -6,8 +6,8 @@
     %p.entry-description
       = "  #{convert_source(entry.source)}  #{entry.city}  #{time_ago_in_words entry.happend_at}前"
       - if entry.category.present?
-        %span.badge.success= "  #{entry.category}"
+        = link_to root_path(category: entry.category) do
+          %span.badge.success= "  #{entry.category}"
   .entry-right
     %h1= convert_price(entry.price)
-    %p
-      = link_to '原帖链接', entry.product, target: "_blank"
+    %p= link_to '原帖链接', entry.product, target: "_blank"
