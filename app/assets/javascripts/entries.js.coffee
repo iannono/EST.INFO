@@ -1,7 +1,9 @@
-
 $(document).on 'click', '.entry', (e)->
   $(this).trigger("select.entry")
-  $(this).trigger("open.entry") 
+  $(this).trigger("open.entry")
+
+$(document).on 'click', '.entry a', (e) ->
+  e.stopPropagation()
 
 $(document).on "page:change", ->
   if $('.pagination').length
@@ -30,7 +32,6 @@ $(document).ready ->
     else
       $(".entry").removeClass("selected")
       entry.addClass("selected")
-
   
   $(document).on "open.entry", ".entry", (e)->
     entry = $(this)
@@ -43,7 +44,7 @@ $(document).ready ->
       entry.next().fadeIn()
     else if entry.next().hasClass("detail") && entry.next().is(":visible")
       entry.next().fadeOut()
-    else 
+    else
       $.ajax({
         dataType: "json"
         url: "/entries/#{entry_id}"
