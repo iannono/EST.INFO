@@ -16,11 +16,11 @@ class Region
 
   private
   def generate_regions
-    region_file = File.open("areas.txt")
+    region_file = File.open("./lib/regions/areas.txt")
     regions = []
     region_file.each_line do |line|
       regions.push(line.strip.to_s)
     end 
     regions
-  end 
-end 
+  end
+end

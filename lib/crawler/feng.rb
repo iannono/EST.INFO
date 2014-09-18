@@ -1,6 +1,7 @@
 #威锋网
 #encoding: utf-8
 require './lib/crawler/base'
+require './lib/regions/region.rb'
 
 def filter_content(body)
   if body
@@ -41,25 +42,27 @@ def download_img(link, name)
   "#{name}.jpg"
 end
 
+region = Region.new
 count = 0
 #happend_at = ""
 url = "http://bbs.feng.com/forum.php?mod=forumdisplay&fid=29&orderby=dateline&filter=dateline&dateline=86400&orderby=dateline"
 linksdoc = Nokogiri::HTML(open(url).read)
 
 linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
-  begin 
+  begin
 
     next unless pd.css("img[alt='attach_img']").first.present?
 
     name = pd.css('a.xst').first.content
     user = pd.css('td.by a').first.try(:content)
-    category = pd.css("em a").first.try(:content) 
+    category = pd.css("em a").first.try(:content)
     next if category.include? "求购"
+    city = region.filter(name)
 
-    pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value 
-    doc = get_doc(pd_link) 
+    pd_link = "http://bbs.feng.com/" + pd.css('tr th.new a.xst').first.attributes["href"].value
+    doc = get_doc(pd_link)
 
-    body = fetch_body(doc.dup, 'div.t_fsz') 
+    body = fetch_body(doc.dup, 'div.t_fsz')
     content = filter_content(body)
 
     price = content.match(/现在.?\d{1,5}/)
@@ -87,6 +90,7 @@ linksdoc.css("tbody[id^='normalthread']").reverse.each_with_index do |pd, index|
       entry.content = content
       entry.category = category
       entry.price = price if price.present?
+      entry.city = city if city.present?
       entry.save
 
       handle_img_link(entry, doc.dup)
